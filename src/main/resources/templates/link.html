@@ -1,0 +1,19 @@
+<div th:fragment="schedule (externalLinks, itemStat)">
+					
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<input type="text" name="type"
+								th:field="*{externalLinks[__${itemStat.index}__].type}" />
+						</div>
+					</div>
+				
+					<div class="form-group row">
+						<label for="fullName" class="col-sm-2 col-form-label">Url  </label>
+						<div class="col-sm-10">
+							<input type="time" name="mycheckbox"
+								th:field="*{externalLinks[__${itemStat.index}__].url}" />
+						</div>
+						
+					</div>
+					
+</div>

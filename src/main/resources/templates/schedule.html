@@ -1,0 +1,42 @@
+<div th:fragment="schedule (openings, schedule, itemStat)">
+					
+					<div class="form-group row">
+						<div class="col-sm-10">
+							<input type="text" name="day"
+								th:field="*{openings[__${itemStat.index}__].day}" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="fullName" class="col-sm-2 col-form-label">Closed
+							? </label>
+						<div class="col-sm-10">
+							<input type="checkbox" name="mycheckbox"
+								th:field="*{openings[__${itemStat.index}__].closed}" />
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="fullName" class="col-sm-2 col-form-label">Midi de </label>
+						<div class="col-sm-10">
+							<input type="time" name="mycheckbox"
+								th:field="*{openings[__${itemStat.index}__].lunchStart}" />
+						</div>
+						<label for="fullName" class="col-sm-2 col-form-label">à</label>
+						<div class="col-sm-10">
+							<input type="time" name="mycheckbox"
+								th:field="*{openings[__${itemStat.index}__].lunchEnd}" />
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label for="fullName" class="col-sm-2 col-form-label">Soir de </label>
+						<div class="col-sm-10">
+							<input type="time" name="mycheckbox"
+								th:field="*{openings[__${itemStat.index}__].dinnerStart}" />
+						</div>
+						<label for="fullName" class="col-sm-2 col-form-label">à</label>
+						<div class="col-sm-10">
+							<input type="time" name="mycheckbox"
+								th:field="*{openings[__${itemStat.index}__].dinnerEnd}" />
+						</div>
+					</div>
+</div>
