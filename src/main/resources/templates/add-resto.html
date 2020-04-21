@@ -52,7 +52,7 @@
 				
 				<h2>Links</h2>
 				    <div th:each="link, index : *{externalLinks}">
-					<div th:include="schedule :: schedule (links=*{externalLinks},itemStat=${index})">...</div>
+					<div th:include="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
 					
 				</div>
 
