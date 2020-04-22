@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -78,6 +79,26 @@ public class RestoController {
     		return "add-resto";
     	}
        
+    }
+    
+    @RequestMapping(value = "/edit-resto", method= RequestMethod.POST)
+    public String editResto(Resto resto) {
+    	try {
+       		restoRepository.save(resto);
+    		return "redirect:/list";
+    	} catch (ConstraintViolationException e) {
+    		return "edit-resto";
+    	}
+       
+    }
+    
+    @GetMapping("/edit-resto/{id}")
+    public String showUpdateForm(@PathVariable("id") long id, Model model) {
+        Resto resto = restoRepository.findById(id)
+          .orElseThrow(() -> new IllegalArgumentException("Invalid resto Id:" + id));
+         
+        model.addAttribute("resto", resto);
+        return "edit-resto";
     }
     
     

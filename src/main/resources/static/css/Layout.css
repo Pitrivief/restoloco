@@ -173,9 +173,9 @@ footer{
 	background-color: #53a63c;
 	width:100%;
 	height: 200px;
+}
 
-
-.row {
+.row{
 	display:flex;
 	
 }
