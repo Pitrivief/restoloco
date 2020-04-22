@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
+	rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/add.js}"></script>
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>TEST</h2>
+
+	<div class="container">
+		<div class="starter-template">
+			<form action="#" th:action="@{/contact}" th:object="${contact}"
+				method="post">
+
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<input type="text" class="form-control-plaintext" id="name"
+							th:field="*{name}" th:placeholder="Nom" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<select th:with="companyTypes = ${ {'Restaurateur', 'Autre'} }"
+							th:field="*{companyType}">
+							<option th:each="type : ${companyTypes}" th:value="${type}"
+								th:text="${type}"/>
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<input type="text" class="form-control-plaintext" id="phone"
+							th:field="*{phone}" th:placeholder="Téléphone" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<input type="text" class="form-control-plaintext" id="email"
+							th:field="*{email}" th:placeholder="Email" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-10">
+						<textarea id="text" th:field="*{text}"
+							placeholder="Votre demande ici" />
+					</div>
+				</div>
+
+
+
+				<div class="form-group row">
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-primary btn-block">Ajouter</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>

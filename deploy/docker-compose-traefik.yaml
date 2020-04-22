@@ -1,0 +1,64 @@
+version: "2"
+services:
+  resto:
+    image: resto:0.0.1
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.resto.rule=Host(`restoloco.fr`)
+      - traefik.http.services.resto.loadbalancer.server.port=8090
+      - traefik.http.routers.resto.entrypoints=web, websecure
+      - traefik.http.routers.resto.tls=true
+    environment:    
+      SERVER_PORT: 8090
+      SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/resto
+      SPRING_DATASOURCE_USERNAME: resto
+      SPRING_DATASOURCE_PASSWORD: bJpDTzgfEe
+  db:
+     image: mysql:5.7
+     volumes: 
+       - db_data_mysql:/var/lib/mysql
+     restart: always
+     networks:
+      - traefik
+     environment:
+       - MYSQL_ROOT_PASSWORD=origamiadmin
+       - MYSQL_DATABASE=resto
+       - MYSQL_USER=resto
+       - MYSQL_PASSWORD=bJpDTzgfEe
+       - MYSQL_ROOT_HOST=%
+  proxy:
+    image: traefik:v2.2
+    command: --api.insecure=true --providers.docker
+    networks:
+      - traefik
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "443:443"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./traefik.toml:/traefik.toml"
+      - /etc/letsencrypt/archive/:/etc/letsencrypt/live/
+    restart: unless-stopped
+    labels:
+          - "traefik.enable=true"
+          - "traefik.http.routers.traefik.entrypoints=web, websecure"
+          - "traefik.http.routers.traefik.rule=Host(`traefik.restoloco.fr`)"
+          - "traefik.http.routers.traefik.middlewares=auth"
+          - "traefik.http.middlewares.auth.basicauth.users=test:$$apr1$$lxw06hub$$K/BrzmcQadQruagk1Sg5G."
+          - "traefik.http.routers.traefik.tls=true"
+          - "traefik.http.routers.traefik.service=api@internal"
+          - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+         
+   
+
+networks:
+  traefik:
+    external:
+      name: traefik
+      
+volumes:
+  db_data_mysql: 

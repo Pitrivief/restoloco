@@ -2,6 +2,7 @@ package com.origaminormandy.resto;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.validation.ConstraintViolationException;
 
@@ -39,10 +40,18 @@ public class RestoController {
     @RequestMapping("/add")
     public String getPersonForm(Model model) {
     	Resto resto = new Resto();
-    	Schedule s = new Schedule();
-    	s.setDay(DayOfWeek.MONDAY);
+    	
     	resto.setOpenings(new ArrayList<Schedule>());
-    	resto.getOpenings().add(s);
+    	Arrays.stream(DayOfWeek.values()).forEach(day -> {
+    		Schedule s = new Schedule();
+        	s.setDay(day);
+        
+        	resto.getOpenings().add(s);
+    	}
+    			
+    	);
+
+    	
     	
     	Link link = new Link();
     	resto.setExternalLinks(new ArrayList<>());
