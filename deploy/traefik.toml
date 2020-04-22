@@ -1,0 +1,47 @@
+## Static configuration
+
+
+defaultEntryPoints = ["web"]
+
+[entryPoints]
+  [entryPoints.web]
+    address = ":80"
+   		[entryPoints.web.http.redirections.entryPoint]
+    	to = "websecure"
+    	scheme = "https"
+ 
+
+  [entryPoints.websecure]
+    address = ":443"
+   
+[log]
+  level = "DEBUG"  
+    
+[api]
+	dashboard = true
+
+[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+  
+[providers.file]
+    filename = "/traefik.toml" # THIS IS THE IMPORTANT PART
+    watch = true # THIS IS THE IMPORTANT PART
+   
+  
+## Dynamic configuration
+
+[tls.options]
+
+  [tls.options.default]
+    minVersion = "VersionTLS12"
+    sniStrict = true
+    
+[tls.stores]
+    [tls.stores.default]
+      [tls.stores.default.defaultCertificate]
+      	certFile = "/etc/letsencrypt/live/restoloco.fr/fullchain1.pem"
+		keyFile = "/etc/letsencrypt/live/restoloco.fr/privkey1.pem"
+
+[[tls.certificates]]
+	certFile = "/etc/letsencrypt/live/restoloco.fr/fullchain1.pem"
+	keyFile = "/etc/letsencrypt/live/restoloco.fr/privkey1.pem"
