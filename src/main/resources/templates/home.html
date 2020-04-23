@@ -5,11 +5,11 @@
 <title>Insert title here</title>
 <link href="../static/css/layout.css" th:href="@{/css/Layout.css}" rel="stylesheet" />
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" />
-<link href="../static/css/leaflet.css" th:href="@{/css/Layout.css}" rel="stylesheet" />
+<link href="../static/css/leaflet.css" th:href="@{/css/leaflet.css}" rel="stylesheet" />
 
 </head>
 <body>
-
+	
 	<main layout:fragment="content">
 		<section class="restaurant">
 			<div class="restaurant-filters">
@@ -265,12 +265,18 @@
 						</label>
 					</span>
 					<span class="input input--juro">
-						<input class="input__field input__field--juro" type="text" id="input-1" />
-						<label class="input__label input__label--juro" for="input-1">
+						<input class="input__field input__field--juro" type="text" id="input-2" />
+						<label class="input__label input__label--juro" for="input-2">
 							<span class="input__label-content input__label-content--juro">Email</span>
 						</label>
 					</span>
-					<textarea name="" id="" cols="30" rows="10">Message</textarea>
+					<span class="input textarea input--juro">
+						<textarea class="input__field input__field--juro" name="" id="input-3" cols="30" rows="10"></textarea>
+						<label class="input__label input__label--juro" for="input-3">
+							<span class="input__label-content input__label-content--juro">Message</span>
+						</label>
+					</span>
+					
 					<button type="button" class="btn">Envoyer</button>
 				</form>
 
@@ -279,81 +285,7 @@
 		</section>
 	</main>
 	
-	<script src="../static/js/leaflet.js"></script>
-	<script>
-		function resizeDecor(e){
-			
-			var height = window.innerHeight/2;
-			var width = window.innerWidth;
-			var degres = Math.atan(height/width)/(Math.PI*2)*360;
-			//console.log(degres)
-			document.querySelector(".decor .dark-green").style.transform = "rotate(-"+degres+"deg)";
-			
-
-		}
-		window.addEventListener("resize", resizeDecor);
-		window.addEventListener("scroll", function(e){
-			//console.log(document.body.scrollTop)
-			if((document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)){
-				document.body.classList.add('scrolled');
-			}
-			else{
-				document.body.classList.remove('scrolled');
-			}
-		});
-		resizeDecor()
-
-		var map = L.map('restaurant-map').setView([49.1811,-0.3712], 14);
-
-
-		L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-			subdomains: 'abcd',
-			scrollWheelZoom: false,
-			maxZoom: 19
-		}).addTo(map);
-
-		map.on('click', () => { this.map.scrollWheelZoom.enable();});
-		map.on('mouseout', () => { this.map.scrollWheelZoom.disable();});
-
-
-		/***********************/
-		// Contact
-		/***********************/
-		(function() {
-				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
-				if (!String.prototype.trim) {
-					(function() {
-						// Make sure we trim BOM and NBSP
-						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
-						String.prototype.trim = function() {
-							return this.replace(rtrim, '');
-						};
-					})();
-				}
-
-				[].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
-					// in case the input is already filled..
-					if( inputEl.value.trim() !== '' ) {
-						inputEl.parentNode.classList.add( inputEl.parentNode, 'input--filled' );
-					}
-
-					// events:
-					inputEl.addEventListener( 'focus', onInputFocus );
-					inputEl.addEventListener( 'blur', onInputBlur );
-				} );
-
-				function onInputFocus( ev ) {
-					ev.target.parentNode.classList.add('input--filled' );
-				}
-
-				function onInputBlur( ev ) {
-					if( ev.target.value.trim() === '' ) {
-						ev.target.parentNode.classList.remove('input--filled' );
-					}
-				}
-			})();
-	</script>
+	
 
 </body>
 </html>
