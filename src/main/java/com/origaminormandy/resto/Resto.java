@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -46,6 +47,9 @@ public class Resto {
 	    @OneToMany(cascade={CascadeType.ALL})
 	    @JoinColumn(name="resto_id")
 	    private List<Schedule> openings;
+	    
+	    @ManyToMany(cascade={CascadeType.ALL})
+	    private List<CookType> cookTypes;
 	    
 	    @OneToMany(cascade={CascadeType.ALL})
 	    @JoinColumn(name="resto_id")
@@ -121,6 +125,14 @@ public class Resto {
 
 		public void setLat(Double lat) {
 			this.lat = lat;
+		}
+
+		public List<CookType> getCookTypes() {
+			return cookTypes;
+		}
+
+		public void setCookTypes(List<CookType> cookTypes) {
+			this.cookTypes = cookTypes;
 		}
 	    
 	   
