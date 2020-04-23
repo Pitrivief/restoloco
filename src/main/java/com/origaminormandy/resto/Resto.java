@@ -3,12 +3,15 @@ package com.origaminormandy.resto;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -29,6 +32,16 @@ public class Resto {
 	    private String phone;
 	    
 	    private String website;
+	    
+	    @Min(-180)
+	    @Max(180)
+	    @Column(precision=11, scale=8)
+	    private Double lng;
+	    
+	    @Min(-90)
+	    @Max(90)
+	    @Column(precision=10, scale=8)
+	    private Double lat;
 	    
 	    @OneToMany(cascade={CascadeType.ALL})
 	    @JoinColumn(name="resto_id")
@@ -92,6 +105,22 @@ public class Resto {
 
 		public void setExternalLinks(List<Link> externalLinks) {
 			this.externalLinks = externalLinks;
+		}
+
+		public Double getLng() {
+			return lng;
+		}
+
+		public void setLng(Double lng) {
+			this.lng = lng;
+		}
+
+		public Double getLat() {
+			return lat;
+		}
+
+		public void setLat(Double lat) {
+			this.lat = lat;
 		}
 	    
 	   

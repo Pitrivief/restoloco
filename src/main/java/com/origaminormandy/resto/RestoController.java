@@ -59,7 +59,7 @@ public class RestoController {
     	resto.getExternalLinks().add(link);
     	
         model.addAttribute("resto", resto);
-        return "add-resto";
+        return "/admin/add-resto";
     }
     
     /**
@@ -76,7 +76,7 @@ public class RestoController {
     		restoRepository.save(resto);
     		return "redirect:/list";
     	} catch (ConstraintViolationException e) {
-    		return "add-resto";
+    		return "/admin/add-resto";
     	}
        
     }
@@ -87,7 +87,7 @@ public class RestoController {
        		restoRepository.save(resto);
     		return "redirect:/list";
     	} catch (ConstraintViolationException e) {
-    		return "edit-resto";
+    		return "/admin/edit-resto";
     	}
        
     }
@@ -98,7 +98,7 @@ public class RestoController {
           .orElseThrow(() -> new IllegalArgumentException("Invalid resto Id:" + id));
          
         model.addAttribute("resto", resto);
-        return "edit-resto";
+        return "/admin/edit-resto";
     }
     
     

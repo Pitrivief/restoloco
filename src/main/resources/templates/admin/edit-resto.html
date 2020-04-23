@@ -14,7 +14,7 @@
 
 	<div class="container">
 		<div class="starter-template">
-			<form action="#" th:action="@{/edit-resto}" th:object="${resto}"
+			<form action="#" th:action="@{/admin/edit-resto}" th:object="${resto}"
 				method="post">
 				
 				<input type="hidden"  id="id"
@@ -50,6 +50,26 @@
 						<input type="text" class="form-control" id="email"
 							placeholder="Email" th:field="*{email}" />
 					</div>
+				</div>
+				
+				<div class="form-group row">
+				
+				<label for="fullName" class="col-sm-2 col-form-label">Lattitude</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="lat"
+							placeholder="Lattitude" th:field="*{lat}" pattern="^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$"
+							/>
+					</div>
+					<label for="lng" class="col-sm-2 col-form-label">Longitude</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="lng"
+							placeholder="Longitude" th:field="*{lng}" 
+							pattern="^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$"
+						
+							 />
+					</div>
+					
+					
 				</div>
 
 				<h2>Schedules</h2>
