@@ -81,6 +81,23 @@
 
 		map.on('click', () => { this.map.scrollWheelZoom.enable();});
 		map.on('mouseout', () => { this.map.scrollWheelZoom.disable();});
+		
+		var icon = L.icon({
+			iconUrl: '/images/leaflet/marker-icon.png',
+		});
+		[].slice.call( document.querySelectorAll( '.restaurant-item' ) ).forEach( function( restaurantItem ) {
+			var lat = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lat');
+			var lng = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lng');
+			if(lat !== null && lng !== null){
+				restaurantItem
+				var popup = L.popup({maxWidth:350,minwidth:350})
+			    .setContent(restaurantItem.outerHTML)
+			    
+				L.marker([lat, lng],{icon:icon}).addTo(map).bindPopup(popup);
+				
+			}
+			
+		});
 
 
 		/***********************/
