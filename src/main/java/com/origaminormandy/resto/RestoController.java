@@ -38,7 +38,7 @@ public class RestoController {
      * @param model the model
      * @return the string
      */
-    @RequestMapping("/add")
+    @RequestMapping("/admin/add")
     public String getPersonForm(Model model) {
     	Resto resto = new Resto();
     	
@@ -68,7 +68,7 @@ public class RestoController {
      * @param model the model
      * @return the string
      */
-    @RequestMapping(value = "/add", method= RequestMethod.POST)
+    @RequestMapping(value = "/admin/add", method= RequestMethod.POST)
     public String addPerson(Resto resto) {
     	try {
     		
@@ -81,7 +81,7 @@ public class RestoController {
        
     }
     
-    @RequestMapping(value = "/edit-resto", method= RequestMethod.POST)
+    @RequestMapping(value = "/admin/edit-resto", method= RequestMethod.POST)
     public String editResto(Resto resto) {
     	try {
        		restoRepository.save(resto);
@@ -92,7 +92,7 @@ public class RestoController {
        
     }
     
-    @GetMapping("/edit-resto/{id}")
+    @GetMapping("/admin/edit-resto/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
         Resto resto = restoRepository.findById(id)
           .orElseThrow(() -> new IllegalArgumentException("Invalid resto Id:" + id));
