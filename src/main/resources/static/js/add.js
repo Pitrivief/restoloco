@@ -1,4 +1,25 @@
 
+function addPhoto(){
+	
+
+	        var form = document.getElementById('form-file-upload')
+	        var photoInput = document.getElementById('photo')
+	    
+	        var data = new FormData(form)
+	        
+	        var request = new XMLHttpRequest()
+	        
+	        request.onreadystatechange = function(){
+	        	 if (request.readyState === 4) {
+	        		 var json = JSON.parse(request.responseText);
+	        		 photoInput.value = json.file;
+	        	 }
+	        }
+	        
+	        request.open(form.method, form.action)
+	        request.send(data)
+}
+
 
 function addLink(){
 	// Get the element

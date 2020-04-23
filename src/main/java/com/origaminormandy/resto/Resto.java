@@ -26,6 +26,8 @@ public class Resto {
 	    @NotBlank(message = "Name is mandatory")
 	    private String name;
 	    
+	    private String photo;
+	    
 	    private String bio;
 	     
 	    @NotBlank(message = "Email is mandatory")
@@ -145,6 +147,16 @@ public class Resto {
 		public void setBio(String bio) {
 			this.bio = bio;
 		}
+
+		public String getPhoto() {
+			return photo;
+		}
+
+		public void setPhoto(String photo) {
+			this.photo = photo;
+		}
+		
+		
 	    
 		
 	    
