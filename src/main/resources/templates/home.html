@@ -32,7 +32,7 @@
 							<div class="restaurant-horaire">
 
 							</div>
-							<a class="restaurant-seemap"  data-latlng="${resto.lat},${resto.lng}" >voir sur la carte</a>
+							<a class="restaurant-seemap"  th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"   >voir sur la carte</a>
 						</div>
 						<div class="button order">
 							Commander
