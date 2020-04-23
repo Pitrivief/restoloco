@@ -24,6 +24,8 @@ public class Resto {
 	     
 	    @NotBlank(message = "Name is mandatory")
 	    private String name;
+	    
+	    private String bio;
 	     
 	    @NotBlank(message = "Email is mandatory")
 	    private String email;
@@ -122,9 +124,15 @@ public class Resto {
 		public void setLat(Double lat) {
 			this.lat = lat;
 		}
+
+		public String getBio() {
+			return bio;
+		}
+
+		public void setBio(String bio) {
+			this.bio = bio;
+		}
 	    
-	   
-	
-	    
+		
 	    
 }

@@ -1,7 +1,7 @@
 version: "2"
 services:
   resto:
-    image: resto:0.0.2
+    image: resto:0.0.3
     networks:
       - traefik
     labels:
