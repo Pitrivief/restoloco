@@ -122,6 +122,7 @@ header{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	padding:100px 0px;
 }
 
 .restaurant-item{
@@ -132,20 +133,39 @@ header{
 .restaurant-item .restaurant-content{
 	
 	margin: 5px;
-	
+	color: #5d3923;
 	background-color: white;
 	border: 1px solid #53a63c;
 	display:flex;
 	flex-direction: column;
+	position:relative;
 }
 
 .restaurant-item .restaurant-content .restaurant-picture{
 	background-color: lightgray;
-	height: 150px;
+	height: 200px;
 
 }
-.restaurant-item .restaurant-content .restaurant-description{
-	padding:5px
+.restaurant-item .restaurant-content .restaurant-description .restaurant-tags{
+	background-color: #53a63c;
+	color:white;
+	position: absolute;
+	top: 0px;
+	transform: translateY(-50%);
+	left:-10px;
+	padding-left: 10px;
+	padding: 5px;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+	padding-right: 30px;
+	max-width: 100%;
+}
+
+
+.restaurant-item .restaurant-content .restaurant-description {
+	padding:5px;
+	padding-top: 30px;
+	position:relative;
 }
 .restaurant-item .restaurant-content .restaurant-description .restaurant-seemap{
 	text-align:right;
