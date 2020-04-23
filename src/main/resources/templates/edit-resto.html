@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}" rel="stylesheet" />
+
+<script type="text/javascript" th:src="@{/js/add.js}"></script>
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>TEST</h2>
+
+	<div class="container">
+		<div class="starter-template">
+			<form action="#" th:action="@{/edit-resto}" th:object="${resto}"
+				method="post">
+				
+				<input type="hidden"  id="id"
+							th:field="*{id}" />
+							
+				<div class="form-group row">
+					<label for="code" class="col-sm-2 col-form-label">Nom</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control-plaintext" id="name"
+							th:field="*{name}" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label for="fullName" class="col-sm-2 col-form-label">Site
+						internet</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="website"
+							placeholder="Site internet" th:field="*{website}" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="fullName" class="col-sm-2 col-form-label">Phone</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="phone"
+							placeholder="Telephone" th:field="*{phone}" />
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label for="fullName" class="col-sm-2 col-form-label">Email</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="email"
+							placeholder="Email" th:field="*{email}" />
+					</div>
+				</div>
+
+				<h2>Schedules</h2>
+				    <div th:each="schedule, index : *{openings}">
+					<div th:include="schedule :: schedule (openings=*{openings},schedule=${schedule},itemStat=${index})">...</div>
+					
+				</div>
+				
+				<h2>Links</h2>
+				    <div id="links" th:each="link, index : *{externalLinks}">
+					<div th:include="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
+					<input type="button" value="Ajout lien" onclick="addLink()">
+				</div>
+
+				<div class="form-group row">
+					<div class="col-sm-12">
+						<button type="submit" class="btn btn-primary btn-block">Ajouter</button>
+					</div>
+				</div>
+				
+
+
+
+
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
