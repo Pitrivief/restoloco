@@ -25,6 +25,8 @@ public class Resto {
 	     
 	    @NotBlank(message = "Name is mandatory")
 	    private String name;
+	    
+	    private String bio;
 	     
 	    @NotBlank(message = "Email is mandatory")
 	    private String email;
@@ -127,6 +129,7 @@ public class Resto {
 			this.lat = lat;
 		}
 
+
 		public List<CookType> getCookTypes() {
 			return cookTypes;
 		}
@@ -134,9 +137,15 @@ public class Resto {
 		public void setCookTypes(List<CookType> cookTypes) {
 			this.cookTypes = cookTypes;
 		}
+		
+		public String getBio() {
+			return bio;
+		}
+
+		public void setBio(String bio) {
+			this.bio = bio;
+		}
 	    
-	   
-	
-	    
+		
 	    
 }

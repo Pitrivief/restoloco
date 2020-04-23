@@ -15,9 +15,9 @@
 			<div class="restaurant-filters">
 
 			</div>
-			<div id="restaurant-list" class="restaurant-list container">
+			<div id="restaurant-list" class="restaurant-list container" >
 				
-				<article class="restaurant-item">
+				<article class="restaurant-item" th:each="resto : ${restos}">
 					<div class="restaurant-content">
 						<div class="restaurant-picture">
 
@@ -27,230 +27,19 @@
 							<div class="restaurant-tags">
 								Tacos, Pizzas
 							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
+							<h3 class="restaurant-name" th:text="${resto.name}"></h3>
+							<p class="restaurant-bio" th:text="${resto.bio}"></p>
 							<div class="restaurant-horaire">
 
 							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
+							<a class="restaurant-seemap"  data-latlng="${resto.lat},${resto.lng}" >voir sur la carte</a>
 						</div>
 						<div class="button order">
 							Commander
 						</div>
 					</div>
 				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
-				<article class="restaurant-item">
-					<div class="restaurant-content">
-						<div class="restaurant-picture">
-
-						</div>
-						
-						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
-							</div>
-							<h3 class="restaurant-name">
-								Christophe Tourneux
-							</h3>
-							<p class="restaurant-bio">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nibh ligula, rhoncus vitae aliquet eget, condimentum in dui. Praesent hendrerit magna sed libero mollis tristique. 
-							</p>
-							<div class="restaurant-horaire">
-
-							</div>
-							<a class="restaurant-seemap">voir sur la carte</a>
-						</div>
-						<div class="button order">
-							Commander
-						</div>
-					</div>
-				</article>
+				
 			</div>
 			<div id="restaurant-map" class="map"></div>
 		</section>

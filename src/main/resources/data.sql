@@ -1,4 +1,4 @@
-insert into resto(name, email, phone) values ('test1', 'contact@test1.fr', '0231443660');
+insert into resto(name, bio, email, phone) values ('test1',  'restaurant-bio', 'contact@test1.fr', '0231443660');
 
 insert into link(`type`, resto_id, description, url) values ('Deliveroo', 1, 'test1', 'www.deliveroo.fr/test1');
 
