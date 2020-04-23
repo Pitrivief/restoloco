@@ -4,6 +4,7 @@ function addPhoto(){
 
 	        var form = document.getElementById('form-file-upload')
 	        var photoInput = document.getElementById('photo')
+	        var photoError = document.getElementById('upload-error')
 	    
 	        var data = new FormData(form)
 	        
@@ -11,8 +12,18 @@ function addPhoto(){
 	        
 	        request.onreadystatechange = function(){
 	        	 if (request.readyState === 4) {
+	        		 
+	        		 
 	        		 var json = JSON.parse(request.responseText);
-	        		 photoInput.value = json.file;
+	        		 if(request.status == 200){
+	        			 photoError.style.display = 'none';
+	        			 photoInput.value = json.file;
+	        		 }else{
+	        			 photoError.textContent = json.error;
+	        			 
+	        			 photoError.style.display = 'block';
+	        		 } 
+	        		 
 	        	 }
 	        }
 	        
