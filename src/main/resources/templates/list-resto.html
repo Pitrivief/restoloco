@@ -11,7 +11,7 @@
 <div>
     <div th:each="resto : ${restos}">
 		<span th:text="${resto.name}"></span>
-		<a th:href="@{/edit-resto/{id}(id=${resto.id})}">Editer</a>	
+		<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin/edit-resto/{id}(id=${resto.id})}">Editer</a>	
 
 	</div>
 </div>
