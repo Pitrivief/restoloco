@@ -146,6 +146,19 @@ header{
 	height: 200px;
 
 }
+.restaurant-item .restaurant-content .restaurant-description .restaurant-tags:before{
+	content:"";
+	position:absolute;
+	height:0px;
+	width:0px;
+	left:0px;
+	top:-4px;
+	border-right: 5px solid #2d621e;
+	border-bottom: 2px solid #2d621e;
+	border-top: 2px solid transparent;
+	border-left: 5px solid transparent;
+	z-index:-1
+}
 .restaurant-item .restaurant-content .restaurant-description .restaurant-tags{
 	background-color: #53a63c;
 	color:white;
@@ -203,7 +216,21 @@ header{
 .contact{
 	background-color: #b8e270;
 	border-top: 30px solid #53a63c;
-	height:100vh;
+	min-height:100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+
+}
+
+.contact-inner{
+	padding: 50px;
+	display:flex;
+	flex-direction: column;
+	background-color: #9dcf61;
+	max-width: 600px;
+	width:100%
 }
 
 footer{
@@ -220,4 +247,166 @@ footer{
 .row label{
  margin-left:5px;
   margin-right:5px;	
+}
+
+.contact h2{
+	text-align: left;
+	color:#53a63c;
+	font-size: 1.4em;
+	margin-bottom: 1em;
+}
+
+.contact textarea{
+	background-color: transparent;
+	font-size: 70.25%;
+	width: 100%;
+	border: 0;
+	padding: 5px;
+	margin-bottom: .5rem;
+	height: 100%;
+	padding: 2.15em 0.75em 0;
+}
+
+.contact button{
+	background-color: #53a63c;
+	color: white;
+	font-weight: bold;  
+	font-size: 70.25%;
+	width: 100%;
+	height:40px;
+	border-radius: 0;
+}
+
+.input {
+	position: relative;
+	z-index: 1;
+	display: inline-block;
+	width: 100%;
+	vertical-align: top;
+	margin-bottom: 0.2em;
+	height: 4em;
+
+}
+
+.input.textarea {
+
+	height: 20em;
+}
+
+.input__field {
+	position: relative;
+	display: block;
+	float: right;
+	padding: 0.8em;
+	width: 60%;
+	border: none;
+	border-radius: 0;
+	background: #f0f0f0;
+	color: #aaa;
+	font-weight: bold;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	-webkit-appearance: none; /* for box shadows to show on iOS */
+}
+
+.input__field:focus {
+	outline: none;
+}
+
+.input__label {
+	display: inline-block;
+	float: right;
+	padding: 0 1em;
+	width: 40%;
+	color: #6a7989;
+	font-weight: bold;
+	font-size: 70.25%;
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.input__label-content {
+	position: relative;
+	display: block;
+	padding: 1.6em 0;
+	width: 100%;
+}
+
+.graphic {
+	position: absolute;
+	top: 0;
+	left: 0;
+	fill: none;
+}
+
+.icon {
+	color: #ddd;
+	font-size: 150%;
+}
+
+
+.input--juro {
+	overflow: hidden;
+}
+
+.input__field--juro {
+	position: absolute;
+	z-index: 100;
+	padding: 2.15em 0.75em 0;
+	width: 100%;
+	background: transparent;
+	color: #53a63c;
+	font-size: 0.85em;
+}
+
+.input__label--juro {
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background: #dbf2b3;
+	text-align: left;
+}
+
+.input__label-content--juro {
+	padding: .2em 1em;
+	-webkit-transform-origin: 0% 50%;
+	transform-origin: 0% 50%;
+	-webkit-transition: -webkit-transform 0.3s, top 0.3s, color 0.3s;
+	transition: transform 0.3s, top 0.3s, color 0.3s;
+	top: 2rem;
+	-webkit-transform: translateY(-50%);
+	transform: translateY(-50%);
+	text-rendering: geometricPrecision;
+}
+
+.input__label--juro::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border: 0px solid transparent;
+	-webkit-transition: border-width 0.3s, border-color 0.3s;
+	transition: border-width 0.3s, border-color 0.3s;
+}
+
+.input__field--juro:focus + .input__label--juro::before,
+.input--filled .input__label--juro::before {
+	border-width: 8px;
+	border-color: #53a63c;
+	border-top-width: 2em;
+}
+
+.input__field--juro:focus + .input__label--juro .input__label-content--juro,
+.input--filled .input__label--juro .input__label-content--juro {
+	color: #fff;
+	top: 0px;
+	-webkit-transform: translateY(0%);
+	transform: translateY(0%);
 }
