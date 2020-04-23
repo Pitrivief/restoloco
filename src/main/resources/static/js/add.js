@@ -1,8 +1,8 @@
 
-var count = 0;
+
 function addLink(){
 	// Get the element
-	count++;
+	var count = document.querySelectorAll('#links input') ? document.querySelectorAll('#links input').length : 0;;
 	var elem = document.querySelector('#links').firstElementChild
 	
 	var markup= `
@@ -26,5 +26,26 @@ function addLink(){
 	newLinkElem.innerHTML= markup;
 	// Inject it into the DOM
 	elem.before(newLinkElem);
+
+}
+
+
+function addCookType(){
+	// Get the element
+	var countCookType = document.querySelectorAll('#cookTypes input') ? document.querySelectorAll('#cookTypes input').length : 0;
+	
+	var elem = document.querySelector('#cookTypes');
+	var selected= document.querySelector('#formCookType');
+	var selectedValue=selected.options[selected.selectedIndex].value;
+	
+	var markup= `
+		<input type="text" name="cookTypes[${countCookType}].name" readonly="" id="cookTypes${countCookType}.name" value="${selectedValue}">
+	`;
+
+	var newLinkElem = document.createElement('div');
+	newLinkElem.innerHTML= markup;
+	// Inject it into the DOM
+	
+	var child = elem.appendChild(newLinkElem.firstElementChild);
 
 }
