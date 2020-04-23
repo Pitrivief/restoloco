@@ -119,10 +119,13 @@
 				</div>
 
 				<h2>Links</h2>
+				
 				<div id="links">
-					<div th:each="link, index : *{externalLinks}"
-						th:include="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
-					<input type="button" value="Ajout lien" onclick="addLink()">
+					<div th:each="link, index : *{externalLinks}">
+						<div th:replace="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
+					</div>
+									<input type="button" value="Ajout lien" onclick="addLink()"/>
+					
 				</div>
 
 				<div class="form-group row">
