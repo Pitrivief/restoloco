@@ -126,8 +126,9 @@
 				</div>
 				
 				<h2>Links</h2>
-				    <div id="links" th:each="link, index : *{externalLinks}">
-					<div th:include="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
+				<div id="links">
+					<div th:each="link, index : *{externalLinks}"
+						th:include="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
 					<input type="button" value="Ajout lien" onclick="addLink()">
 				</div>
 
