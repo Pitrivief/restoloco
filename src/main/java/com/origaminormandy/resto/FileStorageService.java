@@ -7,6 +7,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -17,9 +20,22 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class FileStorageService {
 
-	private String directory = "/Users/l_philippe/private-workspace/resto/uploaded-images/";
+	@Value("${filestorageservice.directory}")
+	private String directory;
 	
+	public FileStorageService() {
+		
+	}
+	
+	@PostConstruct
 	public void init() {
+		System.out.println("init filestorageservice");
+		Path dir = Paths.get(directory);
+		try {
+			Files.createDirectories(dir);
+		} catch (IOException e) {
+			System.out.println("Unable to create " + directory);
+		}
 		
 	}
 
