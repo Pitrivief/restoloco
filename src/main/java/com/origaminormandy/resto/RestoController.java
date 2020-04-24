@@ -3,6 +3,9 @@ package com.origaminormandy.resto;
 import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolationException;
 
@@ -20,6 +23,9 @@ public class RestoController {
 	
 	@Autowired
 	private RestoRepository restoRepository;
+	
+	@Autowired
+	private CookTypeRepository cookTypeRepository;
 	
 	@GetMapping("/list")
 	public String list(Model model) {
@@ -58,6 +64,9 @@ public class RestoController {
     	resto.setExternalLinks(new ArrayList<>());
     	resto.getExternalLinks().add(link);
     	
+    	Iterable<CookType> allCookTypes = cookTypeRepository.findAll();
+        model.addAttribute("allCookTypes", allCookTypes);
+
         model.addAttribute("resto", resto);
         return "/admin/add-resto";
     }
@@ -72,7 +81,11 @@ public class RestoController {
     public String addPerson(Resto resto) {
     	try {
     		
-    		System.out.println(resto.getOpenings().size());
+    		    		
+    		
+    		List<CookType> selectedCookTypes = (List<CookType>) cookTypeRepository.findAllById(resto.getCookTypes().stream().map(cookType -> cookType.getName()).collect(Collectors.toList()));
+    		resto.setCookTypes(selectedCookTypes);
+    		
     		restoRepository.save(resto);
     		return "redirect:/list";
     	} catch (ConstraintViolationException e) {
@@ -84,6 +97,11 @@ public class RestoController {
     @RequestMapping(value = "/admin/edit-resto", method= RequestMethod.POST)
     public String editResto(Resto resto) {
     	try {
+    		
+    		List<CookType> selectedCookTypes = (List<CookType>) cookTypeRepository.findAllById(resto.getCookTypes().stream().map(cookType -> cookType.getName()).collect(Collectors.toList()));
+    		resto.setCookTypes(selectedCookTypes);
+    		
+    		
        		restoRepository.save(resto);
     		return "redirect:/list";
     	} catch (ConstraintViolationException e) {
@@ -94,10 +112,13 @@ public class RestoController {
     
     @GetMapping("/admin/edit-resto/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        Resto resto = restoRepository.findById(id)
+        
+    	Iterable<CookType> allCookTypes = cookTypeRepository.findAll();
+    	Resto resto = restoRepository.findById(id)
           .orElseThrow(() -> new IllegalArgumentException("Invalid resto Id:" + id));
          
         model.addAttribute("resto", resto);
+        model.addAttribute("allCookTypes", allCookTypes);
         return "/admin/edit-resto";
     }
     
