@@ -33,11 +33,11 @@ Encore
     //.addEntry('page2', './assets/js/page2.js')
     //.addStyleEntry('layout', './asset_sources/scss/layout.scss')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-    .splitEntryChunks()
+    //.splitEntryChunks()
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
-    .enableSingleRuntimeChunk()
+    //.enableSingleRuntimeChunk()
 
     /*
      * FEATURE CONFIG

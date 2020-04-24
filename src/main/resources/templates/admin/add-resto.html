@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{main-layout}">
+
 <head>
 <meta charset="UTF-8">
 
@@ -9,12 +10,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<main layout:fragment="content">	
 	<h2>TEST</h2>
 
 
 		
-		
+
 	<div class="container">
 		<div class="starter-template">
 		
@@ -74,13 +75,13 @@
 				<div class="form-group row">
 				
 				<label for="fullName" class="col-sm-2 col-form-label">Lattitude</label>
-					<div class="col-sm-10">
+					<div>
 						<input type="text" class="form-control" id="lat"
 							placeholder="Lattitude" th:field="*{lat}" pattern="${^(\+|-)?(?:90(?:(?:\.0{1,6})?)|(?:[0-9]|[1-8][0-9])(?:(?:\.[0-9]{1,6})?))$"
 							/>
 					</div>
 					<label for="lng" class="col-sm-2 col-form-label">Longitude</label>
-					<div class="col-sm-10">
+					<div>
 						<input type="text" class="form-control" id="lng"
 							placeholder="Longitude" th:field="*{lng}" 
 							pattern="^(\+|-)?(?:180(?:(?:\.0{1,6})?)|(?:[0-9]|[1-9][0-9]|1[0-7][0-9])(?:(?:\.[0-9]{1,6})?))$"
@@ -89,6 +90,14 @@
 					</div>
 					
 					
+				</div>
+				<div class="form-group row">
+					<label for="eatOnSite" class="col-sm-2 col-form-label">Sur place :</label>
+					<input type="checkbox" name="eatOnSite" th:checked="*{eatOnSite}"/>
+					<label for="takeAway" class="col-sm-2 col-form-label">A emporter :</label>
+					<input type="checkbox" name="takeAway" th:checked="*{takeAway}"/>
+					<label for="delivery" class="col-sm-2 col-form-label">Livraison :</label>
+					<input type="checkbox" name="delivery" th:checked="*{delivery}"/>
 				</div>
 				
 			<h2>CookTypes</h2>
@@ -146,6 +155,6 @@
 			</form>
 		</div>
 	</div>
-
+	</main>
 </body>
 </html>

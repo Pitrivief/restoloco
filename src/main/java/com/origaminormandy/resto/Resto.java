@@ -38,6 +38,10 @@ public class Resto {
 	    
 	    private String website;
 	    
+	    private boolean delivery = true;
+	    private boolean takeAway = true;
+	    private boolean eatOnSite = false;
+	    
 	    @Min(-180)
 	    @Max(180)
 	    @Column(precision=11, scale=8)
@@ -154,6 +158,30 @@ public class Resto {
 
 		public void setPhoto(String photo) {
 			this.photo = photo;
+		}
+
+		public boolean isDelivery() {
+			return delivery;
+		}
+
+		public void setDelivery(boolean delivery) {
+			this.delivery = delivery;
+		}
+
+		public boolean isTakeAway() {
+			return takeAway;
+		}
+
+		public void setTakeAway(boolean takeAway) {
+			this.takeAway = takeAway;
+		}
+
+		public boolean isEatOnSite() {
+			return eatOnSite;
+		}
+
+		public void setEatOnSite(boolean eatOnSite) {
+			this.eatOnSite = eatOnSite;
 		}
 		
 		

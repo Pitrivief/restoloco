@@ -1,7 +1,7 @@
 import L from"leaflet"
 require('../scss/layout.scss');
 
-alert("blabla"); 
+
 function resizeDecor(e){
 			
     var height = window.innerHeight/2;
@@ -24,6 +24,14 @@ window.addEventListener("scroll", function(e){
 });
 resizeDecor()
 
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png').default,
+  iconUrl: require('leaflet/dist/images/marker-icon.png').default,
+  shadowUrl: require('leaflet/dist/images/marker-shadow.png').default,
+});
+
 var map = L.map('restaurant-map').setView([49.1811,-0.3712], 14);
 
 
@@ -34,12 +42,10 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r
     maxZoom: 19
 }).addTo(map);
 
-map.on('click', () => { this.map.scrollWheelZoom.enable();});
-map.on('mouseout', () => { this.map.scrollWheelZoom.disable();});
+map.on('click', () => { map.scrollWheelZoom.enable();});
+map.on('mouseout', () => { map.scrollWheelZoom.disable();});
 
-var icon = L.icon({
-    iconUrl: '/images/leaflet/marker-icon.png',
-});
+
 [].slice.call( document.querySelectorAll( '.restaurant-item' ) ).forEach( function( restaurantItem ) {
     var lat = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lat');
     var lng = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lng');
@@ -48,7 +54,7 @@ var icon = L.icon({
         var popup = L.popup({maxWidth:350,minwidth:350})
         .setContent(restaurantItem.outerHTML)
         
-        L.marker([lat, lng],{icon:icon}).addTo(map).bindPopup(popup);
+        L.marker([lat, lng]).addTo(map).bindPopup(popup);
         
     }
     
