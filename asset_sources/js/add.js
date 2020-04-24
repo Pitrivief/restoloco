@@ -32,6 +32,37 @@ function addPhoto(){
 }
 
 
+function addContact(){
+	
+
+    var form = document.getElementById('form-contact')
+    var contactError = document.getElementById('form-contact-error')
+
+    var data = new FormData(form)
+    
+    var request = new XMLHttpRequest()
+    
+    request.onreadystatechange = function(){
+    	 if (request.readyState === 4) {
+    		 
+    		 
+    		 var json = JSON.parse(request.responseText);
+    		 if(request.status == 200){
+    			 contactError.style.display = 'none';
+    			 photoInput.value = json.file;
+    		 }else{
+    			 contactError.textContent = json.error;
+    			 contact.style.display = 'block';
+    		 } 
+    		 
+    	 }
+    }
+    
+    request.open(form.method, form.action)
+    request.send(data)
+}
+
+
 function addLink(){
 	// Get the element
 	var count = document.querySelectorAll('#links input') ? document.querySelectorAll('#links input').length : 0;;

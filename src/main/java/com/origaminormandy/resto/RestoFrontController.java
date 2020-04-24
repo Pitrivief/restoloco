@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.origaminormandy.contact.Contact;
+
 @Controller
 public class RestoFrontController {
 
@@ -19,7 +21,7 @@ public class RestoFrontController {
 		restos.forEach(r -> System.out.println(r.getName()));
 	     
 	    model.addAttribute("restos", restos);
-	   
+	    model.addAttribute("contact", new Contact());
 	    return "home";
 	}
 }

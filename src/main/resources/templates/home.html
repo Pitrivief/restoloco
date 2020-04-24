@@ -43,27 +43,30 @@
 		<section id="contact" class="contact">
 			<div class="contact-inner">
 				<h2>Une question?<br>Contactez nous..</h2>
-				<form action="">
+				<span id="form-contact-error"></span>
+				<form  id="form-contact" th:action="@{/contact-ajax}" th:object="${contact}">
 					<span class="input input--juro">
-						<input class="input__field input__field--juro" type="text" id="input-1" />
+						<input type="text" class="input__field input__field--juro" id="name"
+							th:field="*{name}"  />
 						<label class="input__label input__label--juro" for="input-1">
-							<span class="input__label-content input__label-content--juro">Nom Prénom</span>
+							<span class="input__label-content input__label-content--juro">Nom</span>
 						</label>
 					</span>
 					<span class="input input--juro">
-						<input class="input__field input__field--juro" type="text" id="input-2" />
+						<input type="text" class="input__field input__field--juro" id="email"
+							th:field="*{email}"  />
 						<label class="input__label input__label--juro" for="input-2">
 							<span class="input__label-content input__label-content--juro">Email</span>
 						</label>
 					</span>
 					<span class="input textarea input--juro">
-						<textarea class="input__field input__field--juro" name="" id="input-3" cols="30" rows="10"></textarea>
+						<textarea class="input__field input__field--juro" name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
 						<label class="input__label input__label--juro" for="input-3">
 							<span class="input__label-content input__label-content--juro">Message</span>
 						</label>
 					</span>
 					
-					<button type="button" class="btn">Envoyer</button>
+					<button type="button" class="btn" onclick="addContact()" >Envoyer</button>
 				</form>
 
 				
