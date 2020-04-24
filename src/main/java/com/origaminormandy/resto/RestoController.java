@@ -22,17 +22,10 @@ public class RestoController {
 
 	@Autowired
 	private RestoRepository restoRepository;
-<<<<<<< HEAD
-	
-	@Autowired
-	private CookTypeRepository cookTypeRepository;
-	
-=======
 
 	@Autowired
 	private CookTypeRepository cookTypeRepository;
 
->>>>>>> 4688f0def2baa2da9d530c02b556aea421cee95a
 	@GetMapping("/list")
 	public String list(Model model) {
 
@@ -118,94 +111,6 @@ public class RestoController {
 		}
 
 	}
-<<<<<<< HEAD
-	
-	 /**
-     * Add Person string.
-     *
-     * @param model the model
-     * @return the string
-     */
-    @RequestMapping("/admin/add")
-    public String getPersonForm(Model model) {
-    	Resto resto = new Resto();
-    	
-    	resto.setOpenings(new ArrayList<Schedule>());
-    	Arrays.stream(DayOfWeek.values()).forEach(day -> {
-    		Schedule s = new Schedule();
-        	s.setDay(day);
-        
-        	resto.getOpenings().add(s);
-    	}
-    			
-    	);
-
-    	
-    	
-    	Link link = new Link();
-    	resto.setExternalLinks(new ArrayList<>());
-    	resto.getExternalLinks().add(link);
-    	
-    	Iterable<CookType> allCookTypes = cookTypeRepository.findAll();
-        model.addAttribute("allCookTypes", allCookTypes);
-
-        model.addAttribute("resto", resto);
-        return "/admin/add-resto";
-    }
-    
-    /**
-     * Add Person string.
-     *
-     * @param model the model
-     * @return the string
-     */
-    @RequestMapping(value = "/admin/add", method= RequestMethod.POST)
-    public String addPerson(Resto resto) {
-    	try {
-    		
-    		    		
-    		
-    		List<CookType> selectedCookTypes = (List<CookType>) cookTypeRepository.findAllById(resto.getCookTypes().stream().map(cookType -> cookType.getName()).collect(Collectors.toList()));
-    		resto.setCookTypes(selectedCookTypes);
-    		
-    		restoRepository.save(resto);
-    		return "redirect:/list";
-    	} catch (ConstraintViolationException e) {
-    		return "/admin/add-resto";
-    	}
-       
-    }
-    
-    @RequestMapping(value = "/admin/edit-resto", method= RequestMethod.POST)
-    public String editResto(Resto resto) {
-    	try {
-    		
-    		List<CookType> selectedCookTypes = (List<CookType>) cookTypeRepository.findAllById(resto.getCookTypes().stream().map(cookType -> cookType.getName()).collect(Collectors.toList()));
-    		resto.setCookTypes(selectedCookTypes);
-    		
-    		
-       		restoRepository.save(resto);
-    		return "redirect:/list";
-    	} catch (ConstraintViolationException e) {
-    		return "/admin/edit-resto";
-    	}
-       
-    }
-    
-    @GetMapping("/admin/edit-resto/{id}")
-    public String showUpdateForm(@PathVariable("id") long id, Model model) {
-        
-    	Iterable<CookType> allCookTypes = cookTypeRepository.findAll();
-    	Resto resto = restoRepository.findById(id)
-          .orElseThrow(() -> new IllegalArgumentException("Invalid resto Id:" + id));
-         
-        model.addAttribute("resto", resto);
-        model.addAttribute("allCookTypes", allCookTypes);
-        return "/admin/edit-resto";
-    }
-    
-    
-=======
 
 	@GetMapping("/admin/edit-resto/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
@@ -219,5 +124,4 @@ public class RestoController {
 		return "/admin/edit-resto";
 	}
 
->>>>>>> 4688f0def2baa2da9d530c02b556aea421cee95a
 }
