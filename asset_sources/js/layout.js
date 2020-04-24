@@ -1,7 +1,7 @@
 import L from"leaflet"
 require('../scss/layout.scss');
 
-alert("blabla"); 
+
 function resizeDecor(e){
 			
     var height = window.innerHeight/2;
