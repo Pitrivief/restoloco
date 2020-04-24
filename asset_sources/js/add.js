@@ -86,7 +86,7 @@ function addContact(){
     		 if(request.status == 200){
     			 contactError.style.display = 'none';
     			 form.style.display = 'none';
-    			 contactSuccess.textContent = 'Nous revenons rapidement vers vous';
+    			 contactSuccess.textContent = 'Nous reviendrons rapidement vers vous';
     			 contactSuccess.style.display = 'block';
     				 
     		 }else{
