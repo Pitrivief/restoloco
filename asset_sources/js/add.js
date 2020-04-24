@@ -105,12 +105,13 @@ window.addContact = addContact;
 
 function addLink(){
 	// Get the element
-	var count = document.querySelectorAll('#links input') ? document.querySelectorAll('#links input').length : 0;;
+	var count = document.querySelectorAll('#links input') ? document.querySelectorAll('#links input').length - 1: 0; //-1 => button Ajout Lien
+	
 	var elem = document.querySelector('#links').firstElementChild
 	
 	var markup= `
-	<div class="form-group row">
-		<div class="col-sm-10">
+	<div class="row">
+		<div>
 			
 			<select id="externalLinks${count}.type" name="externalLinks[${count}].type">
 				<option value="Deliveroo" selected="selected">Deliveroo</option>
@@ -119,8 +120,8 @@ function addLink(){
 			</select>
 		</div>
 
-		<label for="fullName" class="col-sm-2 col-form-label">Url </label>
-		<div class="col-sm-10">
+		<label for="fullName" class="col-form-label">Url </label>
+		<div>
 			<input type="text" name="externalLinks[${count}].url" id="externalLinks${count}.url" value="">
 		</div>
 	`;

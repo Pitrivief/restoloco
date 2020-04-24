@@ -5,6 +5,7 @@
 
 <link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
 	rel="stylesheet" />
+<script async th:attr="src=@{/js/bootstrap.js}"></script>
 
 <script type="text/javascript" th:src="@{/js/add.js}"></script>
 <title>Insert title here</title>
@@ -16,25 +17,37 @@
 	<div class="container">
 		<div class="starter-template">
 
-		
-		<form id="form-file-upload"  method="POST" enctype="multipart/form-data" action="/admin/files-ajax">
-			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
-								<tr><td></td><td><input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/></td></tr>
-				
-				<tr><td></td><td><input type="button" value="Upload" onclick="addPhoto()" /></td></tr>
-				<tr><td></td><td><span id="upload-error"></span></td></tr>
-			</table>
-		</form>
-		
+
+			<form id="form-file-upload" method="POST"
+				enctype="multipart/form-data" action="/admin/files-ajax">
+				<table>
+					<tr>
+						<td>File to upload:</td>
+						<td><input type="file" name="file" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="hidden" th:name="${_csrf.parameterName}"
+							th:value="${_csrf.token}" /></td>
+					</tr>
+
+					<tr>
+						<td></td>
+						<td><input type="button" value="Upload" onclick="addPhoto()" /></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><span id="upload-error"></span></td>
+					</tr>
+				</table>
+			</form>
+
 
 			<form action="#" th:action="@{/admin/edit-resto}"
 				th:object="${resto}" method="post">
 
-				<input type="hidden" id="id" th:field="*{id}" />
-	
-				<input type="text" id="photo"
-							th:field="*{photo}" readonly/>
+				<input type="hidden" id="id" th:field="*{id}" /> <input type="text"
+					id="photo" th:field="*{photo}" readonly />
 
 				<div class="form-group row">
 					<label for="code" class="col-sm-2 col-form-label">Nom</label>
@@ -44,8 +57,8 @@
 					</div>
 				</div>
 
-				
-				
+
+
 				<div class="form-group row">
 					<label for="fullName" class="col-sm-2 col-form-label">Site
 						internet</label>
@@ -88,25 +101,31 @@
 
 
 				</div>
-				
+
 				<div class="form-group row">
-					<label for="eatOnSite" class="col-sm-2 col-form-label">Sur place :</label>
-					<input type="checkbox" name="eatOnSite" th:checked="*{eatOnSite}"/>
-					<label for="takeAway" class="col-sm-2 col-form-label">A emporter :</label>
-					<input type="checkbox" name="takeAway" th:checked="*{takeAway}"/>
-					<label for="delivery" class="col-sm-2 col-form-label">Livraison :</label>
-					<input type="checkbox" name="delivery" th:checked="*{delivery}"/>
+					<div class="btn-group-toggle" data-toggle="buttons">
+						<label class="btn btn-secondary" th:classappend="${eatOnSite} ? active : ''"> <input
+							type="checkbox" th:checked="*{eatOnSite}" autocomplete="off"> Sur place
+						</label>
+						<label class="btn btn-secondary"  th:classappend="${takeAway} ? active: ''"> <input
+							type="checkbox" th:checked="*{takeAway}" autocomplete="off"> A emporter
+						</label>
+						<label class="btn btn-secondary"  th:classappend="${delivery} ? active: ''"> <input
+							type="checkbox" th:checked="*{delivery}" autocomplete="off"> Livaison
+						</label>
+					</div>
+					
 				</div>
 
 				<h2>CookTypes</h2>
 				<div class="form-group row">
 
 					<div id="cookTypes">
-						
-					<input type="text" 
-							name="restoCookTypes"
+
+						<input type="text" name="restoCookTypes"
 							th:each="restoCookType, cookTypeItemStat : *{cookTypes}"
-							th:field="*{cookTypes[__${cookTypeItemStat.index}__].name}" readonly />
+							th:field="*{cookTypes[__${cookTypeItemStat.index}__].name}"
+							readonly />
 
 					</div>
 
@@ -115,8 +134,8 @@
 					<div class="col-sm-10">
 						<select id="formCookType">
 
-							<option th:each="cookType : ${allCookTypes}" th:value="${cookType.name}"
-								th:text="${cookType.name}"></option>
+							<option th:each="cookType : ${allCookTypes}"
+								th:value="${cookType.name}" th:text="${cookType.name}"></option>
 
 						</select>
 					</div>
@@ -133,12 +152,13 @@
 
 				<h2>Links</h2>
 
-				
+
 				<div id="links">
 					<div th:each="link, index : *{externalLinks}">
-						<div th:replace="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
+						<div
+							th:replace="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
 					</div>
-					<input type="button" value="Ajout lien" onclick="addLink()"/>
+					<input type="button" value="Ajout lien" onclick="addLink()" />
 				</div>
 
 				<div class="form-group row">

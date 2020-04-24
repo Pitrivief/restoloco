@@ -29,6 +29,7 @@ Encore
      */
     .addEntry('layout', './asset_sources/js/layout.js')
     .addEntry('add', './asset_sources/js/add.js')
+    .addEntry('bootstrap', './asset_sources/js/bootstrap.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
     //.addStyleEntry('layout', './asset_sources/scss/layout.scss')

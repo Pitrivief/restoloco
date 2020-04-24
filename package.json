@@ -8,6 +8,7 @@
   "dependencies": {
     "bootstrap": "^4.4.1",
     "core-js": "3",
+    "jquery": "^3.5.0",
     "leaflet": "^1.6.0"
   }
 }

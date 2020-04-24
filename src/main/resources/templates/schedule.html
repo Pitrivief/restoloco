@@ -1,6 +1,6 @@
 <div th:fragment="schedule (openings, schedule, itemStat)">
 					
-					<div class="form-group row">
+					<div class="row">
 						<div >
 							<input type="text" name="day"
 								th:field="*{openings[__${itemStat.index}__].day}" readOnly/>

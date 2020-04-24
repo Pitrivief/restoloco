@@ -26,7 +26,7 @@ public class RestoController {
 	@Autowired
 	private CookTypeRepository cookTypeRepository;
 
-	@GetMapping("/list")
+	@GetMapping("/admin/list")
 	public String list(Model model) {
 
 		Iterable<Resto> restos = restoRepository.findAll();
@@ -58,9 +58,7 @@ public class RestoController {
 
 		);
 
-		Link link = new Link();
-		resto.setExternalLinks(new ArrayList<>());
-		resto.getExternalLinks().add(link);
+	
 
 		Iterable<CookType> allCookTypes = cookTypeRepository.findAll();
 		model.addAttribute("allCookTypes", allCookTypes);
@@ -86,7 +84,7 @@ public class RestoController {
 				resto.setCookTypes(selectedCookTypes);
 			}
 			restoRepository.save(resto);
-			return "redirect:/list";
+			return "redirect:/admin/list";
 		} catch (ConstraintViolationException e) {
 			return "/admin/add-resto";
 		}
@@ -105,7 +103,7 @@ public class RestoController {
 
 			}
 			restoRepository.save(resto);
-			return "redirect:/list";
+			return "redirect:/admin/list";
 		} catch (ConstraintViolationException e) {
 			return "/admin/edit-resto";
 		}
