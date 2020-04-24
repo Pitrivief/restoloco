@@ -16,10 +16,15 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/resto
       SPRING_DATASOURCE_USERNAME: resto
       SPRING_DATASOURCE_PASSWORD: bJpDTzgfEe
+      FILESTORAGESERVICE_DIRECTORY: /var/resto/uploaded-images
+    volumes: 
+       - resto_data_uploadedimages:/var/resto/uploaded-images
   db:
      image: mysql:5.7
      volumes: 
        - db_data_mysql:/var/lib/mysql
+     ports:
+      - "3306:3306"
      restart: always
      networks:
       - traefik
@@ -61,4 +66,5 @@ networks:
       name: traefik
       
 volumes:
-  db_data_mysql: 
+  db_data_mysql:
+  resto_data_uploadedimages: 
