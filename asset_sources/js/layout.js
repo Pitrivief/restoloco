@@ -32,7 +32,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png').default,
 });
 
-var map = L.map('restaurant-map').setView([49.1811,-0.3712], 14);
+var map = L.map('restaurant-map-inner').setView([49.1811,-0.3712], 14);
 
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -42,23 +42,79 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r
     maxZoom: 19
 }).addTo(map);
 
-map.on('click', () => { map.scrollWheelZoom.enable();});
+map.on('click', () => { map.scrollWheelZoom.enable(); removeSelectedMarker()});
 map.on('mouseout', () => { map.scrollWheelZoom.disable();});
 
-
+var markerIcon = L.icon({
+    iconUrl: '/images/marker.png',
+    iconSize: [24, 32],
+    iconAnchor: [12,32],
+    popupAnchor: [0,-34]
+});
+var SelectedMarkerIcon = L.icon({
+    iconUrl: '/images/marker2X.png',
+    iconSize: [48, 64],
+    iconAnchor: [24,64],
+    popupAnchor: [0,-68]
+});
+var selectedMarker = null;
+[].slice.call( document.querySelectorAll( '.menu-item' ) ).forEach( function( menuItem ) {
+    menuItem.addEventListener('click',function(e){
+        e.preventDefault();
+        scrollTo(document.querySelector(menuItem.getAttribute("href")));
+    })
+});
 [].slice.call( document.querySelectorAll( '.restaurant-item' ) ).forEach( function( restaurantItem ) {
-    var lat = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lat');
-    var lng = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lng');
-    if(lat !== null && lng !== null){
-        restaurantItem
-        var popup = L.popup({maxWidth:350,minwidth:350})
-        .setContent(restaurantItem.outerHTML)
-        
-        L.marker([lat, lng]).addTo(map).bindPopup(popup);
-        
-    }
+	if(restaurantItem.querySelector(".restaurant-seemap") !== null){
+		var lat = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lat');
+	    var lng = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lng');
+	    if(lat !== null && lng !== null){
+	        restaurantItem
+	        var popup = L.popup({maxWidth:350,minwidth:350})
+	        .setContent(restaurantItem.outerHTML)
+	        var marker = L.marker([lat, lng],{icon:markerIcon});
+	        marker.addTo(map).bindPopup(popup);
+	        marker.off('click');
+	        marker.on('click',function(){
+	    		setSelectedMarker(marker)
+	    	})
+	        
+	    }
+	    restaurantItem.querySelector(".restaurant-seemap").addEventListener( 'click', function(e){
+	    	e.preventDefault();
+	    	scrollTo(document.querySelector('#restaurant-map'))
+	    	setSelectedMarker(marker)
+	    	
+	    } );
+	    
+	} 
     
 });
+
+
+
+
+function scrollTo(element){
+	element.scrollIntoView({ 
+		  behavior: 'smooth' 
+		});
+}
+
+
+function removeSelectedMarker(){
+	if(selectedMarker != null){
+		selectedMarker.setIcon(markerIcon)
+		selectedMarker = null
+	}
+}
+function setSelectedMarker(marker){
+	
+	removeSelectedMarker()
+	marker.setIcon(SelectedMarkerIcon)
+	selectedMarker = marker
+	marker.openPopup()
+	
+}
 
 
 /***********************/
