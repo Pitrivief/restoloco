@@ -8,7 +8,8 @@
 <body>
 	
 	<main layout:fragment="content">
-		<section class="restaurant">
+		<section class="restaurant scrollWrapper">
+			<div class="scrollOffset" id="restaurant-list"></div>
 			<div class="restaurant-filters">
 
 			</div>
@@ -29,7 +30,7 @@
 							<div class="restaurant-horaire">
 
 							</div>
-							<a class="restaurant-seemap"  th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"   >voir sur la carte</a>
+							<a class="restaurant-seemap" th:if="${resto.lat != null && resto.lng != null}" th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"   >voir sur la carte</a>
 						</div>
 						<div class="button order">
 							Commander
@@ -38,9 +39,13 @@
 				</article>
 				
 			</div>
-			<div id="restaurant-map" class="map"></div>
+			<div class="map-wrapper scrollWrapper">
+				<div class="scrollOffset" id="restaurant-map"></div>
+				<div id="restaurant-map-inner" class="map"></div>
+			</div>
 		</section>
-		<section id="contact" class="contact">
+		<section  class="contact scrollWrapper">
+			<div class="scrollOffset" id="contact"></div>
 			<div class="contact-inner">
 				<h2>Une question?<br>Contactez nous...</h2>
 				
