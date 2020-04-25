@@ -36,8 +36,8 @@
 						</div>
 						
 						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
+							<div class="restaurant-tags" >
+								<span th:each="cooktype : ${resto.cookTypes}" th:text="${cooktype.description}"></span>
 							</div>
 							<h3 class="restaurant-name" th:text="${resto.name}"></h3>
 							<p class="restaurant-bio" th:text="${resto.bio}"></p>

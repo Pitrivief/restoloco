@@ -175,6 +175,12 @@ html, body {
 			border-left: 5px solid transparent;
 			z-index: -1;
 		  }
+		  span{  
+			&:not(:first-child):before{
+				content:", "; 
+			  }
+		  }
+		  
   
 		  background-color: #53a63c;
 		  color: white;

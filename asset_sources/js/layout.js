@@ -61,17 +61,31 @@ function setSelectedMarker(marker){
 	
 }
  
+function removeFilter(element){
+    var option = document.createElement('option');
+    option.text = element.getAttribute('data-description');
+    option.value = element.getAttribute('data-value');
+    document.querySelector('.cook-select').appendChild(option);
+    element.parentNode.removeChild(element);
+}
 function initFilters(){
     
     document.querySelector('.cook-select').addEventListener('change', function(){
         
         var selection = this.options[this.selectedIndex];
-        var text = selection.text
-        var value = selection.value
+        
         var element = document.createElement('div');
-        element.innerHTML = `<span>${selection.text}</span><span>&#10005;</span>`;
+        element.innerHTML = `<span>${selection.text}</span>`;
         element.classList.add("selected-cook-type")
-        document.querySelector('.cook-result').appendChild(element)
+        element.setAttribute("data-value",selection.value);
+        element.setAttribute("data-description",selection.text);
+        var closeIcon = document.createElement('span');
+        closeIcon.innerHTML = '&#10005;'
+        closeIcon.addEventListener('click',function(){
+            removeFilter(this.parentNode) 
+        })
+        element.appendChild(closeIcon);
+        document.querySelector('.cook-result').appendChild(element);
         this.removeChild(this.options[this.selectedIndex]);
        
         this.options[0].setAttribute("selected","selected")
