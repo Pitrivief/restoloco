@@ -38,6 +38,8 @@ public class Resto {
 	    
 	    private String website;
 	    
+	   
+	    
 	    private boolean delivery = true;
 	    private boolean takeAway = true;
 	    private boolean eatOnSite = false;
@@ -62,6 +64,13 @@ public class Resto {
 	    @OneToMany(cascade={CascadeType.ALL})
 	    @JoinColumn(name="resto_id")
 	    private List<Link> externalLinks;
+	    
+	    
+	    @OneToMany(cascade={CascadeType.ALL})
+	    @JoinColumn(name="resto_id")
+	    private List<Address> addresses;
+	    
+	    
 
 		public long getId() {
 			return id;
@@ -182,6 +191,14 @@ public class Resto {
 
 		public void setEatOnSite(boolean eatOnSite) {
 			this.eatOnSite = eatOnSite;
+		}
+
+		public List<Address> getAddresses() {
+			return addresses;
+		}
+
+		public void setAddresses(List<Address> addresses) {
+			this.addresses = addresses;
 		}
 		
 		

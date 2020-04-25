@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
+<link href="../static/css/Layout.css" th:href="@{css/Layout.css}"
 	rel="stylesheet" />
-<script async th:attr="src=@{/js/bootstrap.js}"></script>
+<script async th:attr="src=@{js/bootstrap.js}"></script>
 
-<script type="text/javascript" th:src="@{/js/add.js}"></script>
+<script type="text/javascript" th:src="@{js/add.js}"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -116,6 +116,19 @@
 					</div>
 					
 				</div>
+				
+					<h2>Adresses</h2>
+
+
+					<div id="addresses">
+					<div class="address"  th:each="address, addressStat : *{addresses}">
+						<div
+							th:replace="address :: address (addresses=*{addresses},itemStat=${addressStat})">...</div>
+					</div>
+					<input type="button" value="Ajout adresse" onclick="addAddress()" />
+				</div>
+
+		
 
 				<h2>CookTypes</h2>
 				<div class="form-group row">

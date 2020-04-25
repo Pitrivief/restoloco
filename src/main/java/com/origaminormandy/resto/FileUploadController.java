@@ -52,8 +52,7 @@ public class FileUploadController {
 	}
 
 	@GetMapping("/admin/files/{filename:.+}")
-	@ResponseBody
-	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+	public @ResponseBody ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
 		Resource file = storageService.loadAsResource(filename);
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
@@ -73,8 +72,7 @@ public class FileUploadController {
 	}
 	
 	@PostMapping("/admin/files-ajax")
-	@ResponseBody
-	public Map<String, String> handleFileUploadAjax(@RequestParam("file") MultipartFile file,
+	public @ResponseBody Map<String, String> handleFileUploadAjax(@RequestParam("file") MultipartFile file,
 			RedirectAttributes redirectAttributes) throws IllegalStateException, IOException {
 
 		
