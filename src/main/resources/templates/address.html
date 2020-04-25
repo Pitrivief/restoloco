@@ -1,0 +1,72 @@
+<div th:fragment="address (addresses, addressStat)">
+
+	<div class="row">
+
+		<div>
+
+			<select
+				th:with="addressTypes= ${ {'Delivery, billing'} }"
+				th:field="*{addresses[__${addressStat.index}__].type}">
+				<option th:each="type : ${addressTypes}" th:value="${type}"
+					th:text="${type}"
+					th:selected="${addresses[__${addressStat.index}__].type == type}"></option>
+			</select>
+		</div></div>
+		
+		<div class="row">
+		<div>
+			<input type="text" name="id"
+				th:field="*{addresses[__${addressStat.index}__].id}" readOnly />
+		</div></div>
+
+<div class="row">
+		<label for="name" class="col-form-label">Nom</label>
+		<div>
+			<input type="text" name="name"
+				th:field="*{addresses[__${addressStat.index}__].name}" />
+		</div></div>
+<div class="row">
+		<label for="recipientName" class="col-form-label">Destinataire</label>
+		<div>
+			<input type="text" name="recipientName"
+				th:field="*{addresses[__${addressStat.index}__].recipientName}" />
+		</div></div>
+		<div class="row">
+		<label for="recipientComplement1" class="col-form-label">Destinataire complement1</label>
+		<div>
+			<input type="text" name="recipientComplement1"
+				th:field="*{addresses[__${addressStat.index}__].recipientComplement1}" />
+		</div></div>
+<div class="row">
+		<label for="numberAndStreet" class="col-form-label">Adresse</label>
+		<div>
+			<input type="text" name="numberAndStreet"
+				th:field="*{addresses[__${addressStat.index}__].numberAndStreet}" />
+		</div></div>
+		<div class="row">
+		<label for="addressComplement1" class="col-form-label">Adresses complement1</label>
+		<div>
+			<input type="text" name="addressComplement1"
+								th:field="*{addresses[__${addressStat.index}__].addressComplement1}" />
+
+		</div></div>
+		<div class="row">
+		<label for="addressComplement2" class="col-form-label">Adresses complement2</label>
+		<div>
+			<input type="text" name="addressComplement2"
+								th:field="*{addresses[__${addressStat.index}__].addressComplement2}" />
+		</div></div>
+		<div class="row">
+		<label for="postalCode" class="col-form-label">Code postal</label>
+		<div>
+			<input type="text" name="postalCode"
+								th:field="*{addresses[__${addressStat.index}__].postalCode}" />
+		</div></div>
+		<div class="row">
+		<label for="city" class="col-form-label">Ville</label>
+		<div>
+			<input type="text" name="city"
+								th:field="*{addresses[__${addressStat.index}__].city}" />
+		</div></div>
+	</div>
+</div>

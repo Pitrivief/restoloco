@@ -14,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class CustomWebSecurityBasicAdapter extends WebSecurityConfigurerAdapter {
  
- 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
@@ -25,12 +24,8 @@ public class CustomWebSecurityBasicAdapter extends WebSecurityConfigurerAdapter 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-        
         .antMatchers("/admin/**").authenticated()
         .anyRequest().permitAll().and().httpBasic();
-          
- 
-       
     }
  
     @Bean

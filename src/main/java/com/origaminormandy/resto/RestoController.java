@@ -4,7 +4,6 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import javax.validation.ConstraintViolationException;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.origaminormandy.resto.Address.AddressType;
 
 @Controller
 public class RestoController {
@@ -59,12 +60,19 @@ public class RestoController {
 		);
 
 	
-
+		Address address = new Address();
+		address.setType(AddressType.DELIVERY);
+		
+		address.setName("Par defaut");
+		
+		resto.setAddresses(new ArrayList<>());
+		resto.getAddresses().add(address);
+		
 		Iterable<CookType> allCookTypes = cookTypeRepository.findAll();
 		model.addAttribute("allCookTypes", allCookTypes);
 
 		model.addAttribute("resto", resto);
-		return "/admin/add-resto";
+		return "admin/add-resto";
 	}
 
 	/**
@@ -86,7 +94,7 @@ public class RestoController {
 			restoRepository.save(resto);
 			return "redirect:/admin/list";
 		} catch (ConstraintViolationException e) {
-			return "/admin/add-resto";
+			return "admin/add-resto";
 		}
 
 	}
@@ -105,7 +113,7 @@ public class RestoController {
 			restoRepository.save(resto);
 			return "redirect:/admin/list";
 		} catch (ConstraintViolationException e) {
-			return "/admin/edit-resto";
+			return "admin/edit-resto";
 		}
 
 	}
@@ -119,7 +127,7 @@ public class RestoController {
 
 		model.addAttribute("resto", resto);
 		model.addAttribute("allCookTypes", allCookTypes);
-		return "/admin/edit-resto";
+		return "admin/edit-resto";
 	}
 
 }
