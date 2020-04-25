@@ -10,8 +10,22 @@
 	<main layout:fragment="content">
 		<section class="restaurant scrollWrapper">
 			<div class="scrollOffset" id="restaurant-list"></div>
-			<div class="restaurant-filters">
-
+			<div class="restaurant-filters ">
+				<div class="container">
+					<div class="row cooktypes">
+						<div class="col">
+							<select  class="form-control cook-select" name="" id="">
+							<option value="none" selected disabled> 
+						          Sélectionnez un type de cuisine 
+						      </option> 
+							<option th:each="type : ${cookTypes}" th:text="${type.description}" th:attr="value=${type.name}"></option>
+						</select>
+						</div>
+						<div class="col cook-result">
+						</div>
+					</div>
+					
+				</div>
 			</div>
 			<div id="restaurant-list" class="restaurant-list container" >
 				

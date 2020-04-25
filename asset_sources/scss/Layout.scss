@@ -1,5 +1,6 @@
 @import "~leaflet";
 @import "~bootstrap";
+
 html, body {
 	margin: 0px;
 	overflow: auto;
@@ -74,7 +75,7 @@ html, body {
   
 	.dark-green {
 	  width: 150%;
-	  position: absolute;
+	  position: absolute; 
 	  top: 30px;
 	  left: 0%;
 	  height: 150%;
@@ -226,8 +227,25 @@ html, body {
 	  height: 50px;
 	  top: -50px;
 	  transform: rotate(1deg);
+	} 
+	.cooktypes{
+		.cook-result{
+			display:flex;
+			.selected-cook-type{
+				background-color: #b8e270;
+				color: #53a63c; 
+				padding: 5px;
+				border-radius: 5px; 
+				margin:5px;
+				span:last-child{
+					margin-left: 5px;  
+					cursor: pointer;
+				}
+			}
+		}
 	}
-  
+	
+	padding-top: 50px;
 	background-color: #53a63c;
 	height: 100px;
 	position: relative;
@@ -339,7 +357,6 @@ html, body {
   
   .input__label {
 	display: inline-block;
-	float: right;
 	padding: 0 1em;
 	width: 40%;
 	color: #6a7989;
