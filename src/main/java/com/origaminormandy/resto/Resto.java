@@ -1,5 +1,6 @@
 package com.origaminormandy.resto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -200,6 +201,15 @@ public class Resto {
 		public void setAddresses(List<Address> addresses) {
 			this.addresses = addresses;
 		}
+		
+		public ArrayList<String> getFilters(){
+			ArrayList<String> filters = new ArrayList<String>();
+			filters.add("pizza");
+			filters.add("tacos");
+			return filters;
+		}
+		
+		
 		
 		
 	    

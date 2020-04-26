@@ -58,6 +58,12 @@ Encore
         config.useBuiltIns = 'usage';
         config.corejs = 3;
     })
+    .configureBabel(function (babelConfig) {
+        babelConfig.plugins = [
+            "@babel/plugin-proposal-object-rest-spread","@babel/plugin-proposal-class-properties",
+            "@babel/plugin-transform-runtime"
+        ]
+    })
 
     // enables Sass/SCSS support
     .enableSassLoader(function (options) {

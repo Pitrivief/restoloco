@@ -1,7 +1,7 @@
 import L from "leaflet"
 require('../scss/layout.scss');
 
-
+var map;
 
 var markerIcon = L.icon({
     iconUrl: '/images/marker.png',
@@ -61,37 +61,228 @@ function setSelectedMarker(marker){
 	
 }
  
-function removeFilter(element){
-    var option = document.createElement('option');
-    option.text = element.getAttribute('data-description');
-    option.value = element.getAttribute('data-value');
-    document.querySelector('.cook-select').appendChild(option);
-    element.parentNode.removeChild(element);
-}
-function initFilters(){
+
+
+
+
+
+
+class Restaurant{
+    tag;
+    filters = [];
+    marker;
+    isShown = true;
     
-    document.querySelector('.cook-select').addEventListener('change', function(){
+    constructor(tag){
+        this.tag = tag
+        var data_filters = JSON.parse(tag.getAttribute('data-filters'))
+        if(Array.isArray(data_filters)){
+            this.filters.concat(data_filters) 
+        }
         
-        var selection = this.options[this.selectedIndex];
         
-        var element = document.createElement('div');
-        element.innerHTML = `<span>${selection.text}</span>`;
-        element.classList.add("selected-cook-type")
-        element.setAttribute("data-value",selection.value);
-        element.setAttribute("data-description",selection.text);
-        var closeIcon = document.createElement('span');
-        closeIcon.innerHTML = '&#10005;'
-        closeIcon.addEventListener('click',function(){
-            removeFilter(this.parentNode) 
-        })
-        element.appendChild(closeIcon);
-        document.querySelector('.cook-result').appendChild(element);
-        this.removeChild(this.options[this.selectedIndex]);
+        if(tag.querySelector(".restaurant-seemap") !== null){
+            var lat = tag.querySelector(".restaurant-seemap").getAttribute('data-lat');
+            var lng = tag.querySelector(".restaurant-seemap").getAttribute('data-lng');
+            if(lat !== null && lng !== null){ 
+                
+                var popup = L.popup({maxWidth:350,minwidth:350})
+                .setContent(tag.outerHTML)
+                this.marker = L.marker([lat, lng],{icon:markerIcon});
+                this.marker.addTo(window.map).bindPopup(popup);
+                this.marker.off('click');
+                this.marker.on('click',function(){
+                    setSelectedMarker(marker)
+                })
+                
+            }
+            tag.querySelector(".restaurant-seemap").addEventListener( 'click', function(e){
+                e.preventDefault();
+                scrollTo(document.querySelector('#restaurant-map'))
+                setSelectedMarker(marker)
+                 
+            } );
+        } 
+    }
+    getFilters(){
+        return this.filters;
+    }
+    showHideByFilters(filters){
+    
+        let show = filters.length == 0;
+        for(let i = 0; i < filters.length; i++){
+            if(show){
+                break;
+            }
+            var hasFilter = this.filters.indexOf(filters[i])>0;
+            if(hasFilter){
+                show = true;
+            }
+        }
+        this.showHide(show)
+    }
+    showHide(show){
+        if(this.isShown == show){
+            return
+        }
+        this.isShown = show;
+        this.tag.classList.toggle("d-none",!show);
        
-        this.options[0].setAttribute("selected","selected")
-        this.value = this.options[0].value;
+       /* if(this.marker !== null){
+            if(show){
+                this.marker.addTo(window.map);
+            }
+            else{
+                this.marker.remove();
+            }
+        }*/
+    }
+}
+
+class Filters{
+    
+    selectBox;
+    filters = []
+    restaurantApp;
+
+    constructor(restaurantApp){
+
+        this.restaurantApp = restaurantApp
+        this.selectBox =  document.querySelector(".select-box");
+        var j, selElmnt, a, b, c;
+        /* Look for any elements with the class "custom-select": */
         
-    });
+        
+        selElmnt = this.selectBox.querySelector("select");
+        /* For each element, create a new DIV that will act as the selected item: */
+        a = document.createElement("DIV");
+        a.setAttribute("class", "select-selected");
+        a.innerHTML = "Sélectionnez un type de cuisine.";//selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        this.selectBox.appendChild(a);
+        /* For each element, create a new DIV that will contain the option list: */
+        b = document.createElement("DIV");
+        b.setAttribute("class", "select-items select-hide");
+        for (j = 0; j < selElmnt.length; j++) {
+            /* For each option in the original select element,
+            create a new DIV that will act as an option item: */
+            var c =  this.createSelectItem(selElmnt.options[j].innerHTML,selElmnt.options[j].value);
+            b.appendChild(c);
+        }
+        this.selectBox.appendChild(b);
+        a.addEventListener("click", function(e) {
+            /* When the select box is clicked, close any other select boxes,
+            and open/close the current select box: */
+            e.stopPropagation();
+            closeAllSelect(this);
+            this.nextSibling.classList.toggle("select-hide");
+            this.classList.toggle("select-arrow-active");
+        });
+        
+    
+        function closeAllSelect(elmnt) {
+            /* A function that will close all select boxes in the document,
+            except the current select box: */
+            var x, y, i, arrNo = [];
+            x = document.getElementsByClassName("select-items");
+            y = document.getElementsByClassName("select-selected");
+            for (i = 0; i < y.length; i++) {
+                if (elmnt == y[i]) {
+                arrNo.push(i)
+                } else {
+                y[i].classList.remove("select-arrow-active");
+                }
+            }
+            for (i = 0; i < x.length; i++) {
+                if (arrNo.indexOf(i)) {
+                x[i].classList.add("select-hide");
+                }
+            }
+        }
+    
+        /* If the user clicks anywhere outside the select box,
+        then close all select boxes: */
+        document.addEventListener("click", closeAllSelect); 
+    }
+
+    removeFilter(filter){
+
+        var index = this.filters.indexOf(filter);
+ 
+        if (index > -1) {
+            this.filters.splice(index, 1);
+        }
+        this.triggerFilterChanged()
+    }
+
+    addFilter(filter){
+        this.filters.push(filter)
+        this.triggerFilterChanged()
+    }
+    
+    triggerFilterChanged(){
+        this.restaurantApp.applyFilters(this.filters)
+    }
+
+    createSelectItem(text,value){
+       
+        var c = document.createElement("DIV");
+        const _self = this;
+        c.setAttribute("data-value",value)
+        c.innerHTML = text;
+        c.addEventListener("click", function(e) {
+            var _this = this;
+            var element = document.createElement('div');
+            element.innerHTML = `<span>${_this.textContent}</span>`;
+            element.classList.add("selected-cook-type")
+            element.setAttribute("data-value",_this.getAttribute('data-value'));
+            _self.addFilter(_this.getAttribute('data-value'));
+            element.setAttribute("data-description",_this.textContent);
+            var closeIcon = document.createElement('span');
+            closeIcon.innerHTML = '&#10005;'
+            closeIcon.addEventListener('click',function(){
+                var element = this.parentNode;
+                var text = element.getAttribute('data-description');
+                var value = element.getAttribute('data-value');
+                _self.removeFilter(value);
+                var selectItem = _self.createSelectItem(text,value);
+                
+                _self.selectBox.querySelector('.select-items').appendChild(selectItem)
+            
+                element.parentNode.removeChild(element);
+            })
+            element.appendChild(closeIcon);
+            document.querySelector('.cook-result').appendChild(element);
+            this.parentNode.removeChild(this);
+           
+        });
+        return c;
+        
+    }
+}
+
+class RestaurantApp{
+    restaurants = [];
+    filters = new Filters(this);
+    constructor(){
+        this.reload();
+    }
+
+    reload(){
+        this.restaurants = [];
+        const _self = this;
+        [].slice.call( document.querySelectorAll( '.restaurant-item' ) ).forEach( function( restaurantItem ) {
+            const restaurant = new Restaurant(restaurantItem)
+            _self.restaurants.push(restaurant);
+        })
+    }
+
+    applyFilters(filtersArray){
+        this.restaurants.forEach(function(restaurant){
+            
+            restaurant.showHideByFilters(filtersArray);
+
+        });
+    }
 }
 
 
@@ -99,21 +290,21 @@ window.onload = function(){
 
     window.addEventListener("resize", resizeDecor);
     window.addEventListener("scroll", function(){
-    testMenu();
+        testMenu();
     });
 
-    var map = L.map('restaurant-map-inner').setView([49.1811,-0.3712], 14);
-
+    window.map = L.map('restaurant-map-inner').setView([49.1811,-0.3712], 14);
+    
 
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         subdomains: 'abcd',
         scrollWheelZoom: false,
         maxZoom: 19
-    }).addTo(map);
+    }).addTo(window.map);
     
-    map.on('click', () => { map.scrollWheelZoom.enable(); removeSelectedMarker()});
-    map.on('mouseout', () => { map.scrollWheelZoom.disable();});
+    window.map.on('click', () => { map.scrollWheelZoom.enable(); removeSelectedMarker()});
+    window.map.on('mouseout', () => { map.scrollWheelZoom.disable();});
     
     
     [].slice.call( document.querySelectorAll( '.menu-item' ) ).forEach( function( menuItem ) {
@@ -123,32 +314,7 @@ window.onload = function(){
         })
     });
 
-    [].slice.call( document.querySelectorAll( '.restaurant-item' ) ).forEach( function( restaurantItem ) {
-        if(restaurantItem.querySelector(".restaurant-seemap") !== null){
-            var lat = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lat');
-            var lng = restaurantItem.querySelector(".restaurant-seemap").getAttribute('data-lng');
-            if(lat !== null && lng !== null){
-                restaurantItem
-                var popup = L.popup({maxWidth:350,minwidth:350})
-                .setContent(restaurantItem.outerHTML)
-                var marker = L.marker([lat, lng],{icon:markerIcon});
-                marker.addTo(map).bindPopup(popup);
-                marker.off('click');
-                marker.on('click',function(){
-                    setSelectedMarker(marker)
-                })
-                
-            }
-            restaurantItem.querySelector(".restaurant-seemap").addEventListener( 'click', function(e){
-                e.preventDefault();
-                scrollTo(document.querySelector('#restaurant-map'))
-                setSelectedMarker(marker)
-                
-            } );
-            
-        } 
-        
-    }); 
+    
 
 
     /***********************/
@@ -188,7 +354,7 @@ window.onload = function(){
         }
     })();   
 
-    initFilters()
+    new RestaurantApp();
     resizeDecor()
     testMenu()
 }
