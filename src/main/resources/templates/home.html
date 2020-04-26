@@ -28,7 +28,7 @@
 			</div>
 			<div id="restaurant-list" class="restaurant-list container" >
 				
-				<article class="restaurant-item" th:each="resto : ${restos}" th:attr=data-filters=${restos.getFilters()}>
+				<article class="restaurant-item" th:each="resto : ${restos}" th:attr=data-filters=${{restos.getFilters()}}>
 					<div class="restaurant-content">
 						<div class="restaurant-picture">
 

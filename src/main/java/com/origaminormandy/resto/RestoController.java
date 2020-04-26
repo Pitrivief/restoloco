@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.origaminormandy.maps.Point;
+import com.origaminormandy.maps.mapbox.GeocodingException;
+import com.origaminormandy.maps.mapbox.MapboxGeocodingService;
 import com.origaminormandy.resto.Address.AddressType;
 
 @Controller
@@ -23,6 +26,9 @@ public class RestoController {
 
 	@Autowired
 	private RestoRepository restoRepository;
+	
+	@Autowired
+	private MapboxGeocodingService geocodingService;
 
 	@Autowired
 	private CookTypeRepository cookTypeRepository;
@@ -91,6 +97,17 @@ public class RestoController {
 						resto.getCookTypes().stream().map(cookType -> cookType.getName()).collect(Collectors.toList()));
 				resto.setCookTypes(selectedCookTypes);
 			}
+			
+			if((resto.getLat() == null || resto.getLng() == null) && resto.getDeliveryAddress().isPresent()) {
+				try {
+					Point p = geocodingService.geocode(resto.getDeliveryAddress().get());
+					resto.setLat(p.getLat());
+					resto.setLng(p.getLng());
+				} catch (GeocodingException e) {
+					e.printStackTrace();
+				}
+			}
+			
 			restoRepository.save(resto);
 			return "redirect:/admin/list";
 		} catch (ConstraintViolationException e) {

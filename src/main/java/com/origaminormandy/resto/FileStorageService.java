@@ -28,15 +28,10 @@ public class FileStorageService {
 	}
 	
 	@PostConstruct
-	public void init() {
-		System.out.println("init filestorageservice");
+	public void init() throws IOException {
 		Path dir = Paths.get(directory);
-		try {
-			Files.createDirectories(dir);
-		} catch (IOException e) {
-			System.out.println("Unable to create " + directory);
-		}
-		
+		System.out.println("init filestorageservice to "  + dir);
+		Files.createDirectories(dir);
 	}
 
 	public void store(MultipartFile uploadedFile) throws IllegalStateException, IOException {

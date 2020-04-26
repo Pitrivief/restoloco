@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="../static/css/Layout.css" th:href="@{/css/layout.css}"
+<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
 	rel="stylesheet" />
 <script async th:attr="src=@{/js/bootstrap.js}"></script>
 
@@ -123,7 +123,7 @@
 					<div id="addresses">
 					<div class="address"  th:each="address, addressStat : *{addresses}">
 						<div
-							th:replace="address :: address (addresses=*{addresses},itemStat=${addressStat})">...</div>
+							th:replace="address :: address (addresses=*{addresses},addressStat=${addressStat})">...</div>
 					</div>
 					<input type="button" value="Ajout adresse" onclick="addAddress()" />
 				</div>

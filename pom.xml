@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.origaminormandy</groupId>
 	<artifactId>resto</artifactId>
-	<version>0.0.5</version>
+	<version>0.0.5-P1</version>
 	<name>resto</name>
 	<description>Demo project for Spring Boot</description>
 
@@ -68,18 +68,25 @@
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
+			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
+<dependency>
+                <groupId>org.junit.platform</groupId>
+                <artifactId>junit-platform-launcher</artifactId>
+            </dependency>
+
+
+	
+
+		
 	</dependencies>
 
 	<build>
