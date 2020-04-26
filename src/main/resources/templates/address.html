@@ -5,7 +5,7 @@
 		<div>
 
 			<select
-				th:with="addressTypes= ${ {'Delivery, billing'} }"
+				th:with="addressTypes= ${ {'DELIVERY', 'BILLING'} }"
 				th:field="*{addresses[__${addressStat.index}__].type}">
 				<option th:each="type : ${addressTypes}" th:value="${type}"
 					th:text="${type}"

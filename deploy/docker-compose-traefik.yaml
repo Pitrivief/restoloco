@@ -13,6 +13,7 @@ services:
     environment:    
       SERVER_PORT: 8090
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/resto
       SPRING_DATASOURCE_USERNAME: resto
       SPRING_DATASOURCE_PASSWORD: bJpDTzgfEe

@@ -150,54 +150,73 @@ function addAddress(){
 		<div>
 
 			<select id="addresses${count}.type" name="addresses[${count}].type">
-				<option value="Delivery, billing">Delivery, billing</option>
+				<option value="Delivery">Delivery</option>
+				<option value="Billing">Billing</option>
 			</select>
-		</div>
+		</div></div>
+		
+		<div class="row">
 		<div>
 			<input type="text" name="addresses[${count}].id" readonly="" id="addresses${count}.id" value="${count}">
-		</div>
+		</div></div>
+		
+		<div class="row">
 
 
 		<label for="name" class="col-form-label">Nom</label>
 		<div>
 			<input type="text" name="addresses[${count}].name" id="addresses${count}.name" value="Par defaut">
-		</div>
+		</div></div>
+		
+		<div class="row">
 
 		<label for="recipientName" class="col-form-label">Destinataire</label>
 		<div>
 			<input type="text" name="addresses[${count}].recipientName" id="addresses${count}.recipientName" value="">
-		</div>
+		</div></div>
+		
+		<div class="row">
 		
 		<label for="recipientComplement1" class="col-form-label">Destinataire complement1</label>
 		<div>
 			<input type="text" name="addresses[${count}].recipientComplement1" id="addresses${count}.recipientComplement1" value="">
-		</div>
+		</div></div>
+		
+		<div class="row">
 
 		<label for="numberAndStreet" class="col-form-label">Adresse</label>
 		<div>
 			<input type="text" name="addresses[${count}].numberAndStreet" id="addresses${count}.numberAndStreet" value="">
-		</div>
+		</div></div>
+		
+		<div class="row">
 		
 		<label for="addressComplement1" class="col-form-label">Adresses complement1</label>
 		<div>
 			<input type="text" name="addresses[${count}].addressComplement1" id="addresses${count}.addressComplement1" value="">
 
-		</div>
+		</div></div>
+		
+		<div class="row">
 		
 		<label for="addressComplement2" class="col-form-label">Adresses complement2</label>
 		<div>
 			<input type="text" name="addresses[${count}].addressComplement2" id="addresses${count}.addressComplement2" value="">
-		</div>
+		</div></div>
+		
+		<div class="row">
 		
 		<label for="postalCode" class="col-form-label">Code postal</label>
 		<div>
 			<input type="text" name="addresses[${count}].postalCode" id="addresses${count}.postalCode" value="">
-		</div>
+		</div></div>
+		
+		<div class="row">
 		
 		<label for="city" class="col-form-label">Ville</label>
 		<div>
 			<input type="text" name="addresses[${count}].city" id="addresses${count}.city" value="">
-		</div>
+		</div></div>
 	</div>
 </div>
 					</div>
