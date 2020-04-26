@@ -105,24 +105,33 @@ window.addContact = addContact;
 
 function addLink(){
 	// Get the element
-	var count = document.querySelectorAll('#links input') ? document.querySelectorAll('#links input').length - 1: 0; //-1 => button Ajout Lien
+	var count = document.querySelectorAll('#links .link') ? document.querySelectorAll('#links .link').length : 0; 
 	
 	var elem = document.querySelector('#links').firstElementChild
 	
 	var markup= `
+	<div class="link">
 	<div class="row">
 		<div>
 			
 			<select id="externalLinks${count}.type" name="externalLinks[${count}].type">
-				<option value="Deliveroo" selected="selected">Deliveroo</option>
-				<option value="Uber Eat">Uber Eat</option>
-				<option value="Just-Eat">Just-Eat</option>
+				<option value="ORDER" selected="selected">ORDER</option>
+				<option value="SOCIAL">SOCIAL</option>
 			</select>
+		</div>
+		
+		<label for="subtype" class="col-form-label">Subtype </label>
+		<div>
+			<input type="text" name="externalLinks[${count}].subtype"
+				th:field="*{externalLinks[${count}].subtype}" />
 		</div>
 
 		<label for="fullName" class="col-form-label">Url </label>
 		<div>
 			<input type="text" name="externalLinks[${count}].url" id="externalLinks${count}.url" value="">
+		</div>
+		
+		</div>
 		</div>
 	`;
 

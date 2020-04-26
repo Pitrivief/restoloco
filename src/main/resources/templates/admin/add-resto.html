@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}" rel="stylesheet" />
+<link href="../static/css/Layout.css" th:href="@{/css/layout.css}" rel="stylesheet" />
 <script type="text/javascript" th:src="@{/js/add.js}"></script>
 <script async th:attr="src=@{/js/bootstrap.js}"></script>
 
@@ -153,7 +153,7 @@
 				
 				<h2>Links</h2>
 				<div id="links">
-					<div th:each="link, index : *{externalLinks}">
+					<div class="link" th:each="link, index : *{externalLinks}">
 						<div th:replace="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
 					</div>
 					<input type="button" value="Ajout lien" onclick="addLink()"/>
