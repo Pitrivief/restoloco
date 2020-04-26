@@ -137,8 +137,8 @@ window.addLink = addLink;
 
 function addAddress(){
 	// Get the element
-	var count = document.querySelectorAll('#addresses .address') ? document.querySelectorAll('#addresses .address').length - 1: 0; //-1 => button Ajout Lien
-	
+	var count = document.querySelectorAll('#addresses .address') ? document.querySelectorAll('#addresses .address').length: 0; 
+
 	var elem = document.querySelector('#addresses').firstElementChild
 	
 	var markup= `
@@ -150,14 +150,14 @@ function addAddress(){
 		<div>
 
 			<select id="addresses${count}.type" name="addresses[${count}].type">
-				<option value="Delivery">Delivery</option>
-				<option value="Billing">Billing</option>
+				<option value="DELIVERY">Delivery</option>
+				<option value="BILLING">Billing</option>
 			</select>
 		</div></div>
 		
 		<div class="row">
 		<div>
-			<input type="text" name="addresses[${count}].id" readonly="" id="addresses${count}.id" value="${count}">
+			<input type="text" name="addresses[${count}].id" readonly="" id="addresses${count}.id" value="0" >
 		</div></div>
 		
 		<div class="row">

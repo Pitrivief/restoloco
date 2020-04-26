@@ -1,7 +1,5 @@
 package com.origaminormandy.resto;
 
-import java.time.DayOfWeek;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;

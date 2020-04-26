@@ -1,6 +1,7 @@
 package com.origaminormandy.resto;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+
+import com.origaminormandy.resto.Address.AddressType;
 
 @Entity
 public class Resto {
@@ -199,6 +202,18 @@ public class Resto {
 
 		public void setAddresses(List<Address> addresses) {
 			this.addresses = addresses;
+		}
+		
+		public Optional<Address> getBillingAddress() {
+			if(this.addresses == null)return Optional.empty();
+			
+			return this.addresses.stream().filter(a -> a.getType() == AddressType.BILLING).findFirst();
+		}
+		
+		public Optional<Address> getDeliveryAddress() {
+			if(this.addresses == null)return Optional.empty();
+			
+			return this.addresses.stream().filter(a -> a.getType() == AddressType.DELIVERY).findFirst();
 		}
 		
 		

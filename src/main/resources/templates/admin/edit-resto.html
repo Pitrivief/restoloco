@@ -123,7 +123,7 @@
 					<div id="addresses">
 					<div class="address"  th:each="address, addressStat : *{addresses}">
 						<div
-							th:replace="address :: address (addresses=*{addresses},itemStat=${addressStat})">...</div>
+							th:replace="address :: address (addresses=*{addresses},addressStat=${addressStat})">...</div>
 					</div>
 					<input type="button" value="Ajout adresse" onclick="addAddress()" />
 				</div>
