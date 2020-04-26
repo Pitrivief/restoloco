@@ -157,6 +157,9 @@
 
 				</div>
 				<h2>Schedules</h2>
+				<div
+						th:replace="schedule-mask:: schedule-mask">...</div>
+				
 				<div th:each="schedule, index : *{openings}">
 					<div
 						th:include="schedule :: schedule (openings=*{openings},schedule=${schedule},itemStat=${index})">...</div>

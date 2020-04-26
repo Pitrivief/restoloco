@@ -1,6 +1,9 @@
 <div th:fragment="link (externalLinks, itemStat)">
 
 	<div class="row">
+	
+		 <input type="hidden" name="linkId"
+				th:field="*{externalLinks[__${itemStat.index}__].id}"/>
 		<div>
 			
 			<select  th:with="linkTypes = ${ {'ORDER', 'SOCIAL'} }"

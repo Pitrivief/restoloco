@@ -32,6 +32,35 @@ function addPhoto(){
 }
 window.addPhoto = addPhoto;
 
+function validateMask(){
+	validateMaskDay('monday', '0');
+	validateMaskDay('tuesday', '1');
+	validateMaskDay('wednesday', '2');
+	validateMaskDay('thursday', '3');
+	validateMaskDay('friday', '4');
+	validateMaskDay('saturday', '5');
+	validateMaskDay('sunday', '6');
+
+
+}
+window.validateMask = validateMask;
+
+function validateMaskDay(dayName, dayIndex){
+//	alert(dayIndex + " => " + document.querySelectorAll('.schedule-closed input')[dayIndex].name);
+//	alert(document.querySelectorAll('.schedule-closed input')[dayIndex].checked);
+//	alert(document.getElementById('schedule-mask-closed').checked);
+	if(document.getElementById('schedule-mask-' + dayName).checked){
+		document.querySelectorAll('.schedule-closed input')[dayIndex * 2].checked = document.getElementById('schedule-mask-closed').checked;
+		document.querySelectorAll('.schedule-closed input')[dayIndex * 2 + 1].checked = document.getElementById('schedule-mask-closed').checked;
+		document.querySelectorAll('.schedule-lunch-start input')[dayIndex].value = document.getElementById('schedule-mask-lunchStart' ).value;
+		document.querySelectorAll('.schedule-lunch-end input')[dayIndex].value = document.getElementById('schedule-mask-lunchEnd' ).value;
+		document.querySelectorAll('.schedule-dinner-start input')[dayIndex].value = document.getElementById('schedule-mask-dinnerStart' ).value;
+		document.querySelectorAll('.schedule-dinner-end input')[dayIndex].value = document.getElementById('schedule-mask-dinnerEnd' ).value;
+
+	}
+	
+}
+
 function addContact(){
 	
 

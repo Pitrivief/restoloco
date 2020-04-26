@@ -34,7 +34,6 @@ public class Resto {
 	    
 	    private String bio;
 	     
-	    @NotBlank(message = "Email is mandatory")
 	    private String email;
 	    
 	    @NotBlank(message = "tel is mandatory")
@@ -58,21 +57,21 @@ public class Resto {
 	    @Column(precision=10, scale=8)
 	    private Double lat;
 	    
-	    @OneToMany(cascade={CascadeType.ALL})
+	    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
 	    @JoinColumn(name="resto_id")
-	    private List<Schedule> openings;
+	    private List<Schedule> openings = new ArrayList<>();
 	    
 	    @ManyToMany(cascade={CascadeType.ALL})
-	    private List<CookType> cookTypes;
+	    private List<CookType> cookTypes = new ArrayList<>();
 	    
-	    @OneToMany(cascade={CascadeType.ALL})
+	    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
 	    @JoinColumn(name="resto_id")
-	    private List<Link> externalLinks;
+	    private List<Link> externalLinks = new ArrayList<>();
 	    
 	    
-	    @OneToMany(cascade={CascadeType.ALL})
+	    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
 	    @JoinColumn(name="resto_id")
-	    private List<Address> addresses;
+	    private List<Address> addresses = new ArrayList<>();
 	    
 	    
 
