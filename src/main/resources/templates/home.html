@@ -10,8 +10,22 @@
 	<main layout:fragment="content">
 		<section class="restaurant scrollWrapper">
 			<div class="scrollOffset" id="restaurant-list"></div>
-			<div class="restaurant-filters">
-
+			<div class="restaurant-filters ">
+				<div class="container">
+					<div class="row cooktypes">
+						<div class="col">
+							<select  class="form-control cook-select" name="" id="">
+							<option value="none" selected disabled> 
+						          Sélectionnez un type de cuisine 
+						      </option> 
+							<option th:each="type : ${cookTypes}" th:text="${type.description}" th:attr="value=${type.name}"></option>
+						</select>
+						</div>
+						<div class="col cook-result">
+						</div>
+					</div>
+					
+				</div>
 			</div>
 			<div id="restaurant-list" class="restaurant-list container" >
 				
@@ -22,8 +36,8 @@
 						</div>
 						
 						<div class="restaurant-description">
-							<div class="restaurant-tags">
-								Tacos, Pizzas
+							<div class="restaurant-tags" >
+								<span th:each="cooktype : ${resto.cookTypes}" th:text="${cooktype.description}"></span>
 							</div>
 							<h3 class="restaurant-name" th:text="${resto.name}"></h3>
 							<p class="restaurant-bio" th:text="${resto.bio}"></p>
@@ -51,7 +65,7 @@
 				
 				<span id="form-contact-error"  class="input input--juro" style="display:none"></span>
 				<span id="form-contact-success" class="input input--juro" style="display:none"></span>
-				<form method="POST" id="form-contact" th:action="@{/contact-ajax}" th:object="${contact}">
+				<form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact"  >
 				
 			
 					<span id ="form-contact-name" class="input input--juro">
