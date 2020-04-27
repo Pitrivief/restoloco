@@ -3,7 +3,7 @@
 	<article class="restaurant-item" th:each="resto : ${restos}" >
 		<div class="restaurant-content">
 			<div class="restaurant-picture">
-
+				<img th:src="'/uploaded/'+${resto.photo}" />
 			</div>
 			
 			<div class="restaurant-description">
@@ -34,7 +34,9 @@
 				</a>
 			</div>
 			<div class="button order">
-				Commander
+				<a th:href="'tel:'+${resto.phone}">
+					Commander
+				</a>
 			</div>
 		</div>
 	</article>

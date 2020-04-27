@@ -158,6 +158,12 @@ html, body {
 	  .restaurant-picture {
 		background-color: lightgray;
 		height: 200px;
+		img{
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: center;
+		}
 	  }
   
 	  .restaurant-description {
@@ -235,8 +241,10 @@ html, body {
 	  }
   
 	  .order {
+		a{
+			color: white !important;
+		}
 		padding: 10px;
-		color: white;
 		background-color: #53a63c;
 		text-align: center;
 	  }
