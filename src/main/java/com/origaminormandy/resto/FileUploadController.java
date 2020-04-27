@@ -1,18 +1,22 @@
 package com.origaminormandy.resto;
 
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +62,50 @@ public class FileUploadController {
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
 				"attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
+	
+	public Optional<String> getExtensionByStringHandling(String filename) {
+	    return Optional.ofNullable(filename)
+	      .filter(f -> f.contains("."))
+	      .map(f -> f.substring(filename.lastIndexOf(".") + 1));
+	}
+	
+	@GetMapping("/files/{filename:.+}")
+	    public ResponseEntity<byte[]> getImage(@PathVariable String filename) throws IOException {
+
+	    	Resource imgFile = storageService.loadAsResource(filename);
+	        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+
+	        
+	        Optional<String> extension = getExtensionByStringHandling(imgFile.getFilename());
+	        
+	        
+	        MediaType mediaType;
+	        if(extension.isPresent()) {
+	        	switch (extension.get().toLowerCase()) {
+				case "jpg":
+				case "jpeg":
+					mediaType = MediaType.IMAGE_JPEG;
+					break;
+				case "png":
+					mediaType = MediaType.IMAGE_PNG;
+					break;
+
+				default:
+					mediaType = null;
+					break;
+				}
+	        	
+	        	
+	        	 return ResponseEntity
+	 	                .ok()
+	 	                .contentType(mediaType)
+	 	                .body(bytes);
+	        }else {
+	        	throw new FileNotFoundException();
+	        }
+	        
+	       
+	    }
 
 	@PostMapping("/admin/files")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file,
