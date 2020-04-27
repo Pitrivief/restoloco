@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>resto</string>
+			<key>host</key>
+			<string>127.0.0.1</string>
+			<key>kcid</key>
+			<string>2236937843499737744</string>
+			<key>name</key>
+			<string>resto</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>ssh_host</key>
+			<string>root@restoloco.fr</string>
+			<key>ssh_keyLocation</key>
+			<string></string>
+			<key>ssh_keyLocationEnabled</key>
+			<integer>0</integer>
+			<key>ssh_user</key>
+			<string></string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPSSHTunnelConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>root</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>utf8</string>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0
+			b3BYJG9iamVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRk
+			YXRhgAGoCwwXGBkaHiVVJG51bGzTDQ4PEBMWV05TLmtleXNaTlMu
+			b2JqZWN0c1YkY2xhc3OiERKAAoADohQVgASABYAHVHR5cGVUcm93
+			c18QHVNlbGVjdGlvbkRldGFpbFR5cGVOU0luZGV4U2V00hsPHB1c
+			TlNSYW5nZUNvdW50EACABtIfICEiWiRjbGFzc25hbWVYJGNsYXNz
+			ZXNaTlNJbmRleFNldKIjJFpOU0luZGV4U2V0WE5TT2JqZWN00h8g
+			JidcTlNEaWN0aW9uYXJ5oiYoWE5TT2JqZWN0AAgAEQAaACQAKQAy
+			ADcASQBMAFEAUwBcAGIAaQBxAHwAgwCGAIgAigCNAI8AkQCTAJgA
+			nQC9AMIAzwDRANMA2ADjAOwA9wD6AQUBDgETASABIwAAAAAAAAIB
+			AAAAAAAAACkAAAAAAAAAAAAAAAAAAAEs
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {795, 793}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>insert into cook_type(name) value('CAMBODGIEN');
+insert into cook_type(name) value('VIETNAMIEN');
+insert into cook_type(name) value('ASIATIQUE');
+
+
+
+insert into cook_type(name) value('HAWAIIAN');
+
+
+insert into cook_type(name) value('TACOS');
+insert into cook_type(name) value('POULET');</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>885</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>insert into cook_type(name) value('TACOS')</string>
+		<string>insert into cook_type(name) value('HAWAIIAN')</string>
+		<string>insert into cook_type(name) value('KEBAB')</string>
+		<string>insert into cook_type(name) value('kebab')</string>
+		<string>insert into cook_type(name) value('BURGER');
+insert into cook_type(name) value('SANDWISH ET PANINI');
+insert into cook_type(name) value('INDIEN');
+insert into cook_type(name) value('PAKISTANAI')</string>
+		<string>insert into cook_type(name) value('CAMBODGIEN');
+insert into cook_type(name) value('VIETNAMIEN');
+insert into cook_type(name) value('ASIATIQUE')</string>
+		<string>insert into cook_type(name) value('ASIATIQUE')</string>
+		<string>insert into cook_type(name) value('VIETNAMIEN')</string>
+		<string>insert into cook_type(name) value('CAMBODGIEN')</string>
+		<string>REVOKE ALL PRIVILEGES, GRANT OPTION from 'keycloak-db'@'cloudsqlproxy~%';
+GRANT ALL on keycloak7.* to 'keycloak-db'@'cloudsqlproxy~%'</string>
+		<string>REVOKE ALL PRIVILEGES, GRANT OPTION from keycloak-db@'cloudsqlproxy~%'</string>
+		<string>REVOKE ALL PRIVILEGES, GRANT OPTION from keycloak@'cloudsqlproxy~%'</string>
+		<string>select m.id, p.code, mc.slug, mc.title, mc.description
+from medias__products mp 
+join medias m on m.id = mp.media_id
+join medias_contents mc on mc.media_id = m.id
+join products p on p.id = mp.product_id
+where m.type = 'youtube'</string>
+		<string>select * 
+from categories_contents cc 
+join categories c on c.id = cc.category_id
+and c.type = 'UNI'</string>
+		<string>select * 
+from categories_contents cc 
+join categories c on c.id = cc.category_id
+and c .type = 'UNI'</string>
+		<string>show grants for 'keycloak-la'@'cloudsqlproxy~%'</string>
+		<string>show grants 'keycloak-la'@'cloudsqlproxy~%'</string>
+		<string>show grant 'keycloak-la'@'cloudsqlproxy~%'</string>
+		<string>show grant for 'keycloak-la'@'cloudsqlproxy~%'</string>
+		<string>GRANT ALL on keycloak_prod.* to 'keycloak-la'@'cloudsqlproxy~%'</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.29</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>

@@ -41,7 +41,7 @@
 					</tr>
 				</table>
 			</form>
-
+			<img th:src="${'/files/' + resto.photo}"/>
 
 			<form action="#" th:action="@{/admin/edit-resto}"
 				th:object="${resto}" method="post">
