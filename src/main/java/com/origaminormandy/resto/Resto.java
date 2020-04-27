@@ -1,6 +1,5 @@
 package com.origaminormandy.resto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -204,14 +203,6 @@ public class Resto {
 		public void setAddresses(List<Address> addresses) {
 			this.addresses = addresses;
 		}
-		
-		public ArrayList<String> getFilters(){
-			ArrayList<String> filters = new ArrayList<String>();
-			filters.add("pizza");
-			filters.add("tacos");
-			return filters;
-		}
-		
 		
 		public Optional<Address> getBillingAddress() {
 			if(this.addresses == null)return Optional.empty();

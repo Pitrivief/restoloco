@@ -1,4 +1,5 @@
 import L from "leaflet"
+import { and, comparison, eq,  inList, } from "rsql-builder";
 require('../scss/layout.scss');
 
 var map;
@@ -142,7 +143,9 @@ class Restaurant{
 class Filters{
     
     selectBox;
-    filters = []
+    filters = {
+        "cookTypes.name" : []
+    }
     restaurantApp;
 
     constructor(restaurantApp){
@@ -204,23 +207,26 @@ class Filters{
         document.addEventListener("click", closeAllSelect); 
     }
 
-    removeFilter(filter){
+    generateRSQL(){
 
-        var index = this.filters.indexOf(filter);
- 
-        if (index > -1) {
-            this.filters.splice(index, 1);
-        }
-        this.triggerFilterChanged()
+        const preparedfilters = []; 
+        for (let [key, value] of Object.entries(this.filters)) {
+            let filt;
+            if(Array.isArray(value)){
+                if(value.length>0){
+                    preparedfilters.push(comparison(key, inList(...value)))
+                }
+            }else{
+                preparedfilters.push(comparison(key, eq(value)))
+            }
+            
+          }
+
+          return and(...preparedfilters);
     }
 
-    addFilter(filter){
-        this.filters.push(filter)
-        this.triggerFilterChanged()
-    }
-    
     triggerFilterChanged(){
-        this.restaurantApp.applyFilters(this.filters)
+        this.restaurantApp.applyFilters(this.generateRSQL())
     }
 
     createSelectItem(text,value){
@@ -235,7 +241,7 @@ class Filters{
             element.innerHTML = `<span>${_this.textContent}</span>`;
             element.classList.add("selected-cook-type")
             element.setAttribute("data-value",_this.getAttribute('data-value'));
-            _self.addFilter(_this.getAttribute('data-value'));
+            _self.filters["cookTypes.name"].push(_this.getAttribute('data-value'))
             element.setAttribute("data-description",_this.textContent);
             var closeIcon = document.createElement('span');
             closeIcon.innerHTML = '&#10005;'
@@ -243,16 +249,22 @@ class Filters{
                 var element = this.parentNode;
                 var text = element.getAttribute('data-description');
                 var value = element.getAttribute('data-value');
-                _self.removeFilter(value);
+
+                var index = _self.filters["cookTypes.name"].indexOf(value);
+                if (index > -1) {
+                    _self.filters["cookTypes.name"].splice(index, 1);
+                }
                 var selectItem = _self.createSelectItem(text,value);
                 
                 _self.selectBox.querySelector('.select-items').appendChild(selectItem)
-            
+                
                 element.parentNode.removeChild(element);
+                _self.triggerFilterChanged()
             })
             element.appendChild(closeIcon);
             document.querySelector('.cook-result').appendChild(element);
             this.parentNode.removeChild(this);
+            _self.triggerFilterChanged()
            
         });
         return c;
@@ -263,6 +275,9 @@ class Filters{
 class RestaurantApp{
     restaurants = [];
     filters = new Filters(this);
+    limit = 10;
+    page = 0;
+
     constructor(){
         this.reload();
     }
@@ -276,12 +291,48 @@ class RestaurantApp{
         })
     }
 
-    applyFilters(filtersArray){
-        this.restaurants.forEach(function(restaurant){
-            
-            restaurant.showHideByFilters(filtersArray);
+    buildGrid(restaurants){
+        const restaurantWrapper = document.createElement('div');
+        restaurantWrapper.innerHTML = restaurants;
+        document.querySelector('.restaurant-list').innerHTML = restaurantWrapper.querySelector('.restaurant-list').innerHTML;
+        this.reload();
+    }
 
-        });
+    applyFilters(filters){
+        
+        const queryData = {
+            "filter" : filters,
+            "page"   : this.page,
+            "limit"  : this.limit
+        }
+        const queryString = Object.keys(queryData).map(key => key + '=' + queryData[key]).join('&');
+        console.log(queryString);
+        
+        var xhr = new XMLHttpRequest();
+        const _self = this;
+        // Setup our listener to process completed requests
+        xhr.onload = function () {
+
+            // Process our return data
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // What do when the request is successful
+                _self.buildGrid(xhr.response);
+            } else {
+                // What do when the request fails
+                console.log('The request failed!');
+            }
+
+            // Code that should run regardless of the request status
+            console.log('This always runs...');
+        };
+
+        // Create and send a GET request
+        // The first argument is the post type (GET, POST, PUT, DELETE, etc.)
+        // The second argument is the endpoint URL
+        xhr.open('GET', '/restaurant?'+queryString);
+        xhr.send();
+
+    
     }
 }
 

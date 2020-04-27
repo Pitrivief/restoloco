@@ -5790,6 +5790,11 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
     hash-base "^3.0.0"
     inherits "^2.0.1"
 
+rsql-builder@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/rsql-builder/-/rsql-builder-1.0.3.tgz#0c2438ff998ff404593c48290d711de6b12824dc"
+  integrity sha512-wU2FP3XqBprtCWRIS0hBQNFC9D9GsYXme3J9Zo20Os4pgbtFSdACHqvSeG/8B7PrhmjilWR6OG2AU5IdPSA4uw==
+
 run-queue@^1.0.0, run-queue@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/run-queue/-/run-queue-1.0.3.tgz#e848396f057d223f24386924618e25694161ec47"

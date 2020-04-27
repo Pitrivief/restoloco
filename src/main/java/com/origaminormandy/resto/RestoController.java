@@ -133,7 +133,7 @@ public class RestoController {
 			return "admin/edit-resto";
 		}
 
-	}
+	} 
 
 	@GetMapping("/admin/edit-resto/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {

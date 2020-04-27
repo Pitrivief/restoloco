@@ -1,0 +1,26 @@
+<div th:fragment="restaurantlist" id="restaurant-list" class="restaurant-list container" >
+				
+	<article class="restaurant-item" th:each="resto : ${restos}" >
+		<div class="restaurant-content">
+			<div class="restaurant-picture">
+
+			</div>
+			
+			<div class="restaurant-description">
+				<div class="restaurant-tags" >
+					<span th:each="cooktype : ${resto.cookTypes}" th:text="${cooktype.description}"></span>
+				</div>
+				<h3 class="restaurant-name" th:text="${resto.name}"></h3>
+				<p class="restaurant-bio" th:text="${resto.bio}"></p>
+				<div class="restaurant-horaire">
+
+				</div>
+				<a class="restaurant-seemap" th:if="${resto.lat != null && resto.lng != null}" th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"   >voir sur la carte</a>
+			</div>
+			<div class="button order">
+				Commander
+			</div>
+		</div>
+	</article>
+	
+</div>
