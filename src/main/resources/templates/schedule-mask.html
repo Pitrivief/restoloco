@@ -1,0 +1,76 @@
+<div th:fragment="schedule-mask">
+					
+					<div class="row">
+						<div >
+							<span class="col-form-label">Edition multiple</span>
+						</div>
+					
+						<label for="schedule-mask-closed" class="col-form-label">Closed ? </label>
+						<div >
+							<input type="checkbox" name="schedule-mask-closed" id="schedule-mask-closed" />
+						</div>
+				
+						<label for="schedule-mask-lunchStart"  class="col-form-label">Midi de</label>
+						<div >
+							<input type="time" id="schedule-mask-lunchStart" />
+						</div>
+						<label for="schedule-mask-lunchEnd" class="col-form-label">à</label>
+						<div >
+							<input type="time" 
+								id="schedule-mask-lunchEnd" />
+						</div>
+					
+						<label for="schedule-mask-dinnerStart"  class="col-form-label">Soir de</label>
+						<div >
+							<input type="time" 
+									id="schedule-mask-dinnerStart" />
+						</div>
+						<label for="schedule-mask-dinnerEnd" class="col-form-label">à</label>
+						<div >
+							<input type="time" 
+								id="schedule-mask-dinnerEnd" />
+						</div>
+						
+						
+						<input type="button" value="Valider mask" onclick="validateMask()" />
+					</div>
+					
+					
+					<div class="row">
+						<label for="schedule-mask-monday" class="col-form-label">L</label>
+						<div >
+							<input type="checkbox" name="schedule-mask-monday" id="schedule-mask-monday"
+								checked />
+						</div>
+						<label for="schedule-mask-tuesday" class="col-form-label">M</label>
+						<div >
+							<input type="checkbox" name="schedule-mask-tuesday" id="schedule-mask-tuesday"
+								checked />
+						</div>
+						<label for="schedule-mask-wednesday" class="col-form-label">M</label>
+						<div >
+							<input type="checkbox" name="schedule-mask-wednesday" id="schedule-mask-wednesday"
+								checked />
+						</div>
+						<label for="schedule-mask-thursday" class="col-form-label">J</label>
+						<div >
+							<input type="checkbox" name="schedule-mask-thursday" id="schedule-mask-thursday"
+								checked />
+						</div>
+						<label for="schedule-mask-friday" class="col-form-label">V</label>
+						<div >
+							<input type="checkbox" name="schedule-mask-friday" id="schedule-mask-friday"
+								checked />
+						</div>
+						<label for="schedule-mask-saturday" class="col-form-label">S</label>
+						<div >
+							<input type="checkbox" name="schedule-mask-saturday"  id="schedule-mask-saturday" 
+								checked />
+						</div>
+						<label for="schedule-mask-sunday" class="col-form-label">D</label>
+						<div >
+							<input type="checkbox" name="schedule-mask-sunday"  id="schedule-mask-sunday" 
+								checked />
+						</div>
+					</div>
+</div>

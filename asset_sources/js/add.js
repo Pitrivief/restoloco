@@ -32,6 +32,35 @@ function addPhoto(){
 }
 window.addPhoto = addPhoto;
 
+function validateMask(){
+	validateMaskDay('monday', '0');
+	validateMaskDay('tuesday', '1');
+	validateMaskDay('wednesday', '2');
+	validateMaskDay('thursday', '3');
+	validateMaskDay('friday', '4');
+	validateMaskDay('saturday', '5');
+	validateMaskDay('sunday', '6');
+
+
+}
+window.validateMask = validateMask;
+
+function validateMaskDay(dayName, dayIndex){
+//	alert(dayIndex + " => " + document.querySelectorAll('.schedule-closed input')[dayIndex].name);
+//	alert(document.querySelectorAll('.schedule-closed input')[dayIndex].checked);
+//	alert(document.getElementById('schedule-mask-closed').checked);
+	if(document.getElementById('schedule-mask-' + dayName).checked){
+		document.querySelectorAll('.schedule-closed input')[dayIndex * 2].checked = document.getElementById('schedule-mask-closed').checked;
+		document.querySelectorAll('.schedule-closed input')[dayIndex * 2 + 1].checked = document.getElementById('schedule-mask-closed').checked;
+		document.querySelectorAll('.schedule-lunch-start input')[dayIndex].value = document.getElementById('schedule-mask-lunchStart' ).value;
+		document.querySelectorAll('.schedule-lunch-end input')[dayIndex].value = document.getElementById('schedule-mask-lunchEnd' ).value;
+		document.querySelectorAll('.schedule-dinner-start input')[dayIndex].value = document.getElementById('schedule-mask-dinnerStart' ).value;
+		document.querySelectorAll('.schedule-dinner-end input')[dayIndex].value = document.getElementById('schedule-mask-dinnerEnd' ).value;
+
+	}
+	
+}
+
 function addContact(){
 	
 
@@ -105,24 +134,33 @@ window.addContact = addContact;
 
 function addLink(){
 	// Get the element
-	var count = document.querySelectorAll('#links input') ? document.querySelectorAll('#links input').length - 1: 0; //-1 => button Ajout Lien
+	var count = document.querySelectorAll('#links .link') ? document.querySelectorAll('#links .link').length : 0; 
 	
 	var elem = document.querySelector('#links').firstElementChild
 	
 	var markup= `
+	<div class="link">
 	<div class="row">
 		<div>
 			
 			<select id="externalLinks${count}.type" name="externalLinks[${count}].type">
-				<option value="Deliveroo" selected="selected">Deliveroo</option>
-				<option value="Uber Eat">Uber Eat</option>
-				<option value="Just-Eat">Just-Eat</option>
+				<option value="ORDER" selected="selected">ORDER</option>
+				<option value="SOCIAL">SOCIAL</option>
 			</select>
+		</div>
+		
+		<label for="subtype" class="col-form-label">Subtype </label>
+		<div>
+			<input type="text" name="externalLinks[${count}].subtype"
+				th:field="*{externalLinks[${count}].subtype}" />
 		</div>
 
 		<label for="fullName" class="col-form-label">Url </label>
 		<div>
 			<input type="text" name="externalLinks[${count}].url" id="externalLinks${count}.url" value="">
+		</div>
+		
+		</div>
 		</div>
 	`;
 

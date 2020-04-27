@@ -120,6 +120,11 @@ public class RestoController {
 	public String editResto(Resto resto) {
 		try {
 
+			
+			System.out.println("size lins" + resto.getExternalLinks());
+			
+		
+			
 			if (resto.getCookTypes() != null) {
 
 				List<CookType> selectedCookTypes = (List<CookType>) cookTypeRepository.findAllById(
@@ -138,10 +143,14 @@ public class RestoController {
 	@GetMapping("/admin/edit-resto/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {
 
+		
+		
+		
 		Iterable<CookType> allCookTypes = cookTypeRepository.findAll();
 		Resto resto = restoRepository.findById(id)
 				.orElseThrow(() -> new IllegalArgumentException("Invalid resto Id:" + id));
 
+		System.out.println("size get lins" + resto.getExternalLinks());
 		model.addAttribute("resto", resto);
 		model.addAttribute("allCookTypes", allCookTypes);
 		return "admin/edit-resto";

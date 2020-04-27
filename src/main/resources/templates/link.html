@@ -1,18 +1,28 @@
 <div th:fragment="link (externalLinks, itemStat)">
 
 	<div class="row">
-		<div >
+	
+		 <input type="hidden" name="linkId"
+				th:field="*{externalLinks[__${itemStat.index}__].id}"/>
+		<div>
 			
-			<select  th:with="linkTypes = ${ {'Deliveroo', 'Uber Eat', 'Just-Eat'} }"
+			<select  th:with="linkTypes = ${ {'ORDER', 'SOCIAL'} }"
 				th:field="*{externalLinks[__${itemStat.index}__].type}">
 				<option th:each="type : ${linkTypes}" th:value="${type}" th:text="${type}" th:selected="${externalLinks[__${itemStat.index}__].type == type}"></option>
 			</select>
 		</div>
+		
+		<label for="subtype" class="col-form-label">Subtype</label>
+		<div>
+			<input type="text" name="subtype"
+				th:field="*{externalLinks[__${itemStat.index}__].subtype}"/>
+		</div>
+		
 
-		<label for="fullName" class="col-form-label">Url </label>
+		<label for="url" class="col-form-label">Url </label>
 		<div >
 			<input type="text" name="url"
-				th:field="*{externalLinks[__${itemStat.index}__].url}" />
+				th:field="*{externalLinks[__${itemStat.index}__].url}"/>
 		</div>
 
 	</div>

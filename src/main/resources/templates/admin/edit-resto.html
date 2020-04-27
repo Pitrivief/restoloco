@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 
-<link href="../static/css/Layout.css" th:href="@{/css/Layout.css}"
+<link href="../static/css/Layout.css" th:href="@{/css/layout.css}"
 	rel="stylesheet" />
 <script async th:attr="src=@{/js/bootstrap.js}"></script>
 
@@ -157,6 +157,9 @@
 
 				</div>
 				<h2>Schedules</h2>
+				<div
+						th:replace="schedule-mask:: schedule-mask">...</div>
+				
 				<div th:each="schedule, index : *{openings}">
 					<div
 						th:include="schedule :: schedule (openings=*{openings},schedule=${schedule},itemStat=${index})">...</div>
@@ -167,7 +170,7 @@
 
 
 				<div id="links">
-					<div th:each="link, index : *{externalLinks}">
+					<div class="link" th:each="link, index : *{externalLinks}">
 						<div
 							th:replace="link :: link (externalLinks=*{externalLinks},itemStat=${index})">...</div>
 					</div>
