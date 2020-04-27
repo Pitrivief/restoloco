@@ -12,8 +12,19 @@
 				</div>
 				<h3 class="restaurant-name" th:text="${resto.name}"></h3>
 				<p class="restaurant-bio" th:text="${resto.bio}"></p>
-				<div class="restaurant-horaire">
-
+				<div class="restaurant-openings" >
+						<h4>Horaires</h4>
+						<div class="opening-day" th:each="opening : ${resto.openings}">
+							<div class="opening-day-name" th:text="${opening.day}"></div>
+							<div class="opening-day-hours" 
+								>
+								<span th:if="!opening.closed">Fermé</span>
+								<span th:if="opening.closed" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+' - '+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
+								<span th:if="opening.closed" th:text="((${opening.dinnerStart  == null})?'':${#temporals.format(opening.dinnerStart, 'HH:mm')}+' - '+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
+							</div>
+							
+						</div>
+					
 				</div>
 				<a class="restaurant-seemap" th:if="${resto.lat != null && resto.lng != null}" th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"   >voir sur la carte</a>
 			</div>

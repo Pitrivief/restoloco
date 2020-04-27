@@ -206,6 +206,25 @@ html, body {
 		.restaurant-bio {
 		  flex: 1;
 		}
+		.restaurant-openings{
+			font-size:0.7em;
+
+			.opening-day-name{
+				flex: 0 0 100px;
+			}
+			.opening-day{
+				display:flex;
+				justify-content: space-between;
+				.opening-day-hours{
+					flex:1;
+					margin-left: 5px;
+					display: flex;
+					span{
+						flex: 0 0 50%
+					}
+				}
+			}
+		}
   
 		.restaurant-seemap {
 		  text-align: right;
