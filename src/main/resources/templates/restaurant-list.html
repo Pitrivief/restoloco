@@ -18,21 +18,21 @@
 							<div class="opening-day-name" th:text="${opening.day}"></div>
 							<div class="opening-day-hours" 
 								>
-								<span th:if="!opening.closed">Fermé</span>
-								<span th:if="opening.closed" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+' - '+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
-								<span th:if="opening.closed" th:text="((${opening.dinnerStart  == null})?'':${#temporals.format(opening.dinnerStart, 'HH:mm')}+' - '+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
+								<span th:if="${ opening.closed == true }">Fermé</span>
+								<span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+' - '+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
+								<span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':${#temporals.format(opening.dinnerStart, 'HH:mm')}+' - '+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
 							</div>
 							
 						</div>
 					
 				</div>
 				<div class="restaurant-links">
-					<a th:each="link : ${resto.externalLinks}" th:if="link.type == 'SOCIAL'" th:href="${link.url}" th:attr="data-link-type=${link.subtype}"> </a>
+					<a th:each="externallink : ${resto.externalLinks}"  th:if="${ #strings.equals(externallink.type , 'SOCIAL')}" th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
+						<i  th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} " class='fa fa-facebook-official'></i>
+					</a>
 				</div>
 				<a class="restaurant-seemap" href="#" th:if="${resto.lat != null && resto.lng != null}" th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"   >
-					<svg class="bi bi-geo-alt" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-					  <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 002 6c0 4.314 6 10 6 10zm0-7a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
-					</svg>
+					<i class="fa fa-map-marker"></i>
 					voir sur la carte
 				</a>
 			</div>
