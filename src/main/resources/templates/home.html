@@ -6,22 +6,48 @@
 
 </head>
 <body>
-	
 	<main layout:fragment="content">
 		<section class="restaurant scrollWrapper">
 			<div class="scrollOffset" id="restaurant-list"></div>
 			<div class="restaurant-filters ">
 				<div class="restaurant-filters-decors"></div>
 				<div class="container">
+					<div class="row">
+						<div class="col">
+							<h2>Qu'est ce qui vous ferait plaisir?</h2>
+						</div>
+					</div>
 					<div class="row cooktypes">
 						<div class="col">
-							<div class="select-box"> 
-							<select  class="cook-select" name="" id=""> 
-								<option th:each="type : ${cookTypes}" th:text="${type.description}" th:attr="value=${type.name}"></option>
-							</select>
+							<div>
+								<div class="select-box"> 
+								<select  class="cook-select" name="" id=""> 
+									<option th:each="type : ${cookTypes}" th:text="${type.description}" th:attr="value=${type.name}"></option>
+								</select>
+								</div>
+							</div>
+							<div class="cook-result">
+							</div>
 						</div>
-						</div>
-						<div class="col cook-result">
+						<div class="col">
+							<div>
+								<label class="checkbox-wrapper">A emporter
+									<input type="checkbox" data-filter-boolean="delivery" >
+									<span class="checkmark"></span>
+								</label>
+							</div>
+							<div>
+								<label class="checkbox-wrapper">Livraison
+									<input type="checkbox" data-filter-boolean="takeAway">
+									<span class="checkmark"></span>
+								 </label>
+							</div>
+							<div>
+								<label class="checkbox-wrapper">Sur place
+									<input type="checkbox" data-filter-boolean="eatOnSite">
+									<span class="checkmark"></span>
+								 </label>
+							</div>
 						</div>
 					</div>
 				</div>

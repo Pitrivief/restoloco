@@ -46,7 +46,7 @@ public class RestoFrontController {
 			){
 			
 	
-		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter),
+		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
 				PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id")));
 		model.addAttribute("restos", restos);
 		return "restaurant-list";
