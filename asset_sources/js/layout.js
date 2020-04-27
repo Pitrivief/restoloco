@@ -76,6 +76,7 @@ class Restaurant{
     
     constructor(tag){
         this.tag = tag
+        const _self = this;
         var data_filters = JSON.parse(tag.getAttribute('data-filters'))
         if(Array.isArray(data_filters)){
             this.filters.concat(data_filters) 
@@ -93,20 +94,23 @@ class Restaurant{
                 this.marker.addTo(window.map).bindPopup(popup);
                 this.marker.off('click');
                 this.marker.on('click',function(){
-                    setSelectedMarker(marker)
+                    setSelectedMarker(_self.marker)
                 })
                 
             }
             tag.querySelector(".restaurant-seemap").addEventListener( 'click', function(e){
                 e.preventDefault();
                 scrollTo(document.querySelector('#restaurant-map'))
-                setSelectedMarker(marker)
+                setSelectedMarker(_self.marker)
                  
             } );
         } 
     }
     getFilters(){
         return this.filters;
+    }
+    remove(){
+        this.marker.remove();
     }
     showHideByFilters(filters){
     
@@ -150,7 +154,25 @@ class Filters{
 
     constructor(restaurantApp){
 
-        this.restaurantApp = restaurantApp
+        this.restaurantApp = restaurantApp;
+        const _self = this;
+        [].slice.call(  document.querySelectorAll("input[data-filter-boolean]") ).forEach( function( input ) {
+            
+            input.addEventListener("change", function(){
+                if(input.checked){
+                    _self.filters[input.getAttribute("data-filter-boolean")] =  1;
+                } 
+                else{
+                    delete _self.filters[input.getAttribute("data-filter-boolean")]
+                }
+                
+                _self.triggerFilterChanged()
+            });
+            
+        })
+
+
+
         this.selectBox =  document.querySelector(".select-box");
         var j, selElmnt, a, b, c;
         /* Look for any elements with the class "custom-select": */
@@ -206,10 +228,11 @@ class Filters{
         then close all select boxes: */
         document.addEventListener("click", closeAllSelect); 
     }
+    
 
     generateRSQL(){
 
-        const preparedfilters = []; 
+        const preparedfilters = [];  
         for (let [key, value] of Object.entries(this.filters)) {
             let filt;
             if(Array.isArray(value)){
@@ -283,6 +306,9 @@ class RestaurantApp{
     }
 
     reload(){
+        this.restaurants.forEach(function(restaurant){
+            restaurant.remove();
+        })
         this.restaurants = [];
         const _self = this;
         [].slice.call( document.querySelectorAll( '.restaurant-item' ) ).forEach( function( restaurantItem ) {
@@ -322,8 +348,6 @@ class RestaurantApp{
                 console.log('The request failed!');
             }
 
-            // Code that should run regardless of the request status
-            console.log('This always runs...');
         };
 
         // Create and send a GET request
@@ -354,8 +378,8 @@ window.onload = function(){
         maxZoom: 19
     }).addTo(window.map);
     
-    window.map.on('click', () => { map.scrollWheelZoom.enable(); removeSelectedMarker()});
-    window.map.on('mouseout', () => { map.scrollWheelZoom.disable();});
+    window.map.on('click', () => { window.map.scrollWheelZoom.enable(); removeSelectedMarker()});
+    window.map.on('mouseout', () => { window.map.scrollWheelZoom.disable();});
     
     
     [].slice.call( document.querySelectorAll( '.menu-item' ) ).forEach( function( menuItem ) {

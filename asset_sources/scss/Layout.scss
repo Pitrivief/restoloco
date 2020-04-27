@@ -224,6 +224,7 @@ html, body {
   }
   
   .restaurant-filters {
+	color: #b8e270;
 	.restaurant-filters-decors{
 		&:before {
 			content: "";
@@ -245,6 +246,7 @@ html, body {
 	.cooktypes{
 		.cook-result{
 			display:flex;
+			flex-wrap: wrap;
 			.selected-cook-type{
 				background-color: #b8e270;
 				color: #53a63c; 
@@ -534,3 +536,71 @@ html, body {
 .select-items div:hover, .same-as-selected {
   background-color: rgba(0, 0, 0, 0.1);
 } 
+
+
+
+
+
+ /* Customize the label (the checkbox-wrapper) */
+ .checkbox-wrapper {
+	display: block;
+	position: relative;
+	padding-left: 35px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	color: #b8e270;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbox-wrapper input {
+	position: absolute;
+	opacity: 0;
+	cursor: pointer;
+	height: 0;
+	width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: #b8e270;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbox-wrapper:hover input ~ .checkmark {
+	background-color: #ccc;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+	content: "";
+	position: absolute;
+	display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbox-wrapper input:checked ~ .checkmark:after {
+	display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbox-wrapper .checkmark:after {
+	left: 9px;
+	top: 5px;
+	width: 5px;
+	height: 10px;
+	border: solid #53a63c;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+  } 
