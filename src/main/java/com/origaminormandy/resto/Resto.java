@@ -18,10 +18,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.origaminormandy.resto.Address.AddressType;
+import java.util.stream.Collectors;
 
 @Entity
 public class Resto {
-
+ 
 	
 	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -215,9 +216,10 @@ public class Resto {
 			
 			return this.addresses.stream().filter(a -> a.getType() == AddressType.DELIVERY).findFirst();
 		}
-		
-		
-	    
-		
+                
+                public List<Link> getOrderLinks(){
+                    
+                    return this.getExternalLinks().stream().filter(link-> Link.LinkType.ORDER.equals(link.getType())).collect(Collectors.toList());
+                }
 	    
 }
