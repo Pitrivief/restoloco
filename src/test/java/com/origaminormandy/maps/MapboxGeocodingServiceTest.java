@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import com.origaminormandy.maps.mapbox.GeocodingException;
 import com.origaminormandy.maps.mapbox.MapboxGeocodingService;
 import com.origaminormandy.resto.Address;
 

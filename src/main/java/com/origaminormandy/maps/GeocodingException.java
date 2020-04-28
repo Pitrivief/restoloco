@@ -1,4 +1,4 @@
-package com.origaminormandy.maps.mapbox;
+package com.origaminormandy.maps;
 
 public class GeocodingException extends Exception {
 

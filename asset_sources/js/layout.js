@@ -1,5 +1,6 @@
 import L from "leaflet"
 import { and, comparison, eq,  inList, } from "rsql-builder";
+import autoComplete from '@tarekraafat/autocomplete.js/dist/js/autoComplete.min.js'
 require('../scss/layout.scss');
 
 var map;
@@ -19,19 +20,99 @@ var SelectedMarkerIcon = L.icon({
 var selectedMarker = null;
 
 
+//autoComplete.js on typing event emitter
+document.querySelector("#autoComplete").addEventListener("autoComplete", event => {
+	console.log(event);
+});
+
+// The autoComplete.js Engine instance creator
+const autoCompletejs = new autoComplete({
+	data: {
+		src: async () => {
+			// Loading placeholder text
+			document
+				.querySelector("#autoComplete")
+				.setAttribute("placeholder", "Loading...");
+			// Fetch External Data Source
+			const query=document.querySelector("#autoComplete").value;
+			const source = await fetch(
+			`/maps/geocode?q=${query}`
+			);
+			const data = await source.json();
+			
+			
+			// Post loading placeholder text
+			document
+				.querySelector("#autoComplete")
+				.setAttribute("placeholder", "Saisissez une adresse");
+			// Returns Fetched data
+			return data;
+		},
+		key: ["label"],
+		cache: false
+	},
+	
+	placeHolder: "Saisissez une adresse",
+	selector: "#autoComplete",
+	threshold: 3,
+	debounce: 300,
+	searchEngine: (query, record) => {
+	     return record;
+	},
+	highlight: false,
+	maxResults: 5,
+	resultsList: {
+		render: true,
+		container: source => {
+      source.setAttribute("id", "autoComplete_list");
+		},
+		destination: document.querySelector("#autoComplete"),
+		position: "afterend",
+		element: "ul"
+	},
+	resultItem: {
+		content: (data, source) => {
+      source.innerHTML = data.value.label;
+		},
+		element: "li"
+	},
+	noResults: () => {
+		const result = document.createElement("li");
+		result.setAttribute("class", "no_result");
+		result.setAttribute("tabindex", "1");
+		result.innerHTML = "No Results";
+		document.querySelector("#autoComplete_list").appendChild(result);
+	},
+	onSelection: feedback => {
+		const selection = feedback.selection.value.food;
+		// Render selected choice to selection div
+		document.querySelector(".selection").innerHTML = selection;
+		// Clear Input
+		document.querySelector("#autoComplete").value = "";
+		// Change placeholder with the selected value
+		document
+			.querySelector("#autoComplete")
+			.setAttribute("placeholder", selection);
+		// Concole log autoComplete data feedback
+		console.log(feedback);
+	}
+});
+
+
+
 
 function resizeDecor(){
 			
     var height = window.innerHeight/2;
     var width = window.innerWidth;
     var degres = Math.atan(height/width)/(Math.PI*2)*360;
-    //console.log(degres)
+    // console.log(degres)
     document.querySelector(".decor .dark-green").style.transform = "rotate(-"+degres+"deg)";
 
 }
 
 function testMenu(){
-     //console.log(document.body.scrollTop)
+     // console.log(document.body.scrollTop)
      if((document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)){
         document.body.classList.add('scrolled');
     }
@@ -54,20 +135,12 @@ function removeSelectedMarker(){
 }
 
 function setSelectedMarker(marker){
-	
 	removeSelectedMarker()
 	marker.setIcon(SelectedMarkerIcon)
 	selectedMarker = marker
-	marker.openPopup()
-	
+	marker.openPopup()	
 }
  
-
-
-
-
-
-
 class Restaurant{
     tag;
     filters = [];
@@ -81,7 +154,7 @@ class Restaurant{
         if(Array.isArray(data_filters)){
             this.filters.concat(data_filters) 
         }
-        
+ 
         
         if(tag.querySelector(".restaurant-seemap") !== null){
             var lat = tag.querySelector(".restaurant-seemap").getAttribute('data-lat');
@@ -133,14 +206,10 @@ class Restaurant{
         this.isShown = show;
         this.tag.classList.toggle("d-none",!show);
        
-       /* if(this.marker !== null){
-            if(show){
-                this.marker.addTo(window.map);
-            }
-            else{
-                this.marker.remove();
-            }
-        }*/
+       /*
+		 * if(this.marker !== null){ if(show){ this.marker.addTo(window.map); }
+		 * else{ this.marker.remove(); } }
+		 */
     }
 }
 
@@ -148,14 +217,21 @@ class Filters{
     
     selectBox;
     filters = {
-        "cookTypes.name" : []
+        "cookTypes.name" : [],
     }
     restaurantApp;
 
     constructor(restaurantApp){
+    	
+    	
+    	
 
         this.restaurantApp = restaurantApp;
         const _self = this;
+        
+        
+        
+        
         [].slice.call(  document.querySelectorAll("input[data-filter-boolean]") ).forEach( function( input ) {
             
             input.addEventListener("change", function(){
@@ -171,32 +247,37 @@ class Filters{
             
         })
 
-
-
         this.selectBox =  document.querySelector(".select-box");
         var j, selElmnt, a, b, c;
         /* Look for any elements with the class "custom-select": */
         
         
         selElmnt = this.selectBox.querySelector("select");
-        /* For each element, create a new DIV that will act as the selected item: */
+        /*
+		 * For each element, create a new DIV that will act as the selected
+		 * item:
+		 */
         a = document.createElement("DIV");
         a.setAttribute("class", "select-selected");
-        a.innerHTML = "Sélectionnez un type de cuisine.";//selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        a.innerHTML = "Sélectionnez un type de cuisine.";// selElmnt.options[selElmnt.selectedIndex].innerHTML;
         this.selectBox.appendChild(a);
         /* For each element, create a new DIV that will contain the option list: */
         b = document.createElement("DIV");
         b.setAttribute("class", "select-items select-hide");
         for (j = 0; j < selElmnt.length; j++) {
-            /* For each option in the original select element,
-            create a new DIV that will act as an option item: */
+            /*
+			 * For each option in the original select element, create a new DIV
+			 * that will act as an option item:
+			 */
             var c =  this.createSelectItem(selElmnt.options[j].innerHTML,selElmnt.options[j].value);
             b.appendChild(c);
         }
         this.selectBox.appendChild(b);
         a.addEventListener("click", function(e) {
-            /* When the select box is clicked, close any other select boxes,
-            and open/close the current select box: */
+            /*
+			 * When the select box is clicked, close any other select boxes, and
+			 * open/close the current select box:
+			 */
             e.stopPropagation();
             closeAllSelect(this);
             this.nextSibling.classList.toggle("select-hide");
@@ -205,8 +286,10 @@ class Filters{
         
     
         function closeAllSelect(elmnt) {
-            /* A function that will close all select boxes in the document,
-            except the current select box: */
+            /*
+			 * A function that will close all select boxes in the document,
+			 * except the current select box:
+			 */
             var x, y, i, arrNo = [];
             x = document.getElementsByClassName("select-items");
             y = document.getElementsByClassName("select-selected");
@@ -224,16 +307,20 @@ class Filters{
             }
         }
     
-        /* If the user clicks anywhere outside the select box,
-        then close all select boxes: */
+        /*
+		 * If the user clicks anywhere outside the select box, then close all
+		 * select boxes:
+		 */
         document.addEventListener("click", closeAllSelect); 
     }
     
 
     generateRSQL(){
-
+    	
         const preparedfilters = [];  
         for (let [key, value] of Object.entries(this.filters)) {
+        	
+        
             let filt;
             if(Array.isArray(value)){
                 if(value.length>0){
@@ -300,9 +387,21 @@ class RestaurantApp{
     filters = new Filters(this);
     limit = 10;
     page = 0;
+    localisation = "";
 
     constructor(){
         this.reload();
+        
+        const _self = this;
+
+        this.addressInput  =  document.querySelector("#filter-address");
+        this.addressInput.addEventListener('change', function(e){
+        	_self.localisation = _self.addressInput.value;
+        	_self.getPossibleAddresses();
+        	
+        	
+        });
+        
     }
 
     reload(){
@@ -323,6 +422,37 @@ class RestaurantApp{
         document.querySelector('.restaurant-list').innerHTML = restaurantWrapper.querySelector('.restaurant-list').innerHTML;
         this.reload();
     }
+    
+    
+    getPossibleAddresses(){
+    	const queryString="q=" + this.localisation;
+    	        
+    	        var xhr = new XMLHttpRequest();
+    	        const _self = this;
+    	        // Setup our listener to process completed requests
+    	        xhr.onload = function () {
+
+    	            // Process our return data
+    	            if (xhr.status >= 200 && xhr.status < 300) {
+    	                // What do when the request is successful
+    	                alert(xhr.response);
+    	            } else {
+    	                // What do when the request fails
+    	                console.log('The request failed!');
+    	            }
+
+    	        };
+
+    	        // Create and send a GET request
+    	        // The first argument is the post type (GET, POST, PUT, DELETE,
+				// etc.)
+    	        // The second argument is the endpoint URL
+    	        xhr.open('GET', '/maps/geocode/?'+queryString);
+    	        xhr.send();
+
+
+    }
+
 
     applyFilters(filters){
         
@@ -331,8 +461,8 @@ class RestaurantApp{
             "page"   : this.page,
             "limit"  : this.limit
         }
-        const queryString = Object.keys(queryData).map(key => key + '=' + queryData[key]).join('&');
-        console.log(queryString);
+        const filterQueryString = Object.keys(queryData).map(key => key + '=' + queryData[key]).join('&');
+        const queryString="localisation="+this.localisation + "&" + filterQueryString;
         
         var xhr = new XMLHttpRequest();
         const _self = this;
@@ -392,11 +522,12 @@ window.onload = function(){
     
 
 
-    /***********************/
+    /** ******************** */
     // Contact
-    /***********************/ 
+    /** ******************** */ 
     (function() {
-        // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+        // trim polyfill :
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
         if (!String.prototype.trim) {
             (function() {
                 // Make sure we trim BOM and NBSP

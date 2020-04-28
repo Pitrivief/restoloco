@@ -32,6 +32,8 @@ function addPhoto(){
 }
 window.addPhoto = addPhoto;
 
+
+
 function validateMask(){
 	validateMaskDay('monday', '0');
 	validateMaskDay('tuesday', '1');
@@ -288,3 +290,22 @@ function addCookType(){
 
 }
 window.addCookType= addCookType;
+
+
+
+
+var x = document.getElementById("demo");
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+
+function showPosition(position) {
+  alert("Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude);
+}
+

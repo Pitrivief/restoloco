@@ -37,6 +37,8 @@ public class RestoFrontController {
 	    return "home";
 	}
 	
+
+	
 	@GetMapping("/restaurant")
 	public String getRestaurant(
 			@RequestParam( name = "filter", defaultValue = "") String filter,

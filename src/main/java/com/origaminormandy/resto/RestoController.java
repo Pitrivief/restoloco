@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.origaminormandy.maps.GeocodingException;
+import com.origaminormandy.maps.GeocodingService;
 import com.origaminormandy.maps.Point;
-import com.origaminormandy.maps.mapbox.GeocodingException;
-import com.origaminormandy.maps.mapbox.MapboxGeocodingService;
 import com.origaminormandy.resto.Address.AddressType;
 
 @Controller
@@ -28,7 +29,8 @@ public class RestoController {
 	private RestoRepository restoRepository;
 	
 	@Autowired
-	private MapboxGeocodingService geocodingService;
+    @Qualifier("gouv")
+	private GeocodingService geocodingService;
 
 	@Autowired
 	private CookTypeRepository cookTypeRepository;
@@ -100,7 +102,7 @@ public class RestoController {
 			
 			if((resto.getLat() == null || resto.getLng() == null) && resto.getDeliveryAddress().isPresent()) {
 				try {
-					Point p = geocodingService.geocode(resto.getDeliveryAddress().get());
+					Point p = geocodingService.geocodeOne(resto.getDeliveryAddress().get());
 					resto.setLat(p.getLat());
 					resto.setLng(p.getLng());
 				} catch (GeocodingException e) {

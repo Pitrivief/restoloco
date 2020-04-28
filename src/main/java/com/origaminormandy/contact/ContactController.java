@@ -40,7 +40,7 @@ public class ContactController {
 
 	}
 
-	@RequestMapping(value = "/contact-ajax", method = RequestMethod.POST)
+	@RequestMapping(value="/contact-ajax", method = RequestMethod.POST)
 	public @ResponseBody Map<String, String> addContacAjax(Contact contact) {
 
 		contactRepository.save(contact);
