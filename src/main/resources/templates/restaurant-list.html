@@ -1,3 +1,4 @@
+
 <div th:fragment="restaurantlist" class="restaurant-list container" >
 				
 	<article class="restaurant-item" th:each="resto : ${restos}" >
@@ -26,21 +27,44 @@
 						</div>
 					
 				</div>
-				<div class="restaurant-links">
-					<a th:each="externallink : ${resto.externalLinks}"  th:if="${ #strings.equals(externallink.type , 'SOCIAL')}" th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
-						<i  th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} " class='fa fa-facebook-official'></i>
-					</a>
+				<div class="restaurant-infos">
+					
+					<div class="restaurant-telephone">
+						<span class="font-weight-bold">Téléphone: </span><a th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
+					</div> 
+					<div class="restaurant-links">
+						<a th:each="externallink : ${resto.externalLinks}"  th:if="${ #strings.equals(externallink.type , 'SOCIAL')}" th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
+							<i  th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} " class="icon-facebook"></i>
+						</a>
+					</div>
 				</div>
+				
 				<a class="restaurant-seemap" href="#" th:if="${resto.lat != null && resto.lng != null}" th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"   >
-					<i class="fa fa-map-marker"></i>
+					<i class="icon-marker"></i>
 					voir sur la carte
 				</a>
 			</div>
-			<div class="button order">
-				<a th:href="'tel:'+${resto.phone}">
-					Commander
-				</a>
-			</div>
+                    <div class="order-links"  >
+                        <div class="external-links" th:if="${ #lists.size(resto.getOrderLinks()) > 0 }">
+                            <label class='external-links-button' th:attr="(for='restoordertrigger'+${restoStat.index})">
+                                    Commander
+                            </label>	
+                            <input class="popup-trigger" th:id="'restoordertrigger'+${restoStat.index}" type="checkbox">
+                            <label class="popup-veil" th:attr="for=('restoordertrigger'+${restoStat.index})"></label>
+                            <div class="links-popup">
+                                <a th:each="externallink : ${resto.getOrderLinks()}"   th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
+                                    <i th:class="'icon-'+  ${ #strings.replace(#strings.toLowerCase(externallink.subtype), ' ', '')}"></i>
+                                    <span th:text="${(externallink.subtype == 'WEBSITE')? 'Site web' :#strings.toLowerCase(externallink.subtype)}"></span>
+                                </a>
+                            </div>
+                         </div>
+                        <div class="phone-links" th:unless="${ #lists.size(resto.getOrderLinks()) > 0 }">
+                            <a th:href="'tel:'+${resto.phone}">
+                                Appeler <span th:text="${resto.phone}"></span>
+                            </a>	
+                            
+                        </div>
+                    </div>
 		</div>
 	</article>
 	

@@ -71,7 +71,7 @@ Encore
         options.sourceComments = 'normal';
         options.outputStyle = 'nested';
     })
-    .copyFiles({
+    .copyFiles([{
          from: './asset_sources/images',
 
          // optional target path, relative to the output dir
@@ -82,7 +82,18 @@ Encore
 
          // only copy files matching this pattern
          pattern: /\.(png|jpg|jpeg)$/
-     })
+     },{
+         from: './asset_sources/fonts',
+
+         // optional target path, relative to the output dir
+         to: 'fonts/[path][name].[ext]',
+
+        // if versioning is enabled, add the file hash too
+         //to: 'images/[path][name].[hash:8].[ext]',
+
+         // only copy files matching this pattern
+         pattern: /\.(svg|ttf|woff)$/
+     }])
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
