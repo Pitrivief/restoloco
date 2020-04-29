@@ -1,8 +1,5 @@
 package com.origaminormandy.resto;
 
-import java.util.List;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -44,12 +41,17 @@ public class RestoFrontController {
 			@RequestParam( name = "filter", defaultValue = "") String filter,
 			@RequestParam( name = "page", defaultValue = "0" ) int page,
 			@RequestParam( name = "limit", defaultValue = "10" ) int limit,
+			@RequestParam( name = "localisation") String localisation,
+			@RequestParam( name = "lat") Double lat,
+			@RequestParam( name = "lng") Double lng,
 			Model model
 			){
 			
 	
+	
 		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
 				PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id")));
+	
 		model.addAttribute("restos", restos);
 		return "restaurant-list";
 		
