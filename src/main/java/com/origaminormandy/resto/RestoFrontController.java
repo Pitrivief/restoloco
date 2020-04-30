@@ -1,8 +1,10 @@
 package com.origaminormandy.resto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ public class RestoFrontController {
 
 	@Autowired
 	private RestoRepository restoRepository;
+	
+
 
 	@Autowired
 	private CookTypeRepository cookTypeRepository;
@@ -28,9 +32,18 @@ public class RestoFrontController {
 	@GetMapping("/")
 	public String home(Model model) {
 			
-		Iterable<RestoDTO> restos = restoRepository.findAllByLatLng();
+
+		//Iterable<Resto> restos = restoRepository.findAll();
 		Iterable<CookType> cookTypes = cookTypeRepository.findAll(); 
-		restos.forEach(r -> System.out.println(r.getDistance() + " distance"));
+		//restos.forEach(r -> System.out.println(r.getName()));
+		
+		List<Resto> restos = restoRepository.custom(null);
+		
+		//List<Resto> restos = new ArrayList<Resto>();
+		restos.forEach(r -> {
+			System.out.println(r.getEmail());
+			//System.out.print(r.getDistance());
+		});
 	     
 	    model.addAttribute("restos", restos);
 	    model.addAttribute("cookTypes", cookTypes);
@@ -51,7 +64,7 @@ public class RestoFrontController {
 			Model model
 			){
 			
-<<<<<<< HEAD
+
                 Node rootNode = new RSQLParser().parse(filter);       
                  System.out.print("ok");
                  System.out.print(rootNode.getClass());
@@ -63,14 +76,10 @@ public class RestoFrontController {
 		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
 				sort);*/
 		model.addAttribute("restos", new ArrayList<Resto>());
-=======
+
 	
+	 
 	
-		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
-				PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id")));
-	
-		model.addAttribute("restos", restos);
->>>>>>> 59126a35654b020352418554cf287f0871844a52
 		return "restaurant-list";
 		
 	}

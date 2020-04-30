@@ -6,13 +6,16 @@ import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
+import javax.persistence.EntityResult;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SqlResultSetMapping;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +24,13 @@ import com.origaminormandy.resto.Address.AddressType;
 import java.util.stream.Collectors;
 
 @Entity
+@SqlResultSetMapping(
+		name="RestoWithDistanceFromUser",
+		entities= @EntityResult(
+				entityClass=Resto.class),
+		columns=@ColumnResult(
+				name="distance", type=Long.class)	
+)
 public class Resto {
  
 	

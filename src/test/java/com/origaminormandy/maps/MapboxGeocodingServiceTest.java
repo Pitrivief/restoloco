@@ -27,7 +27,7 @@ public class MapboxGeocodingServiceTest {
 		a.setPostalCode("14860");
 		a.setNumberAndStreet("28 rue du pays d'auge");
 		
-		Point p = geocodingService.geocode(a);
+		Point p = geocodingService.geocodeOne(a);
 		assertEquals(-0.226915, p.getLng());
 		assertEquals(49.253953, p.getLat());
 	}
