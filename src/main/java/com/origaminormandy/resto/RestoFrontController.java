@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.origaminormandy.contact.Contact;
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.AndNode;
+import cz.jirutka.rsql.parser.ast.Node;
 
 import io.github.perplexhub.rsql.RSQLJPASupport;
+import java.util.ArrayList;
 
 @Controller
 public class RestoFrontController {
@@ -27,9 +31,9 @@ public class RestoFrontController {
 	@GetMapping("/")
 	public String home(Model model) {
 			
-		Iterable<Resto> restos = restoRepository.findAll();
+		Iterable<RestoDTO> restos = restoRepository.findAllByLatLng();
 		Iterable<CookType> cookTypes = cookTypeRepository.findAll(); 
-		restos.forEach(r -> System.out.println(r.getName()));
+		restos.forEach(r -> System.out.println(r.getDistance() + " distance"));
 	     
 	    model.addAttribute("restos", restos);
 	    model.addAttribute("cookTypes", cookTypes);
@@ -47,10 +51,17 @@ public class RestoFrontController {
 			Model model
 			){
 			
-	
+                Node rootNode = new RSQLParser().parse(filter);       
+                 System.out.print("ok");
+                 System.out.print(rootNode.getClass());
+		/*String  lat = "49.185830";
+                String  lng = "-0.375410";
+                Sort sort = Sort.by(Sort.Direction.ASC, "ACOS(COS(RADIANS("+lat+"))*COS(RADIANS(lat))*COS(RADIANS(lng)RADIANS("+lng+"))+SIN(RADIANS("+lat+"))*SIN(RADIANS(lat))");    
+                Sort sort2 = Sort.by(Sort.Direction.ASC, "id");  
+                
 		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
-				PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "id")));
-		model.addAttribute("restos", restos);
+				sort);*/
+		model.addAttribute("restos", new ArrayList<Resto>());
 		return "restaurant-list";
 		
 	}
