@@ -19,6 +19,11 @@ var SelectedMarkerIcon = L.icon({
 });
 var selectedMarker = null;
 
+//**********************************************
+// AUTOCOMPLETE to get user address
+// Use controller route /map/geocode/?q=<Address> to get a list 
+// When user pick an adddres set window.app.localisation (=> RestaurantApp.localisation)
+//**********************************************
 
 //autoComplete.js on typing event emitter
 document.querySelector("#autoComplete").addEventListener("autoComplete", event => {
@@ -84,17 +89,9 @@ const autoCompletejs = new autoComplete({
 		document.querySelector("#autoComplete_list").appendChild(result);
 	},
 	onSelection: feedback => {
-		const selection = feedback.selection.value.food;
-		// Render selected choice to selection div
-		document.querySelector(".selection").innerHTML = selection;
-		// Clear Input
-		document.querySelector("#autoComplete").value = "";
-		// Change placeholder with the selected value
-		document
-			.querySelector("#autoComplete")
-			.setAttribute("placeholder", selection);
-		// Concole log autoComplete data feedback
 		console.log(feedback);
+		const selection = feedback.selection.value;
+		window.app.setLocalisation(selection);
 	}
 });
 
@@ -387,20 +384,12 @@ class RestaurantApp{
     filters = new Filters(this);
     limit = 10;
     page = 0;
-    localisation = "";
+    localisation = null;
 
     constructor(){
         this.reload();
-        
+        this.restoreLocalisationFromStorage();
         const _self = this;
-
-        this.addressInput  =  document.querySelector("#filter-address");
-        this.addressInput.addEventListener('change', function(e){
-        	_self.localisation = _self.addressInput.value;
-        	_self.getPossibleAddresses();
-        	
-        	
-        });
         
     }
 
@@ -423,37 +412,27 @@ class RestaurantApp{
         this.reload();
     }
     
-    
-    getPossibleAddresses(){
-    	const queryString="q=" + this.localisation;
-    	        
-    	        var xhr = new XMLHttpRequest();
-    	        const _self = this;
-    	        // Setup our listener to process completed requests
-    	        xhr.onload = function () {
-
-    	            // Process our return data
-    	            if (xhr.status >= 200 && xhr.status < 300) {
-    	                // What do when the request is successful
-    	                alert(xhr.response);
-    	            } else {
-    	                // What do when the request fails
-    	                console.log('The request failed!');
-    	            }
-
-    	        };
-
-    	        // Create and send a GET request
-    	        // The first argument is the post type (GET, POST, PUT, DELETE,
-				// etc.)
-    	        // The second argument is the endpoint URL
-    	        xhr.open('GET', '/maps/geocode/?'+queryString);
-    	        xhr.send();
-
-
+    //Geocoding  address localisation => autocomplete input
+    setLocalisation(localisation){
+    	this.localisation = localisation;
+    	this.saveLocalisation(localisation);
+    	this.applyFilters(this.filters.generateRSQL());
     }
-
-
+    
+    //Geocoding  address localisation => autocomplete input
+    saveLocalisation(localisation){
+    	localStorage.setItem('localisation', JSON.stringify(localisation));
+    }
+    
+    
+    restoreLocalisationFromStorage(){
+    	console.log("restoreLocalisationFromStorage");
+    	const storeLocalisation = localStorage.getItem('localisation');
+    	if(storeLocalisation !== null)
+    		this.localisation =JSON.parse(storeLocalisation);
+    	document.querySelector("#autoComplete").value = this.localisation.label;
+    }
+    
     applyFilters(filters){
         
         const queryData = {
@@ -462,7 +441,14 @@ class RestaurantApp{
             "limit"  : this.limit
         }
         const filterQueryString = Object.keys(queryData).map(key => key + '=' + queryData[key]).join('&');
-        const queryString="localisation="+this.localisation + "&" + filterQueryString;
+        var queryString;
+        if(this.localisation != null){
+        	const localisationQueryString = "localisation="+this.localisation.label+ "&lng=" +this.localisation.point.lng + "&lat=" +this.localisation.point.lat;
+            queryString=localisationQueryString + "&" + filterQueryString;
+        }else{
+        	queryString=filterQueryString;
+        }
+       
         
         var xhr = new XMLHttpRequest();
         const _self = this;
@@ -560,7 +546,7 @@ window.onload = function(){
         }
     })();   
 
-    new RestaurantApp();
+    window.app=new RestaurantApp();
     resizeDecor()
     testMenu()
 }
