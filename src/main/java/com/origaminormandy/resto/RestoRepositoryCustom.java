@@ -1,16 +1,15 @@
 package com.origaminormandy.resto;
 
 
-import java.util.List;
-
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RestoRepositoryCustom  {
 	
 
-	public List<Resto> custom(Specification s);
+	public Page<RestoDTO> findAllOrderByDistanceFromGeocodePointNative(double lng, double lat, Pageable p);
 
 	
 }
