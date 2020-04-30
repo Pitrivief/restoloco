@@ -15,7 +15,8 @@ public interface RestoRepository extends JpaRepository<Resto, Long>, RestoReposi
 	List<RestoDTO> listRestos();
 	
     /*
-    (((acos(sin(((-0.35)*pi()/180)) * sin((r.lat)*pi()/180))+cos(((-0.35)*pi()/180)) * cos((r.lat)*pi()/180)) * cos((((49.17)- r.lng)*pi()/180))))*180/pi())*60*1.1515)
+    (((acos(sin(((:lat)*pi()/180)) * sin((r.lat*pi()/180))+cos(((:lat)*pi()/180)) * cos((r.lat)*pi()/180)) * cos((((49.17)- r.lng)*pi()/180))))*180/pi())*60*1.1515)
+    (((acos(sin(((:lat)*pi()/180)) * sin((r.lat*pi()/180))+cos(((:lat)*pi()/180)) * cos((r.lat*pi()/180)) * cos((((:lng)- r.lng)*pi()/180))))*180/pi())*60*1.1515)
     */
      @Query(value="SELECT "
              + "new com.origaminormandy.resto.RestoDTO( r ,  (((((acos(sin(((-0.35)*pi()/180)) * sin((r.lat)*pi()/180))+cos(((-0.35)*pi()/180)) * cos((r.lat)*pi()/180)) * cos((((49.17)- r.lng)*pi()/180))))*180/pi())*60*1.1515) as distance) "

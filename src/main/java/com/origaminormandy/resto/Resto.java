@@ -25,11 +25,9 @@ import java.util.stream.Collectors;
 
 @Entity
 @SqlResultSetMapping(
-		name="RestoWithDistanceFromUser",
-		entities= @EntityResult(
-				entityClass=Resto.class),
-		columns=@ColumnResult(
-				name="distance", type=Long.class)	
+    name="RestoWithDistanceFromUser",
+    entities= @EntityResult(entityClass=Resto.class),
+    columns=@ColumnResult(name="distance", type=Long.class)	
 )
 public class Resto {
  

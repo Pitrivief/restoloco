@@ -37,7 +37,7 @@ public class RestoFrontController {
 		Iterable<CookType> cookTypes = cookTypeRepository.findAll(); 
 		//restos.forEach(r -> System.out.println(r.getName()));
 		
-		List<Resto> restos = restoRepository.custom(null);
+		List<Resto> restos = restoRepository.findAll();
 		
 		//List<Resto> restos = new ArrayList<Resto>();
 		restos.forEach(r -> {
@@ -58,16 +58,19 @@ public class RestoFrontController {
 			@RequestParam( name = "filter", defaultValue = "") String filter,
 			@RequestParam( name = "page", defaultValue = "0" ) int page,
 			@RequestParam( name = "limit", defaultValue = "10" ) int limit,
-			@RequestParam( name = "localisation") String localisation,
-			@RequestParam( name = "lat") Double lat,
-			@RequestParam( name = "lng") Double lng,
+			//@RequestParam( name = "localisation") String localisation,
+			//@RequestParam( name = "lat") Double lat,
+			//@RequestParam( name = "lng") Double lng,
 			Model model
 			){
 			
 
-                Node rootNode = new RSQLParser().parse(filter);       
-                 System.out.print("ok");
-                 System.out.print(rootNode.getClass());
+                Node rootNode = new RSQLParser().parse(filter);
+                
+               
+                 System.out.print(rootNode.accept(new RSQLSQLSupport()));
+                 RSQLJPASupport
+                // System.out.print(rootNode.getClass());
 		/*String  lat = "49.185830";
                 String  lng = "-0.375410";
                 Sort sort = Sort.by(Sort.Direction.ASC, "ACOS(COS(RADIANS("+lat+"))*COS(RADIANS(lat))*COS(RADIANS(lng)RADIANS("+lng+"))+SIN(RADIANS("+lat+"))*SIN(RADIANS(lat))");    
@@ -76,9 +79,6 @@ public class RestoFrontController {
 		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
 				sort);*/
 		model.addAttribute("restos", new ArrayList<Resto>());
-
-	
-	 
 	
 		return "restaurant-list";
 		
