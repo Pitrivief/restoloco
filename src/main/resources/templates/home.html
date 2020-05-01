@@ -1,107 +1,104 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorate="~{main-layout}">
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <head>
+        <meta charset="UTF-8">
+        <title>Resto'loco</title>
+    </head>
+    <body>
+        <main layout:fragment="content">
+            <section class="restaurant-wrapper scrollWrapper">
 
-</head>
-<body>
-	<main layout:fragment="content">
-		<section class="restaurant scrollWrapper">
-			<div class="scrollOffset" id="restaurant-list"></div>
-			<div class="restaurant-filters ">
-				<div class="restaurant-filters-decors"></div>
-				<div class="container">
-					<div id="autoComplete_wrapper">
-									<input id="autoComplete" tabindex="1"> 
-								</div>
-					
-					<div class="row">
-						<div class="col">
-							<h2>Qu'est ce qui vous ferait plaisir?</h2>
-						</div>
-					</div>
-					<div class="row cooktypes">
-						<div class="col">
-							<div>
-								<div class="select-box"> 
-								<select  class="cook-select" name="" id=""> 
-									<option th:each="type : ${cookTypes}" th:text="${type.description}" th:attr="value=${type.name}"></option>
-								</select>
-								</div>
-							</div>
-							<div class="cook-result">
-							</div>
-						</div>
-						<div class="col">
-							<div>
-								<label class="checkbox-wrapper">A emporter
-									<input type="checkbox" data-filter-boolean="delivery" >
-									<span class="checkmark"></span>
-								</label>
-							</div>
-							<div>
-								<label class="checkbox-wrapper">Livraison
-									<input type="checkbox" data-filter-boolean="takeAway">
-									<span class="checkmark"></span>
-								 </label>
-							</div>
-							<div>
-								<label class="checkbox-wrapper">Sur place
-									<input type="checkbox" data-filter-boolean="eatOnSite">
-									<span class="checkmark"></span>
-								 </label>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div th:insert="~{restaurant-list :: restaurantlist}"></div>
-			<div class="map-wrapper scrollWrapper">
-				<div class="scrollOffset" id="restaurant-map"></div>
-				<div id="restaurant-map-inner" class="map"></div>
-			</div>
-		</section>
-		<section  class="contact scrollWrapper">
-			<div class="scrollOffset" id="contact"></div>
-			<div class="contact-inner">
-				<h2>Une question?<br>Contactez nous...</h2>
-				
-				<span id="form-contact-error"  class="input input--juro" style="display:none"></span>
-				<span id="form-contact-success" class="input input--juro" style="display:none"></span>
-				<form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact"  >
-				
-			
-					<span id ="form-contact-name" class="input input--juro">
-						<input type="text" class="input__field input__field--juro" id="name"
-							th:field="*{name}"  />
-						<label class="input__label input__label--juro" for="input-1">
-							<span class="input__label-content input__label-content--juro">Nom</span>
-						</label>
-					</span>
-					<span  id="form-contact-email" class="input input--juro">
-						<input type="text" class="input__field input__field--juro" id="email"
-							th:field="*{email}"  />
-						<label class="input__label input__label--juro" for="input-2">
-							<span class="input__label-content input__label-content--juro">Email</span>
-						</label>
-					</span>
-					<span id="form-contact-text" class="input textarea input--juro">
-						<textarea class="input__field input__field--juro" name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
-						<label class="input__label input__label--juro" for="input-3">
-							<span class="input__label-content input__label-content--juro">Message</span>
-						</label>
-					</span>
-					
-					<button type="button" class="btn" onclick="addContact()" >Envoyer</button>
-				</form>
+                <div class="restaurant-filters ">
+                    <div class="restaurant-filters-decors"></div>
+                    <div class="container">
+                        <div id="autoComplete_wrapper">
+                            <input id="autoComplete" tabindex="1"> 
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h2>Qu'est ce qui vous ferait plaisir?</h2>
+                            </div>
+                        </div>
+                        <div class="row cooktypes">
+                            <div class="col">
+                                <div>
+                                    <div class="select-box"> 
+                                        <select  class="cook-select" name="" id=""> 
+                                            <option th:each="type : ${cookTypes}" th:text="${type.description}" th:attr="value=${type.name}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="cook-result">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div>
+                                    <label class="checkbox-wrapper">A emporter
+                                        <input type="checkbox" data-filter-boolean="delivery" >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="checkbox-wrapper">Livraison
+                                        <input type="checkbox" data-filter-boolean="takeAway">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="checkbox-wrapper">Sur place
+                                        <input type="checkbox" data-filter-boolean="eatOnSite">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-wrapper" th:insert="~{restaurant-list :: restaurantlist}"></div>
+                <div class="map-wrapper">
+                    <div class="map" id="restaurant-map-inner"></div>
+                </div>
+            </section>
+            <section  class="contact scrollWrapper">
+                <div class="scrollOffset" id="contact"></div>
+                <div class="contact-inner">
+                    <h2>Une question?<br>Contactez nous...</h2>
 
-				
-			</div>
-		</section>
-	</main>
-	
-	
+                    <span id="form-contact-error"  class="input input--juro" style="display:none"></span>
+                    <span id="form-contact-success" class="input input--juro" style="display:none"></span>
+                    <form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact"  >
 
-</body>
+
+                        <span id ="form-contact-name" class="input input--juro">
+                            <input type="text" class="input__field input__field--juro" id="name"
+                                   th:field="*{name}"  />
+                            <label class="input__label input__label--juro" for="input-1">
+                                <span class="input__label-content input__label-content--juro">Nom</span>
+                            </label>
+                        </span>
+                        <span  id="form-contact-email" class="input input--juro">
+                            <input type="text" class="input__field input__field--juro" id="email"
+                                   th:field="*{email}"  />
+                            <label class="input__label input__label--juro" for="input-2">
+                                <span class="input__label-content input__label-content--juro">Email</span>
+                            </label>
+                        </span>
+                        <span id="form-contact-text" class="input textarea input--juro">
+                            <textarea class="input__field input__field--juro" name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
+                            <label class="input__label input__label--juro" for="input-3">
+                                <span class="input__label-content input__label-content--juro">Message</span>
+                            </label>
+                        </span>
+
+                        <button type="button" class="btn" onclick="addContact()" >Envoyer</button>
+                    </form>
+
+
+                </div>
+            </section>
+        </main>
+
+
+
+    </body>
 </html>

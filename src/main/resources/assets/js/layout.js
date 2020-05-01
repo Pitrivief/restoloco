@@ -98,31 +98,9 @@ const autoCompletejs = new autoComplete({
 
 
 
-function resizeDecor(){
-			
-    var height = window.innerHeight/2;
-    var width = window.innerWidth;
-    var degres = Math.atan(height/width)/(Math.PI*2)*360;
-    // console.log(degres)
-    document.querySelector(".decor .dark-green").style.transform = "rotate(-"+degres+"deg)";
 
-}
 
-function testMenu(){
-     // console.log(document.body.scrollTop)
-     if((document.body.scrollTop > 0 || document.documentElement.scrollTop > 0)){
-        document.body.classList.add('scrolled');
-    }
-    else{
-        document.body.classList.remove('scrolled');
-    }
-}
 
-function scrollTo(element){
-	element.scrollIntoView({ 
-		  behavior: 'smooth' 
-		});
-}
 
 function removeSelectedMarker(){
 	if(selectedMarker != null){
@@ -430,7 +408,7 @@ class RestaurantApp{
     	const storeLocalisation = localStorage.getItem('localisation');
     	if(storeLocalisation !== null)
     		this.localisation =JSON.parse(storeLocalisation);
-    	document.querySelector("#autoComplete").value = this.localisation.label;
+    	//document.querySelector("#autoComplete").value = this.localisation.label;
     }
     
     applyFilters(filters){
@@ -479,10 +457,7 @@ class RestaurantApp{
 
 window.onload = function(){
 
-    window.addEventListener("resize", resizeDecor);
-    window.addEventListener("scroll", function(){
-        testMenu();
-    });
+  
 
     window.map = L.map('restaurant-map-inner').setView([49.1811,-0.3712], 14);
     
@@ -547,8 +522,6 @@ window.onload = function(){
     })();   
 
     window.app=new RestaurantApp();
-    resizeDecor()
-    testMenu()
 }
 
 

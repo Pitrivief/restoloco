@@ -8,7 +8,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('src/main/resources/static/')
+    .setOutputPath('./src/main/resources/static/')
     // public path used by the web server to access the output path
     .setPublicPath('/')
     .configureFilenames({
@@ -27,9 +27,9 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('layout', './asset_sources/js/layout.js')
-    .addEntry('add', './asset_sources/js/add.js')
-    .addEntry('bootstrap', './asset_sources/js/bootstrap.js')
+    .addEntry('layout',     './src/main/resources/assets/js/layout.js')
+    .addEntry('add',        './src/main/resources/assets/js/add.js')
+    .addEntry('bootstrap',  './src/main/resources/assets/js/bootstrap.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
     //.addStyleEntry('layout', './asset_sources/scss/layout.scss')
@@ -72,7 +72,7 @@ Encore
         options.outputStyle = 'nested';
     })
     .copyFiles([{
-         from: './asset_sources/images',
+         from: './src/main/resources/assets/images',
 
          // optional target path, relative to the output dir
          to: 'images/[path][name].[ext]',
@@ -83,7 +83,7 @@ Encore
          // only copy files matching this pattern
          pattern: /\.(png|jpg|jpeg)$/
      },{
-         from: './asset_sources/fonts',
+         from: './src/main/resources/assets/fonts',
 
          // optional target path, relative to the output dir
          to: 'fonts/[path][name].[ext]',

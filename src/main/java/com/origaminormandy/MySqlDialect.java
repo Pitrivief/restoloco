@@ -4,7 +4,6 @@ import org.hibernate.dialect.MySQL57Dialect;
 import org.hibernate.dialect.function.StandardSQLFunction;
 import org.hibernate.type.StandardBasicTypes;
 
-import com.mysql.cj.MysqlType;
 
 public class MySqlDialect extends MySQL57Dialect {
 

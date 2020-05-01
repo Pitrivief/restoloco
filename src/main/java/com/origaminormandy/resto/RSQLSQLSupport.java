@@ -36,32 +36,32 @@ import cz.jirutka.rsql.parser.ast.OrNode;
 public class RSQLSQLSupport extends NoArgRSQLVisitorAdapter<String>{
 	
 	
-	private EntityManager em;
-	private Map<String, Field> fieldsByName;
-	
-	SessionFactory sessionFactory;
+    private EntityManager em;
+    private Map<String, Field> fieldsByName;
+
+    SessionFactory sessionFactory;
     AbstractEntityPersister persister;
 
-	StringBuilder builder = new StringBuilder();
-	private Metamodel metamodel;
-	  // Get a managed type (entity, embeddable or mapped super classes):
-		 private  ManagedType<Resto> restoManagedType;
+    StringBuilder builder = new StringBuilder();
+    private Metamodel metamodel;
+    // Get a managed type (entity, embeddable or mapped super classes):
+    private  ManagedType<Resto> restoManagedType;
 
-		  // Get an entity type:
-		  private EntityType<Resto> restoEntityType;
-		private Attribute<? super Resto, ?> a;
-	
-	public RSQLSQLSupport(EntityManager em ) {
-		this.em = em;
-		this.metamodel = em.getMetamodel();
-		this.restoManagedType = metamodel.managedType(Resto.class);
-		this.restoEntityType = metamodel.entity(Resto.class);
-		sessionFactory = em.getEntityManagerFactory().unwrap(SessionFactory.class);
-		persister = ((AbstractEntityPersister)sessionFactory.getClassMetadata(Resto.class));
-		
-		fieldsByName = Arrays.stream(Resto.class.getDeclaredFields()).collect(Collectors.toMap(Field::getName, 
-				Function.identity()));
-	}
+    // Get an entity type:
+    private EntityType<Resto> restoEntityType;
+    private Attribute<? super Resto, ?> a;
+
+    public RSQLSQLSupport(EntityManager em ) {
+            this.em = em;
+            this.metamodel = em.getMetamodel();
+            this.restoManagedType = metamodel.managedType(Resto.class);
+            this.restoEntityType = metamodel.entity(Resto.class);
+            sessionFactory = em.getEntityManagerFactory().unwrap(SessionFactory.class);
+            persister = ((AbstractEntityPersister)sessionFactory.getClassMetadata(Resto.class));
+
+            fieldsByName = Arrays.stream(Resto.class.getDeclaredFields()).collect(Collectors.toMap(Field::getName, 
+                            Function.identity()));
+    }
 
 	
 	
