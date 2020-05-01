@@ -3,6 +3,7 @@ package com.origaminormandy.resto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.validation.constraints.Max;
@@ -21,7 +24,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.origaminormandy.resto.Address.AddressType;
-import java.util.stream.Collectors;
 
 @Entity
 @SqlResultSetMapping(
@@ -29,6 +31,8 @@ import java.util.stream.Collectors;
     entities= @EntityResult(entityClass=Resto.class),
     columns=@ColumnResult(name="distance", type=Long.class)	
 )
+
+
 public class Resto {
  
 	
