@@ -75,7 +75,9 @@ public class RestoFrontController {
                 Node rootNode = new RSQLParser().parse(filter);
                 
                
-                 System.out.print(rootNode.accept(new RSQLSQLSupport()));
+                
+             
+                 //System.out.print(rootNode.accept(new RSQLSQLSupport()));
                 // System.out.print(rootNode.getClass());
 		/*String  lat = "49.185830";
                 String  lng = "-0.375410";
@@ -86,7 +88,7 @@ public class RestoFrontController {
 				sort);*/
 	
 	
-
+                 
 	
                  
                 Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePoint(lng,  lat, pageable);

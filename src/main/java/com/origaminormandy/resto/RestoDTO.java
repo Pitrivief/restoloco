@@ -18,6 +18,12 @@ public class RestoDTO {
     private Resto resto;
         
     private Double distance;
+    
+    public RestoDTO(Resto resto, @Nullable Long distanceInMeter) {
+        this.resto = resto;
+        if(distanceInMeter != null)
+        	this.distance = distanceInMeter / 1000.0;
+    }
 
     public RestoDTO(Resto resto, @Nullable Double distance) {
         this.resto = resto;
