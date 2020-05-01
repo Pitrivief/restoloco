@@ -29,7 +29,7 @@ public class RestoController {
 	private RestoRepository restoRepository;
 	
 	@Autowired
-    @Qualifier("gouv")
+        @Qualifier("gouv")
 	private GeocodingService geocodingService;
 
 	@Autowired

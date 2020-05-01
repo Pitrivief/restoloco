@@ -9,14 +9,13 @@ import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.NoArgRSQLVisitorAdapter;
 import cz.jirutka.rsql.parser.ast.OrNode;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
  *
  * @author t_ripoll
  */
-public class RSQLSQLSupport<String> extends NoArgRSQLVisitorAdapter<String>{
+public class RSQLSQLSupport extends NoArgRSQLVisitorAdapter<String>{
 
     @Override
     public String visit(AndNode node) {

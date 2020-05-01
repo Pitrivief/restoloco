@@ -36,3 +36,9 @@ build/
 /uploaded-images
 
 nb-configuration.xml
+src/main/resources/assets/.DS_Store
+src/main/resources/assets/images/.DS_Store
+
+
+
+
