@@ -11,19 +11,29 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.attoparser.ParsingProcessingInstructionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.support.PageableExecutionUtils;
 
 public class RestoRepositoryImpl implements RestoRepositoryCustom {
 
 	@Autowired
 	private EntityManager em;
-
+	
+	
+	@Override
 	public Page<RestoDTO> findAllOrderByDistanceFromGeocodePointNative(double lng, double lat, Pageable p) {
+	
+		return findAllOrderByDistanceFromGeocodePointNative(lng, lat, null, p);
+	}
+
+	public Page<RestoDTO> findAllOrderByDistanceFromGeocodePointNative(double lng, double lat,Specification spec, Pageable p) {
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Object> cq = cb.createQuery();
@@ -46,23 +56,40 @@ public class RestoRepositoryImpl implements RestoRepositoryCustom {
 
 		cq.multiselect(resto1, distanceFunction);
 		cq.orderBy(cb.asc(distanceFunction));
+		
+		if(spec != null) {
+			System.out.println("apply spec " + spec);
+			Predicate filtersPredicate = spec.toPredicate(resto1, cq, cb);
+			cq.where(filtersPredicate);
+		}
+			
 
 		Query q1 = em.createQuery(cq);
+		
 		// EntityGraph eg = em.getEntityGraph("Resto.all");
 		// q1.setHint("javax.persistence.fetchgraph", eg);
 		q1.setMaxResults(p.getPageSize());
 		q1.setFirstResult((int) p.getOffset());
 		q1.setParameter(lngParam, lng);
 		q1.setParameter(latParam, lat);
+		
 		List<Object[]> objects = q1.getResultList();
 
 		List<Long> ids = new ArrayList<>();
+		List<RestoDTO> restos = new ArrayList<>();
+
 		objects.forEach(objectArray -> {
 			Resto r = (Resto) objectArray[0];
 			ids.add(r.getId());
-		});
-		System.out.println("ids " + ids.size());
+			Long distanceInMeter = (Long) objectArray[1];
+			restos.add(new RestoDTO(r, distanceInMeter));
 
+		});
+		
+		if(ids.size() == 0) {
+			return PageableExecutionUtils.getPage(restos, p, () -> executeCountQuery(lng, lat));
+		}
+		
 		cq = cb.createQuery();
 		resto1 = cq.from(Resto.class);
 		resto1.fetch("openings", JoinType.LEFT);
@@ -101,20 +128,7 @@ public class RestoRepositoryImpl implements RestoRepositoryCustom {
 		 * q.getResultList();
 		 * 
 		 */
-		List<RestoDTO> restos = new ArrayList<>();
-		objects.forEach(o -> {
-			Resto r = (Resto) o[0];
-			Long distanceInMeter = (Long) o[1];
-			Double distanceInKm = null;
-			if (distanceInMeter != null) {
-				distanceInKm = distanceInMeter / 1000.0;
-			}
-			System.out.println("Link size " + r.getExternalLinks().size());
-			System.out.println("Link size " + r.getCookTypes().size());
-			System.out.println("Link size " + r.getAddresses().size());
-			System.out.println("Link size " + r.getOpenings().size());
-			restos.add(new RestoDTO(r, distanceInKm));
-		});
+	
 
 		return PageableExecutionUtils.getPage(restos, p, () -> executeCountQuery(lng, lat));
 
@@ -125,5 +139,7 @@ public class RestoRepositoryImpl implements RestoRepositoryCustom {
 		Query q = em.createNativeQuery("select count(*) from resto r");
 		return ((BigInteger) q.getSingleResult()).longValue();
 	}
+
+	
 
 }

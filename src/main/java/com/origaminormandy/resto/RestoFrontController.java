@@ -2,7 +2,6 @@ package com.origaminormandy.resto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +14,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.origaminormandy.contact.Contact;
+import com.origaminormandy.maps.GeocodingAddress;
+import com.origaminormandy.maps.GeocodingPointSimpleImpl;
+import com.origaminormandy.maps.Point;
 
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
+import io.github.perplexhub.rsql.RSQLJPAPredicateConverter;
+import io.github.perplexhub.rsql.RSQLJPASupport;
 
 @Controller
 public class RestoFrontController {
 
 	@Autowired
 	private RestoRepository restoRepository;
+
 	
-
-
+	
+	public GeocodingAddress getDefaultLocalisation() {
+		GeocodingAddress a = new GeocodingAddress();
+		
+				//49.1811824,-0.3727734
+		a.setPoint(new GeocodingPointSimpleImpl(-0.372773, 49.1811824));
+		a.setLabel("Hotel de ville, 14000 Caen");
+		a.setStreetAndNumber("Hotel de ville");
+		a.setCity("Caen");
+		a.setPostCode("14000");
+		return a;
+	}
+	
 	@Autowired
 	private CookTypeRepository cookTypeRepository;
 	
@@ -38,9 +54,8 @@ public class RestoFrontController {
 		Iterable<CookType> cookTypes = cookTypeRepository.findAll(); 
 		//restos.forEach(r -> System.out.println(r.getName()));
 		
-
-		
-		Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(-0.35,  49.17, pageable);
+		GeocodingAddress a = getDefaultLocalisation();
+		Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(a.getPoint().getLng(),  a.getPoint().getLat(), pageable);
 		
 		List<RestoDTO> restos = restosPage.getContent();
 		//List<Resto> restos = new ArrayList<Resto>();
@@ -63,16 +78,16 @@ public class RestoFrontController {
 			@RequestParam( name = "filter", defaultValue = "") String filter,
 			@RequestParam( name = "page", defaultValue = "0" ) int page,
 			@RequestParam( name = "limit", defaultValue = "10" ) int limit,
-			@RequestParam( name = "localisation") String localisation,
-			@RequestParam( name = "lat") Double lat,
-			@RequestParam( name = "lng") Double lng,
+			@RequestParam( name = "localisation", required=false) String localisation,
+			@RequestParam( name = "lat", required=false) Double lat,
+			@RequestParam( name = "lng", required=false) Double lng,
 			@PageableDefault(page = 0, size = 20) Pageable pageable,
 			Model model
 			){
 			
 
 
-                Node rootNode = new RSQLParser().parse(filter);
+               // Node rootNode = new RSQLParser().parse(filter);
                 
                
                 
@@ -86,12 +101,16 @@ public class RestoFrontController {
                 
 		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
 				sort);*/
-	
-	
-                 
-	
-                 
-                Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePoint(lng,  lat, pageable);
+				if(localisation == null) {
+					GeocodingAddress a = getDefaultLocalisation();
+					localisation = a.getLabel();
+					lng = a.getPoint().getLng();
+					lat = a.getPoint().getLat();
+				}
+				
+				
+				System.out.println("filter " + filter);
+                Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(lng,  lat,RSQLJPASupport.toSpecification(filter, true), pageable);
          		
          		List<RestoDTO> restos = restosPage.getContent();
          		//List<Resto> restos = new ArrayList<Resto>();
