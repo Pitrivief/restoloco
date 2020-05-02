@@ -115,7 +115,7 @@ public class RestoFrontController {
          			System.out.print(r.getDistance());
          		});
          	     
-		model.addAttribute("restos", new ArrayList<Resto>());
+		model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));
 
 		return "restaurant-list";
 		
