@@ -7,95 +7,55 @@
     <body>
         <main layout:fragment="content">
             <section class="restaurant-wrapper scrollWrapper">
-
-                <div class="restaurant-filters ">
-                    <div class="restaurant-filters-decors"></div>
-                    <div class="container">
-                        <div id="autoComplete_wrapper">
-                            <input id="autoComplete" tabindex="1"> 
+                <div class="list-wrapper">
+                    <div class="restaurant-filters ">
+                        <h2>Qu'est ce qui vous ferait plaisir?</h2>
+                        <div id="autoComplete_wrapper" class="dropdown-wrapper">
+                            <input id="autoComplete"  tabindex="1"> 
                         </div>
-                        <div class="row">
-                            <div class="col">
-                                <h2>Qu'est ce qui vous ferait plaisir?</h2>
+                        <div class="cooktypes">
+                            <div class="select-box dropdown-wrapper"> 
+                                <select  class="cook-select" name="" id=""> 
+                                    <option th:each="type : ${cookTypes}" th:text="${ #strings.toLowerCase(type.description)}" th:attr="value=${type.name}"></option>
+                                </select>
                             </div>
                         </div>
-                        <div class="row cooktypes">
-                            <div class="col">
-                                <div>
-                                    <div class="select-box"> 
-                                        <select  class="cook-select" name="" id=""> 
-                                            <option th:each="type : ${cookTypes}" th:text="${type.description}" th:attr="value=${type.name}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="cook-result">
-                                </div>
+                        <div class="eating-types">
+                            <div>
+                                <label class="checkbox-wrapper">A emporter
+                                    <input type="checkbox" data-filter-boolean="delivery" >
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
-                            <div class="col">
-                                <div>
-                                    <label class="checkbox-wrapper">A emporter
-                                        <input type="checkbox" data-filter-boolean="delivery" >
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label class="checkbox-wrapper">Livraison
-                                        <input type="checkbox" data-filter-boolean="takeAway">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div>
-                                    <label class="checkbox-wrapper">Sur place
-                                        <input type="checkbox" data-filter-boolean="eatOnSite">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
+                            <div>
+                                <label class="checkbox-wrapper">Livraison
+                                    <input type="checkbox" data-filter-boolean="takeAway">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div>
+                                <label class="checkbox-wrapper">Sur place
+                                    <input type="checkbox" data-filter-boolean="eatOnSite">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                     </div>
+                    <div th:insert="~{restaurant-list :: restaurantlist}"></div>
                 </div>
-                <div class="list-wrapper" th:insert="~{restaurant-list :: restaurantlist}"></div>
                 <div class="map-wrapper">
                     <div class="map" id="restaurant-map-inner"></div>
                 </div>
             </section>
-            <section  class="contact scrollWrapper">
-                <div class="scrollOffset" id="contact"></div>
-                <div class="contact-inner">
-                    <h2>Une question?<br>Contactez nous...</h2>
-
-                    <span id="form-contact-error"  class="input input--juro" style="display:none"></span>
-                    <span id="form-contact-success" class="input input--juro" style="display:none"></span>
-                    <form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact"  >
-
-
-                        <span id ="form-contact-name" class="input input--juro">
-                            <input type="text" class="input__field input__field--juro" id="name"
-                                   th:field="*{name}"  />
-                            <label class="input__label input__label--juro" for="input-1">
-                                <span class="input__label-content input__label-content--juro">Nom</span>
-                            </label>
-                        </span>
-                        <span  id="form-contact-email" class="input input--juro">
-                            <input type="text" class="input__field input__field--juro" id="email"
-                                   th:field="*{email}"  />
-                            <label class="input__label input__label--juro" for="input-2">
-                                <span class="input__label-content input__label-content--juro">Email</span>
-                            </label>
-                        </span>
-                        <span id="form-contact-text" class="input textarea input--juro">
-                            <textarea class="input__field input__field--juro" name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
-                            <label class="input__label input__label--juro" for="input-3">
-                                <span class="input__label-content input__label-content--juro">Message</span>
-                            </label>
-                        </span>
-
-                        <button type="button" class="btn" onclick="addContact()" >Envoyer</button>
-                    </form>
-
-
+            <div class="big-footer">
+                <div class="about-us container">
+                    <p class="about-us-content ">
+                        Resto‘Loco, la nouvelle référence pour trouver votre restaurant proposant des plats à emporter ou en livraison à Caen et son agglomération.<br> 
+                        Vous y trouverez différents types de cuisine, les jours et horaires d’ouverture, ainsi que leur localisation. <br>
+                        Un petit creux? C’est parti !
+                    </p>
                 </div>
-            </section>
+            </div>
         </main>
 
 

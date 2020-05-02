@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.origaminormandy.contact.Contact;
 import com.origaminormandy.maps.GeocodingAddress;
 import com.origaminormandy.maps.GeocodingPointSimpleImpl;
-import com.origaminormandy.maps.Point;
-
-import cz.jirutka.rsql.parser.RSQLParser;
-import cz.jirutka.rsql.parser.ast.Node;
-import io.github.perplexhub.rsql.RSQLJPAPredicateConverter;
 import io.github.perplexhub.rsql.RSQLJPASupport;
 
 @Controller
@@ -110,7 +105,7 @@ public class RestoFrontController {
 				
 				
 				System.out.println("filter " + filter);
-                Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(lng,  lat,RSQLJPASupport.toSpecification(filter, true), pageable);
+                Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(lng,  lat, RSQLJPASupport.toSpecification(filter, true), pageable);
          		
          		List<RestoDTO> restos = restosPage.getContent();
          		//List<Resto> restos = new ArrayList<Resto>();
@@ -120,7 +115,7 @@ public class RestoFrontController {
          			System.out.print(r.getDistance());
          		});
          	     
-		model.addAttribute("restos", new ArrayList<Resto>());
+		model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));
 
 		return "restaurant-list";
 		

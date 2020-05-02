@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <section th:fragment="contactForm" class="contact scrollWrapper">
+                <div class="scrollOffset" id="contact"></div>
+                <div class="contact-inner">
+                    <h2>Une question?<br>Contactez nous...</h2>
+
+                    <span id="form-contact-error"  class="input input--juro" style="display:none"></span>
+                    <span id="form-contact-success" class="input input--juro" style="display:none"></span>
+                    <form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact"  >
+
+
+                        <span id ="form-contact-name" class="input input--juro">
+                            <input type="text" class="input__field input__field--juro" id="name"
+                                   th:field="*{name}"  />
+                            <label class="input__label input__label--juro" for="input-1">
+                                <span class="input__label-content input__label-content--juro">Nom</span>
+                            </label>
+                        </span>
+                        <span  id="form-contact-email" class="input input--juro">
+                            <input type="text" class="input__field input__field--juro" id="email"
+                                   th:field="*{email}"  />
+                            <label class="input__label input__label--juro" for="input-2">
+                                <span class="input__label-content input__label-content--juro">Email</span>
+                            </label>
+                        </span>
+                        <span id="form-contact-text" class="input textarea input--juro">
+                            <textarea class="input__field input__field--juro" name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
+                            <label class="input__label input__label--juro" for="input-3">
+                                <span class="input__label-content input__label-content--juro">Message</span>
+                            </label>
+                        </span>
+
+                        <button type="button" class="btn" onclick="addContact()" >Envoyer</button>
+                    </form>
+
+
+                </div>
+            </section>
+    </body>
+</html>
