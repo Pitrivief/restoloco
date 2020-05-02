@@ -57,10 +57,9 @@ public class RestoRepositoryImpl implements RestoRepositoryCustom {
 
 		cq.multiselect(resto1, distanceFunction);
 		cq.orderBy(cb.asc(distanceFunction));
-		
-		if(spec != null) {
+		Predicate filtersPredicate = spec.toPredicate(resto1, cq, cb);
+		if(filtersPredicate != null) {
 			System.out.println("apply spec " + spec);
-			Predicate filtersPredicate = spec.toPredicate(resto1, cq, cb);
 			cq.where(filtersPredicate);
 		}
 			

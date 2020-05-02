@@ -399,9 +399,12 @@ class RestaurantApp {
     applyFilters(filters) {
 
         const queryData = {
-            "filter": filters,
+            
             "page": this.page,
             "limit": this.limit
+        }
+        if(Object.keys(filters).length> 0){
+            queryData.filter = filters;
         }
         const filterQueryString = Object.keys(queryData).map(key => key + '=' + queryData[key]).join('&');
         var queryString;
