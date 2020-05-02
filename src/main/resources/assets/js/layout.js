@@ -320,16 +320,23 @@ class Filters {
     }
 
     createSelectItem(text, value) {
-
+        var _self = this;
         var c = document.createElement("DIV");
         c.classList.add('selectItem');
         c.setAttribute("data-value", value);
         c.innerHTML = text + "<div class='checkmark'></div>";
         c.addEventListener("click", function (e) {
-
+            const value = this.getAttribute('data-value');
+            if(this.classList.contains('selected')){
+                 var index = _self.filters["cookTypes.name"].indexOf(value);
+                if (index > -1) {
+                    _self.filters["cookTypes.name"].splice(index, 1);
+                }
+            }else{
+               _self.filters["cookTypes.name"].push(value) 
+            }
             this.classList.toggle('selected');
-
-
+            _self.triggerFilterChanged();
         });
         return c;
 
