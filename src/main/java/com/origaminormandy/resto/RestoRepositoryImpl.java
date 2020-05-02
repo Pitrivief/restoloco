@@ -33,6 +33,7 @@ public class RestoRepositoryImpl implements RestoRepositoryCustom {
 		return findAllOrderByDistanceFromGeocodePointNative(lng, lat, null, p);
 	}
 
+        @Override
 	public Page<RestoDTO> findAllOrderByDistanceFromGeocodePointNative(double lng, double lat,Specification spec, Pageable p) {
 
 		CriteriaBuilder cb = em.getCriteriaBuilder();

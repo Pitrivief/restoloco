@@ -234,7 +234,7 @@ class Filters{
 		 */
         a = document.createElement("DIV");
         a.setAttribute("class", "select-selected");
-        a.innerHTML = "Sélectionnez un type de cuisine.";// selElmnt.options[selElmnt.selectedIndex].innerHTML;
+        a.innerHTML = "Sélectionnez le type de cuisine.";// selElmnt.options[selElmnt.selectedIndex].innerHTML;
         this.selectBox.appendChild(a);
         /* For each element, create a new DIV that will contain the option list: */
         b = document.createElement("DIV");
@@ -254,7 +254,7 @@ class Filters{
 			 * open/close the current select box:
 			 */
             e.stopPropagation();
-            closeAllSelect(this);
+            //closeAllSelect(this);
             this.nextSibling.classList.toggle("select-hide");
             this.classList.toggle("select-arrow-active");
         });
@@ -265,6 +265,10 @@ class Filters{
 			 * A function that will close all select boxes in the document,
 			 * except the current select box:
 			 */
+            console.log(elmnt)            
+            if(elmnt.target.closest('.select-box')!==null){
+                return;
+            }
             var x, y, i, arrNo = [];
             x = document.getElementsByClassName("select-items");
             y = document.getElementsByClassName("select-selected");
@@ -317,39 +321,13 @@ class Filters{
     createSelectItem(text,value){
        
         var c = document.createElement("DIV");
-        const _self = this;
-        c.setAttribute("data-value",value)
-        c.innerHTML = text;
+        c.classList.add('selectItem');
+        c.setAttribute("data-value",value);
+        c.innerHTML = text+"<div class='checkmark'></div>";
         c.addEventListener("click", function(e) {
-            var _this = this;
-            var element = document.createElement('div');
-            element.innerHTML = `<span>${_this.textContent}</span>`;
-            element.classList.add("selected-cook-type")
-            element.setAttribute("data-value",_this.getAttribute('data-value'));
-            _self.filters["cookTypes.name"].push(_this.getAttribute('data-value'))
-            element.setAttribute("data-description",_this.textContent);
-            var closeIcon = document.createElement('span');
-            closeIcon.innerHTML = '&#10005;'
-            closeIcon.addEventListener('click',function(){
-                var element = this.parentNode;
-                var text = element.getAttribute('data-description');
-                var value = element.getAttribute('data-value');
-
-                var index = _self.filters["cookTypes.name"].indexOf(value);
-                if (index > -1) {
-                    _self.filters["cookTypes.name"].splice(index, 1);
-                }
-                var selectItem = _self.createSelectItem(text,value);
-                
-                _self.selectBox.querySelector('.select-items').appendChild(selectItem)
-                
-                element.parentNode.removeChild(element);
-                _self.triggerFilterChanged()
-            })
-            element.appendChild(closeIcon);
-            document.querySelector('.cook-result').appendChild(element);
-            this.parentNode.removeChild(this);
-            _self.triggerFilterChanged()
+            
+            this.classList.toggle('selected');
+           
            
         });
         return c;
