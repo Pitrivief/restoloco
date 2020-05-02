@@ -2,33 +2,9 @@
 @import "~bootstrap";
 @import "./icon.css";
 
-@import "~@tarekraafat/autocomplete.js/dist/css/autoComplete.css";
+//@import "~@tarekraafat/autocomplete.js/dist/css/autoComplete.css";
 
-#autoComplete_list {
-    position: absolute;
-    background-color: white;
-}
 
-#autoComplete {
-    position: relative;
-    padding: 0 2rem 0 3.5rem;
-    height: 2.1rem;
-    width: 200px;
-    font-size: 1.2rem;
-    outline: none;
-    border-radius: 50rem;
-    border: 0.05rem solid rgb(255, 122, 122);
-    caret-color: rgb(255, 122, 122);
-    color: rgba(255, 255, 255, 0);
-    /*background-image: url(./images/magnifier.svg);
-    background-repeat: no-repeat;
-    background-size: 1.2rem;
-    background-origin: border-box;
-    background-position: center;
-    transition: all 0.4s ease;
-    -webkit-transition: all -webkit-transform 0.4s ease;
-    text-overflow: ellipsis;*/
-}
 header {
     width: 100%;
     position: relative;
@@ -489,7 +465,7 @@ footer {
 }
 
 .input__label--juro::before {
-    content: '';
+    content: '';    
     position: absolute;
     top: 0;
     left: 0;
@@ -562,12 +538,8 @@ footer {
         }
     }
 
-    /* Style the arrow inside the select element: */
-
-    /* Point the arrow upwards when the select box is open (active): */
-
-    /* style the items (options), including the selected item: */
-
+}
+.dropdown-wrapper{
     .select-items {
         position: absolute;
         background-color: white;
@@ -579,6 +551,10 @@ footer {
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
 
+        /* Hide the items when the select box is closed: */
+        &.select-hide {
+            display: none;
+        }
         &:before {
             content: "";
             width: 20px;
@@ -633,13 +609,57 @@ footer {
 
 
 
-/* Hide the items when the select box is closed: */
 
-.select-hide {
-    display: none;
+
+#autoComplete_wrapper{
+    position: relative;
+    display: inline-block;
+    &:before{
+        content: "\e904";
+        font-family: 'icomoon' !important;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        position:absolute;
+        z-index:10;
+        left:15px;  
+        top:50%;
+        transform: translateY(-50%)
+
+    }
+}
+#autoComplete_list {
+
+    .autoComplete_selected{
+        background-color: lightgray;
+    }
+
 }
 
+#autoComplete {
+    position: relative;
+    padding: 8px 8px 8px 2.5rem;
+    font-size: 1rem;
+    border-radius: 50rem;
+    border: 1px solid lightgray;
+    transition: none;
 
+    /*background-image: url(./images/magnifier.svg);
+    background-repeat: no-repeat;
+    background-size: 1.2rem;
+    background-origin: border-box;
+    background-position: center;
+    transition: all 0.4s ease;
+    -webkit-transition: all -webkit-transform 0.4s ease;
+    text-overflow: ellipsis;*/
+}
 
 
 
