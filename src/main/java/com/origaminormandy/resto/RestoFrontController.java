@@ -50,7 +50,7 @@ public class RestoFrontController {
 		//restos.forEach(r -> System.out.println(r.getName()));
 		
 		GeocodingAddress a = getDefaultLocalisation();
-		Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(a.getPoint().getLng(),  a.getPoint().getLat(), pageable);
+		Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(a.getPoint().getLng(),  a.getPoint().getLat(), RSQLJPASupport.toSpecification("", true), pageable);
 		
 		List<RestoDTO> restos = restosPage.getContent();
 		//List<Resto> restos = new ArrayList<Resto>();
