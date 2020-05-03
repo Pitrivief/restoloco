@@ -158,7 +158,12 @@ class Restaurant {
             }
             tag.querySelector(".restaurant-seemap").addEventListener('click', function (e) {
                 e.preventDefault();
-                scrollTo(document.querySelector('#restaurant-map'))
+                var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
+                    if(testElement){
+                        testElement.classList.remove('selected')
+                    }
+                    
+                    _self.tag.classList.add('selected');
                 setSelectedMarker(_self.marker)
 
             });
