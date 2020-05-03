@@ -2,6 +2,7 @@ package com.origaminormandy.resto;
 
 import java.sql.Time;
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.OffsetTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -26,7 +27,7 @@ public class Schedule {
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
         
-        static Integer todayWeekNumber;
+        static DayOfWeek todayDayOfWeek;
         
 	private OffsetTime lunchStart;
 	private OffsetTime lunchEnd;
@@ -100,18 +101,16 @@ public class Schedule {
 		this.closed = closed;
 	}
         
-        public int getTodayWeekNumber(){
-            if(Schedule.todayWeekNumber == null){
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(new Date());
-                Schedule.todayWeekNumber = calendar.get(Calendar.DAY_OF_WEEK);
+        public DayOfWeek getTodayWeekNumber(){
+            if(Schedule.todayDayOfWeek == null){
+                
+                Schedule.todayDayOfWeek = LocalDateTime.now().getDayOfWeek();
             }
-            return Schedule.todayWeekNumber;
+            return Schedule.todayDayOfWeek;
         }
         
         public boolean isToday(){
-            
-            return this.getDay().getValue() == Schedule.todayWeekNumber;
+            return this.getDay().equals(Schedule.todayDayOfWeek);
         }
 
 }
