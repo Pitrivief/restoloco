@@ -2,10 +2,12 @@
 @import "~bootstrap";
 @import "./icon.css";
 
-//@import "~@tarekraafat/autocomplete.js/dist/css/autoComplete.css";
 
 body{
     color: #333;
+    a {
+        color: #2e62b0;
+    }
 }
 header {
     width: 100%;
