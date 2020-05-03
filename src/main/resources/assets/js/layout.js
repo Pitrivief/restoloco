@@ -115,7 +115,7 @@ function removeSelectedMarker() {
 function setSelectedMarker(marker) {
     removeSelectedMarker()
     marker.setIcon(SelectedMarkerIcon)
-    selectedMarker = marker
+    selectedMarker = marker;
     marker.openPopup()
 }
 
@@ -140,12 +140,19 @@ class Restaurant {
             if (lat !== null && lng !== null) {
 
                 var popup = L.popup({maxWidth: 350, minwidth: 350})
-                        .setContent(tag.outerHTML)
+                        .setContent(tag.querySelector('.restaurant-name').textContent)
                 this.marker = L.marker([lat, lng], {icon: markerIcon});
-                this.marker.addTo(window.map).bindPopup(popup);
+                this.marker.addTo(window.map).bindPopup(popup, {closeButton: false});
                 this.marker.off('click');
                 this.marker.on('click', function () {
                     setSelectedMarker(_self.marker)
+                    var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
+                    if(testElement){
+                        testElement.classList.remove('selected')
+                    }
+                    
+                    _self.tag.classList.add('selected');
+                    _self.tag.scrollIntoView({behavior: "smooth", block: 'center'});
                 })
 
             }

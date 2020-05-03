@@ -110,7 +110,7 @@ public class Schedule {
         }
         
         public boolean isToday(){
-            return this.getDay().equals(Schedule.todayDayOfWeek);
+            return this.getDay().equals(this.getTodayWeekNumber());
         }
 
 }
