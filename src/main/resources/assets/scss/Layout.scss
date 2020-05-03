@@ -2,10 +2,17 @@
 @import "~bootstrap";
 @import "./icon.css";
 
-//@import "~@tarekraafat/autocomplete.js/dist/css/autoComplete.css";
 
 body{
     color: #333;
+    a {
+        color: #2e62b0;
+    }
+    .container-xxl{
+        @extend .container;
+        max-width: 1900px;
+    }
+    background-color: #F8F8F8;
 }
 header {
     width: 100%;
@@ -47,73 +54,136 @@ header {
     align-items: flex-start;
     padding-top: 80px;
     &>.list-wrapper{
-        flex:0 0 50%;
-        max-width: 50%;
+        flex:1 0 50%;
+        max-width: 100%;
+        position: relative;
         .restaurant-filters {
-            padding-bottom: 10px;
-            .filters-content{
-                display:flex;
-                flex-wrap: wrap;
-                align-items: flex-start;
-                &>*{
-                    flex: 1 1 300px;
-                    margin:5px;
+            top: 80px;
+            position: -webkit-sticky;
+            position: sticky;
+            z-index: 100;
+            background-color: #E9ECEF;
+            @include media-breakpoint-up(md){ 
+                position:relative;
+                top:0px;
+                .filters-switch-label{
+                    display: none;
                 }
             }
-            .location{
-
+            .filters-switch-label{
+                width:100%;
+                padding: 10px;
+                cursor: pointer;
+                text-align: center;
+                font-weight: bold;
+                position:relative;
+                &:after{
+                    position: absolute;
+                    content: "";
+                    top: 14px;
+                    right: 10px;
+                    width: 0;
+                    height: 0;
+                    border: 6px solid transparent;
+                    border-top-color: transparent;
+                    border-right-color: transparent;
+                    border-bottom-color: transparent;
+                    border-left-color: transparent;
+                    border-color: gray transparent transparent transparent;
+                }
             }
-            .cooktypes{
-                .cook-result{
-                    display:flex;
-                    flex-wrap: wrap;
-                    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-                    .selected-cook-type{
 
-                        padding: 5px;
-                        border-radius: 5px; 
-                        margin:5px;
-                        span:last-child{
-                            margin-left: 5px;  
-                            cursor: pointer;
+            #filter-switch{
+                display:none;
+                &:checked {
+                    & ~ .filters-box{
+                        display:block;
+                    }
+                    & ~ .filters-switch-label{
+                        &:after{
+                            border-color: transparent transparent gray transparent;
+                            top: 7px;
                         }
                     }
                 }
             }
-            .eating-types{
-                display:flex;
-                flex-wrap: wrap;
-                &>div{
-                    margin-left:5px;
+
+            .filters-box{
+                padding-bottom: 10px;
+                display:none;
+                padding: 2rem;
+                padding-top: 0rem;
+                background-color: #E9ECEF;
+                margin-bottom: 2rem;
+                @include media-breakpoint-up(md){
+                    padding-top: 4rem;
+                    display:block;
+                }
+
+                .filters-content{
+                    display:flex;
+                    flex-wrap: wrap;
+                    align-items: flex-start;
+                    &>*{
+                        flex: 1 1 300px;
+                        margin:5px;
+                    }
+                }
+                .location{
+
+                }
+                .cooktypes{
+                    .cook-result{
+                        display:flex;
+                        flex-wrap: wrap;
+                        box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+                        .selected-cook-type{
+
+                            padding: 5px;
+                            border-radius: 5px; 
+                            margin:5px;
+                            span:last-child{
+                                margin-left: 5px;  
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+                .eating-types{
+                    display:flex;
+                    flex-wrap: wrap;
+                    &>div{
+                        margin-left:5px;
+                    }
                 }
             }
+
 
         }
 
         .restaurant-list {
             display: grid;
-            grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
+            grid-template-columns: repeat( auto-fit, minmax(400px, 1fr) );
             grid-gap: 10px;
             padding:10px;
-            padding-bottom: 150px;
+            padding-bottom: 200px;
             .restaurant-item {
                 background-color: white;
                 display: flex;
                 position: relative;
                 border-radius: 10px;
-                overflow: hidden;
                 border: 1px solid #E9ECEF;
                 height:100%;
-                z-index: 1;
-                transition: transform 0.2s ease;
                 &.selected{
-                    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-                    transform: scale(1.05);
-                    z-index: 2;
+                    border: 1px solid #929497;
+                    box-shadow: 0px 0px 0px 5px #929497;
                 }
                 .restaurant-picture {
                     background-color: lightgray;
                     flex: 0 0 50%;
+                    border-top-left-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    overflow: hidden;
                     img{
                         width: 100%;
                         height: 100%;
@@ -130,12 +200,7 @@ header {
                     flex-direction: column;
 
                     .restaurant-tags {
-                        //background-color: #53a63c;
-                        //color: white;
-                        /*position: relative;
-                        top: 0px;
-                        left: -15px;
-                        padding-left: 10px;*/
+
                         padding: 0px 5px;
                         color:gray;
                         /*border-top-right-radius: 30px;
@@ -168,9 +233,39 @@ header {
                     .restaurant-name{
                         font-size: 1.3em;
                     }
+                    .todays-opening{
+                        font-size:0.8em;
+                        h4{
+                            font-size: 0.9rem;
+                            font-weight: bold;
+                            margin-bottom: 0px;
+                            position:relative;
+                            display: inline-block;
+                            cursor: pointer;
+                            &:hover{
+                                text-decoration: underline;
+                            }
+                            &:after {
+                                position: absolute;
+                                content: "";
+                                top: 7px;
+                                right: -18px;
+                                width: 0; 
+                                height: 0;
+                                border: 6px solid transparent;
+                                border-color: gray transparent transparent transparent;
+                            }
+                        }
 
+                    }
                     .restaurant-openings{
                         font-size:0.7em;
+                        width:calc( 100% + 50px );
+                        left: 30px;
+                        top: 30px;
+                        &:before{
+                            border-bottom: 10px solid lightgray;
+                        }
                         h4{
                             font-size: 0.9rem;
                             font-weight: bold;
@@ -209,10 +304,12 @@ header {
                         }
                     }
                     .restaurant-seemap {
-                        padding: 10px;
                         text-align: right;
                         width: 100%;
-                        display: inline-block;
+                        display:none;
+                        @include media-breakpoint-up(md) { 
+                            display: inline-block;
+                        }
                     }
                 }
                 .order-links{
@@ -311,13 +408,16 @@ header {
         }
     }
     &>.map-wrapper{
+        display:none;
         flex:0 0 50%;
         max-width: 50%;
         position: sticky;
         position: -webkit-sticky;
         top:80px;
         height: calc( 100vh - 80px );
-
+        @include media-breakpoint-up(md) {
+            display: block;
+        }
         .map{
             height:100%;
             width:100%;
@@ -604,21 +704,62 @@ footer {
 
 }
 
+.selectItem {
+        &:hover, &:active{
+            background-color: lightgray;
+        }
+        padding: 8px 16px;
+        border-bottom:  1px solid lightgray;
+        &:last-child{
+            border-bottom: none;
+        }
+        cursor: pointer;
+
+        &.selected .checkmark:after{
+            display:block;
+        }
+        .checkmark {
+            position: relative;
+            height: 1.2rem;
+            width: 25px;
+            display:inline-block;
+            /* Create the checkmark/indicator (hidden when not checked) */
+            &:after {
+                content: "";
+                position: absolute;
+                display: none;
+                left: 11px;
+                top: 5px;
+                width: 5px;
+                height: 12px;
+                border: solid;
+                border-width: 0 1px 2px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+        }
+
+    }
+
 
 .dropdown-wrapper{
-    .select-items {
+    position:relative;
+    .dropdown-content {
         position: absolute;
         background-color: white;
         top: calc( 100% + 5px);
-        left: 0;
-        right: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
         z-index: 99;
         padding: 5px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
+        
 
         /* Hide the items when the select box is closed: */
-        &.select-hide {
+        &.dropdown-hide {
             display:none;
         }
         &:before {
@@ -632,53 +773,9 @@ footer {
             top: -20px;
             transform: translateX(-50%);
         }
-        .selectItem {
-            &:hover, &:active{
-                background-color: lightgray;
-            }
-            padding: 8px 16px;
-            border-bottom:  1px solid lightgray;
-            &:last-child{
-                border-bottom: none;
-            }
-            cursor: pointer;
 
-            &.selected .checkmark:after{
-                display:block;
-            }
-            .checkmark {
-                position: relative;
-                height: 1.2rem;
-                width: 25px;
-                display:inline-block;
-                /* Create the checkmark/indicator (hidden when not checked) */
-                &:after {
-                    content: "";
-                    position: absolute;
-                    display: none;
-                    left: 11px;
-                    top: 5px;
-                    width: 5px;
-                    height: 12px;
-                    border: solid;
-                    border-width: 0 1px 2px 0;
-                    -webkit-transform: rotate(45deg);
-                    -ms-transform: rotate(45deg);
-                    transform: rotate(45deg);
-                }
-            }
-
-        }
     }
 }
-
-
-
-
-
-
-
-
 
 #autoComplete_wrapper{
     position: relative;

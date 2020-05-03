@@ -38,7 +38,7 @@ const autoCompletejs = new autoComplete({
             // Fetch External Data Source
             const query = document.querySelector("#autoComplete").value;
             if(query.length <4){
-                document.querySelector('#autoComplete_wrapper .select-items').classList.add('select-hide');
+                document.querySelector('#autoComplete_wrapper .dropdown-content').classList.add('dropdown-hide');
                 return [];
             }
             // Loading placeholder text
@@ -50,7 +50,7 @@ const autoCompletejs = new autoComplete({
                     );
             const data = await source.json();
 
-            document.querySelector('#autoComplete_wrapper .select-items').classList.remove('select-hide');
+            document.querySelector('#autoComplete_wrapper .dropdown-content').classList.remove('dropdown-hide');
             // Post loading placeholder text
             document
                     .querySelector("#autoComplete")
@@ -75,7 +75,7 @@ const autoCompletejs = new autoComplete({
         render: true,
         container: source => {
             source.setAttribute("id", "autoComplete_list");
-            source.setAttribute("class", "select-items select-hide");
+            source.setAttribute("class", "dropdown-content dropdown-hide");
         },
         destination: document.querySelector("#autoComplete"),
         position: "afterend",
@@ -99,7 +99,7 @@ const autoCompletejs = new autoComplete({
         console.log(feedback);
         const selection = feedback.selection.value;
         document.querySelector("#autoComplete").value = feedback.selection.match;
-        document.querySelector('#autoComplete_wrapper .select-items').classList.add('select-hide');
+        document.querySelector('#autoComplete_wrapper .dropdown-content ').classList.add('dropdown-hide');
         window.app.setLocalisation(selection);
     }
 });
@@ -133,7 +133,9 @@ class Restaurant {
             this.filters.concat(data_filters)
         }
 
-
+        tag.querySelector('.todays-opening h4').addEventListener('click', function(e){
+            this.parentNode.querySelector('.restaurant-openings').classList.remove('dropdown-hide');
+        });
         if (tag.querySelector(".restaurant-seemap") !== null) {
             var lat = tag.querySelector(".restaurant-seemap").getAttribute('data-lat');
             var lng = tag.querySelector(".restaurant-seemap").getAttribute('data-lng');
@@ -252,7 +254,7 @@ class Filters {
         this.selectBox.appendChild(a);
         /* For each element, create a new DIV that will contain the option list: */
         b = document.createElement("DIV");
-        b.setAttribute("class", "select-items select-hide");
+        b.setAttribute("class", "dropdown-content dropdown-hide");
         for (j = 0; j < selElmnt.length; j++) {
             /*
              * For each option in the original select element, create a new DIV
@@ -269,7 +271,7 @@ class Filters {
              */
             e.stopPropagation();
             //closeAllSelect(this);
-            this.nextSibling.classList.toggle("select-hide");
+            this.nextSibling.classList.toggle("dropdown-hide");
             this.classList.toggle("select-arrow-active");
         });
 
@@ -280,11 +282,11 @@ class Filters {
              * except the current select box:
              */
             
-            if (elmnt.target.closest('.select-box') !== null) {
+            if (elmnt.target.closest('.dropdown-wrapper') !== null) {
                 return;
             }
             var x, y, i, arrNo = [];
-            x = document.getElementsByClassName("select-items");
+            x = document.getElementsByClassName("dropdown-content");
             y = document.getElementsByClassName("select-selected");
             for (i = 0; i < y.length; i++) {
                 if (elmnt == y[i]) {
@@ -295,7 +297,7 @@ class Filters {
             }
             for (i = 0; i < x.length; i++) {
                 if (arrNo.indexOf(i)) {
-                    x[i].classList.add("select-hide");
+                    x[i].classList.add("dropdown-hide");
                 }
             }
         }

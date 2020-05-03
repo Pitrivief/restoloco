@@ -6,42 +6,47 @@
     </head>
     <body>
         <main layout:fragment="content">
-            <section class="restaurant-wrapper scrollWrapper">
+            <section class="restaurant-wrapper container-xxl scrollWrapper">
                 <div class="list-wrapper">
-                    <div class="restaurant-filters jumbotron">
-                        <h2>Qu'est ce qui vous ferait plaisir?</h2>
-                        <div class="filters-content container">
-                            <div id="autoComplete_wrapper" class="dropdown-wrapper">
-                                <input id="autoComplete"  tabindex="1"> 
-                            </div>
-                            <div class="cooktypes">
-                                <div class="select-box dropdown-wrapper"> 
-                                    <select  class="cook-select" name="" id=""> 
-                                        <option th:each="type : ${cookTypes}" th:text="${ #strings.toLowerCase(type.description)}" th:attr="value=${type.name}"></option>
-                                    </select>
+                    <div class="restaurant-filters ">
+                        <input class="filter-switch" type="checkbox" id="filter-switch">
+                        <label for="filter-switch" class="filters-switch-label">Filtres</label>
+                        <div class="filters-box">
+                            <h2>Qu'est ce qui vous ferait plaisir?</h2>
+                            <div class="filters-content container">
+                                <div id="autoComplete_wrapper" class="dropdown-wrapper">
+                                    <input id="autoComplete"  tabindex="1"> 
                                 </div>
-                            </div>
-                            <div class="eating-types">
-                                <div>
-                                    <label class="checkbox-wrapper">A emporter
-                                        <input type="checkbox" data-filter-boolean="delivery" >
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <div class="cooktypes">
+                                    <div class="select-box dropdown-wrapper"> 
+                                        <select  class="cook-select" name="" id=""> 
+                                            <option th:each="type : ${cookTypes}" th:text="${ #strings.toLowerCase(type.description)}" th:attr="value=${type.name}"></option>
+                                        </select>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="checkbox-wrapper">Livraison
-                                        <input type="checkbox" data-filter-boolean="takeAway">
-                                        <span class="checkmark"></span>
-                                    </label>
+                                <div class="eating-types">
+                                    <div>
+                                        <label class="checkbox-wrapper">A emporter
+                                            <input type="checkbox" data-filter-boolean="delivery" >
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="checkbox-wrapper">Livraison
+                                            <input type="checkbox" data-filter-boolean="takeAway">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
+                                    <div>
+                                        <label class="checkbox-wrapper">Sur place
+                                            <input type="checkbox" data-filter-boolean="eatOnSite">
+                                            <span class="checkmark"></span>
+                                        </label>
+                                    </div>
                                 </div>
-                                <div>
-                                    <label class="checkbox-wrapper">Sur place
-                                        <input type="checkbox" data-filter-boolean="eatOnSite">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>    
+                            </div> 
+                        </div>
+                           
                     </div>
                     <div th:insert="~{restaurant-list :: restaurantlist}"></div>
                 </div>
@@ -50,7 +55,7 @@
                 </div>
             </section>
             <div class="big-footer">
-                <div class="about-us container">
+                <div class="about-us container-lg">
                     <p class="about-us-content ">
                         Resto‘Loco, la nouvelle référence pour trouver votre restaurant proposant des plats à emporter ou en livraison à Caen et son agglomération.<br> 
                         Vous y trouverez différents types de cuisine, les jours et horaires d’ouverture, ainsi que leur localisation. <br>
