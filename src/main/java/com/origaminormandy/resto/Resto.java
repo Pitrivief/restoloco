@@ -23,6 +23,7 @@ import javax.validation.constraints.NotBlank;
 
 import com.origaminormandy.resto.Address.AddressType;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -37,7 +38,7 @@ import java.util.Locale;
 public class Resto {
  
 	
-	 	@Id
+            @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private long id;
 	     
@@ -54,6 +55,8 @@ public class Resto {
 	    private String phone;
 	    
 	    private String website;
+            
+            
 	    
 	   
 	    
@@ -134,7 +137,12 @@ public class Resto {
 		}
                 
                 public Schedule getTodaysOpening(){
-                    return this.getOpenings().stream().filter(opening -> opening.getDay().equals(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date()).toUpperCase())).findAny().orElse(null);
+                            
+                    return this.getOpenings()
+                                    .stream()
+                                    .filter(opening -> opening.isToday())
+                                    .findFirst()
+                                    .orElse(null);
                     
                 }
 

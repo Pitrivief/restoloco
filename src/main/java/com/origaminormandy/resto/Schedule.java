@@ -2,7 +2,10 @@ package com.origaminormandy.resto;
 
 import java.sql.Time;
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.time.OffsetTime;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,6 +26,9 @@ public class Schedule {
 
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
+        
+        static DayOfWeek todayDayOfWeek;
+        
 	private OffsetTime lunchStart;
 	private OffsetTime lunchEnd;
 
@@ -94,5 +100,17 @@ public class Schedule {
 	public void setClosed(boolean closed) {
 		this.closed = closed;
 	}
+        
+        public DayOfWeek getTodayWeekNumber(){
+            if(Schedule.todayDayOfWeek == null){
+                
+                Schedule.todayDayOfWeek = LocalDateTime.now().getDayOfWeek();
+            }
+            return Schedule.todayDayOfWeek;
+        }
+        
+        public boolean isToday(){
+            return this.getDay().equals(Schedule.todayDayOfWeek);
+        }
 
 }
