@@ -60,6 +60,9 @@
 .icon-earth:before {
   content: "\e9ca";
 }
+.icon-website:before {
+  content: "\e9ca";
+}
 .icon-facebook:before {
   content: "\ea91";
 }

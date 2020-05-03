@@ -4,7 +4,9 @@
 
 //@import "~@tarekraafat/autocomplete.js/dist/css/autoComplete.css";
 
-
+body{
+    color: #333;
+}
 header {
     width: 100%;
     position: relative;
@@ -30,6 +32,8 @@ header {
 
                 img {
                     height: 100%;
+                    object-fit: contain;
+                    object-position: center;
                 }
             }
         }
@@ -44,6 +48,7 @@ header {
     padding-top: 80px;
     &>.list-wrapper{
         flex:0 0 50%;
+        max-width: 50%;
         .restaurant-filters {
             padding-bottom: 10px;
             .filters-content{
@@ -87,6 +92,8 @@ header {
 
         .restaurant-list {
             padding-bottom: 150px;
+            display: grid;
+            grid-template-columns: repeat( auto-fit, minmax(300px, 1fr) );
             .restaurant-item {
                 padding: 10px;
                 .restaurant-content {
@@ -94,13 +101,13 @@ header {
                     background-color: white;
                     display: flex;
                     position: relative;
-                    height: 100%;
                     border-radius: 10px;
                     overflow: hidden;
-
+                    border: 1px solid #E9ECEF;
+                    height:100%;
                     .restaurant-picture {
                         background-color: lightgray;
-                        flex: 0 0 300px;
+                        flex: 0 0 50%;
                         img{
                             width: 100%;
                             height: 100%;
@@ -205,12 +212,18 @@ header {
                     }
                     .order-links{
                         text-align: right;
-                        .restaurant-external-link:not(:first-child){
-                            border-left: 1px solid gray
+                        .external-links{
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-direction: row-reverse;
+                            .restaurant-external-link{
+                                padding:5px;
+                                white-space: nowrap
+                            }
                         }
-                        .restaurant-external-link{
-                            padding:5px;
-                        }
+                        
+
+                        
                     }    
                     /* .order-links {
                          color : white;
@@ -294,7 +307,9 @@ header {
     }
     &>.map-wrapper{
         flex:0 0 50%;
+        max-width: 50%;
         position: sticky;
+        position: -webkit-sticky;
         top:80px;
         height: calc( 100vh - 80px );
 

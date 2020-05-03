@@ -15,8 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.validation.constraints.Max;
@@ -24,6 +22,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.origaminormandy.resto.Address.AddressType;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 @Entity
 @SqlResultSetMapping(
@@ -131,6 +132,11 @@ public class Resto {
 		public List<Schedule> getOpenings() {
 			return openings;
 		}
+                
+                public Schedule getTodaysOpening(){
+                    return this.getOpenings().stream().filter(opening -> opening.getDay().equals(new SimpleDateFormat("EEEE", Locale.ENGLISH).format(new Date()).toUpperCase())).findAny().orElse(null);
+                    
+                }
 
 		public void setOpenings(List<Schedule> openings) {
 			this.openings = openings;
