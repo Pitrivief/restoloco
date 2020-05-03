@@ -46,8 +46,17 @@ header {
         flex:0 0 50%;
         .restaurant-filters {
             padding-bottom: 10px;
+            .filters-content{
+                display:flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                &>*{
+                    flex: 1 1 300px;
+                    margin:5px;
+                }
+            }
             .location{
-                
+
             }
             .cooktypes{
                 .cook-result{
@@ -543,8 +552,6 @@ footer {
 .select-box {
     position: relative;
     font-family: Arial;
-    margin:5px;
-    display:inline-block;
     select {
         display: none;
 
@@ -576,6 +583,8 @@ footer {
     }
 
 }
+
+
 .dropdown-wrapper{
     .select-items {
         position: absolute;
@@ -590,7 +599,7 @@ footer {
 
         /* Hide the items when the select box is closed: */
         &.select-hide {
-            display: none;
+            display:none;
         }
         &:before {
             content: "";
@@ -613,7 +622,7 @@ footer {
                 border-bottom: none;
             }
             cursor: pointer;
-            
+
             &.selected .checkmark:after{
                 display:block;
             }
@@ -675,25 +684,27 @@ footer {
         transform: translateY(-50%)
 
     }
-}
-#autoComplete_list {
-
-    .autoComplete_selected{
-        background-color: lightgray;
+    #autoComplete {
+        position: relative;
+        padding: 8px 8px 8px 2.5rem;
+        font-size: 1rem;
+        border-radius: 50rem;
+        border: 1px solid lightgray;
+        width:100%;
+        &:focus{
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.2)
+        }
     }
+    #autoComplete_list {
 
-}
+        .autoComplete_selected{
+            background-color: lightgray;
+        }
 
-#autoComplete {
-    position: relative;
-    padding: 8px 8px 8px 2.5rem;
-    font-size: 1rem;
-    border-radius: 50rem;
-    border: 1px solid lightgray;
-    &:focus{
-        box-shadow: 0px 0px 5px rgba(0,0,0,0.2)
     }
 }
+
+
 
 
 
@@ -703,8 +714,6 @@ footer {
     display: inline-block;
     position: relative;
     padding-left: 35px;
-    margin-top: 12px;
-    margin-bottom: 12px;
     cursor: pointer;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -724,6 +733,7 @@ footer {
         cursor: pointer;
         height: 0;
         width: 0;
+        width:100%;
         &:checked ~ .checkmark:after{
             display: block;
         }
