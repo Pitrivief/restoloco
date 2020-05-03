@@ -105,10 +105,9 @@ header {
                 border: 1px solid #E9ECEF;
                 height:100%;
                 z-index: 1;
-                transition: transform 0.2s ease;
                 &.selected{
-                    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
-                    transform: scale(1.05);
+                    border: 1px solid #929497;
+                    box-shadow: 0px 0px 0px 5px #929497;
                     z-index: 2;
                 }
                 .restaurant-picture {
