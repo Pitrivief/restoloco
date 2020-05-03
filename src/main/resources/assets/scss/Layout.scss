@@ -47,8 +47,8 @@ header {
     align-items: flex-start;
     padding-top: 80px;
     &>.list-wrapper{
-        flex:0 0 50%;
-        max-width: 50%;
+        flex:1 0 50%;
+        max-width: 100%;
         .restaurant-filters {
             padding-bottom: 10px;
             .filters-content{
@@ -129,12 +129,7 @@ header {
                     flex-direction: column;
 
                     .restaurant-tags {
-                        //background-color: #53a63c;
-                        //color: white;
-                        /*position: relative;
-                        top: 0px;
-                        left: -15px;
-                        padding-left: 10px;*/
+                       
                         padding: 0px 5px;
                         color:gray;
                         /*border-top-right-radius: 30px;
@@ -208,7 +203,6 @@ header {
                         }
                     }
                     .restaurant-seemap {
-                        padding: 10px;
                         text-align: right;
                         width: 100%;
                         display: inline-block;
@@ -310,13 +304,16 @@ header {
         }
     }
     &>.map-wrapper{
+        display:none;
         flex:0 0 50%;
         max-width: 50%;
         position: sticky;
         position: -webkit-sticky;
         top:80px;
         height: calc( 100vh - 80px );
-
+        @include media-breakpoint-up(md) {
+            display: block;
+        }
         .map{
             height:100%;
             width:100%;
