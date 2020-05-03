@@ -12,7 +12,7 @@
                 <p class="restaurant-bio" th:text="${resto.bio}"></p>
                 
                 
-                <div th:with="opening=${resto.getTodaysOpening()}" class="todays-opening">
+                <div th:with="opening=${resto.getTodaysOpening()}" th:if="${opening != null}" class="todays-opening">
                     <span th:if="${ opening.closed == true }">Fermé</span>
                     <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+' - '+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
                     <span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':${#temporals.format(opening.dinnerStart, 'HH:mm')}+' - '+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
