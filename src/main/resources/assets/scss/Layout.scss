@@ -95,11 +95,11 @@ header {
                         display:block;
                     }
                     & ~ .filters-switch-label{
-                            &:after{
-                                border-color: transparent transparent gray transparent;
-                                top: 7px;
-                            }
+                        &:after{
+                            border-color: transparent transparent gray transparent;
+                            top: 7px;
                         }
+                    }
                 }
             }
 
@@ -167,18 +167,18 @@ header {
                 display: flex;
                 position: relative;
                 border-radius: 10px;
-                overflow: hidden;
                 border: 1px solid #E9ECEF;
                 height:100%;
-                z-index: 1;
                 &.selected{
                     border: 1px solid #929497;
                     box-shadow: 0px 0px 0px 5px #929497;
-                    z-index: 2;
                 }
                 .restaurant-picture {
                     background-color: lightgray;
                     flex: 0 0 50%;
+                    border-top-left-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    overflow: hidden;
                     img{
                         width: 100%;
                         height: 100%;
@@ -229,15 +229,38 @@ header {
                         font-size: 1.3em;
                     }
                     .todays-opening{
+                        font-size:0.8em;
                         h4{
                             font-size: 0.9rem;
                             font-weight: bold;
                             margin-bottom: 0px;
+                            position:relative;
+                            display: inline-block;
+                            cursor: pointer;
+                            &:hover{
+                                text-decoration: underline;
+                            }
+                            &:after {
+                                position: absolute;
+                                content: "";
+                                top: 7px;
+                                right: -18px;
+                                width: 0; 
+                                height: 0;
+                                border: 6px solid transparent;
+                                border-color: gray transparent transparent transparent;
+                            }
                         }
-                        font-size:0.8em
+
                     }
                     .restaurant-openings{
                         font-size:0.7em;
+                        width:calc( 100% + 50px );
+                        left: 30px;
+                        top: 30px;
+                        &:before{
+                            border-bottom: 10px solid lightgray;
+                        }
                         h4{
                             font-size: 0.9rem;
                             font-weight: bold;
@@ -676,21 +699,62 @@ footer {
 
 }
 
+.selectItem {
+        &:hover, &:active{
+            background-color: lightgray;
+        }
+        padding: 8px 16px;
+        border-bottom:  1px solid lightgray;
+        &:last-child{
+            border-bottom: none;
+        }
+        cursor: pointer;
+
+        &.selected .checkmark:after{
+            display:block;
+        }
+        .checkmark {
+            position: relative;
+            height: 1.2rem;
+            width: 25px;
+            display:inline-block;
+            /* Create the checkmark/indicator (hidden when not checked) */
+            &:after {
+                content: "";
+                position: absolute;
+                display: none;
+                left: 11px;
+                top: 5px;
+                width: 5px;
+                height: 12px;
+                border: solid;
+                border-width: 0 1px 2px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+        }
+
+    }
+
 
 .dropdown-wrapper{
-    .select-items {
+    position:relative;
+    .dropdown-content {
         position: absolute;
         background-color: white;
         top: calc( 100% + 5px);
-        left: 0;
-        right: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
         z-index: 99;
         padding: 5px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
+        
 
         /* Hide the items when the select box is closed: */
-        &.select-hide {
+        &.dropdown-hide {
             display:none;
         }
         &:before {
@@ -704,53 +768,9 @@ footer {
             top: -20px;
             transform: translateX(-50%);
         }
-        .selectItem {
-            &:hover, &:active{
-                background-color: lightgray;
-            }
-            padding: 8px 16px;
-            border-bottom:  1px solid lightgray;
-            &:last-child{
-                border-bottom: none;
-            }
-            cursor: pointer;
 
-            &.selected .checkmark:after{
-                display:block;
-            }
-            .checkmark {
-                position: relative;
-                height: 1.2rem;
-                width: 25px;
-                display:inline-block;
-                /* Create the checkmark/indicator (hidden when not checked) */
-                &:after {
-                    content: "";
-                    position: absolute;
-                    display: none;
-                    left: 11px;
-                    top: 5px;
-                    width: 5px;
-                    height: 12px;
-                    border: solid;
-                    border-width: 0 1px 2px 0;
-                    -webkit-transform: rotate(45deg);
-                    -ms-transform: rotate(45deg);
-                    transform: rotate(45deg);
-                }
-            }
-
-        }
     }
 }
-
-
-
-
-
-
-
-
 
 #autoComplete_wrapper{
     position: relative;
