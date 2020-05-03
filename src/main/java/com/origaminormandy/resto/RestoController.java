@@ -94,6 +94,8 @@ public class RestoController {
 	public String addPerson(Resto resto) {
 		try {
 
+			clearRestoData(resto);
+			
 			if (resto.getCookTypes() != null) {
 				List<CookType> selectedCookTypes = (List<CookType>) cookTypeRepository.findAllById(
 						resto.getCookTypes().stream().map(cookType -> cookType.getName()).collect(Collectors.toList()));
@@ -123,10 +125,8 @@ public class RestoController {
 		try {
 
 			
-			System.out.println("size lins" + resto.getExternalLinks());
-			
-		
-			
+			clearRestoData(resto);
+
 			if (resto.getCookTypes() != null) {
 
 				List<CookType> selectedCookTypes = (List<CookType>) cookTypeRepository.findAllById(
@@ -141,6 +141,11 @@ public class RestoController {
 		}
 
 	} 
+	
+	private void clearRestoData(Resto resto) {
+		String clearPhone = resto.getPhone().replaceAll("\\s+", "").replaceAll("\\.", "");
+		resto.setPhone(clearPhone);
+	}
 
 	@GetMapping("/admin/edit-resto/{id}")
 	public String showUpdateForm(@PathVariable("id") long id, Model model) {

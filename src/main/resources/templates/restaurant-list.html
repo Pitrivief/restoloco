@@ -17,6 +17,10 @@
                     <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+' - '+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
                     <span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':${#temporals.format(opening.dinnerStart, 'HH:mm')}+' - '+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
                 </div>
+                
+                
+                
+                
                 <!--<div class="restaurant-openings" >
                     <h4>Horaires</h4>
                     <div class="opening-day" th:each="opening : ${resto.openings}">
