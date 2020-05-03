@@ -1,10 +1,10 @@
-<div th:fragment="restaurantlist" class="restaurant-list container" >
-    <article class="restaurant-item" th:each="resto : ${restos}" >
-        <div class="restaurant-content">
+<div th:fragment="restaurantlist" class="restaurant-list " >
+    <article class="restaurant-item" th:each="resto : ${restos}" th:id="'resto'+${restoStat.index}" >
+        
             <div class="restaurant-picture">
                 <img th:src="'/uploaded/'+${resto.photo}" />
             </div>
-            <div class="restaurant-description">
+            <div class="restaurant-description" >
                 <h3 class="restaurant-name" th:text="${resto.name}"></h3>
                 <div class="restaurant-tags" >
                     <span th:each="cooktype : ${resto.cookTypes}" th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
@@ -12,7 +12,7 @@
                 <p class="restaurant-bio" th:text="${resto.bio}"></p>
                 
                 
-                <div th:with="opening=${resto.getTodaysOpening()}" th:if="${opening != null}" class="todays-opening">
+                <div th:with="opening=${resto.getTodaysOpening()}" th:if="${ resto.getTodaysOpening() != null}" class="todays-opening">
                     <span th:if="${ opening.closed == true }">Fermé</span>
                     <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+' - '+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
                     <span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':${#temporals.format(opening.dinnerStart, 'HH:mm')}+' - '+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
@@ -61,6 +61,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
     </article>
 </div>
