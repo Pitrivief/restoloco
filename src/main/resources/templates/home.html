@@ -8,38 +8,40 @@
         <main layout:fragment="content">
             <section class="restaurant-wrapper scrollWrapper">
                 <div class="list-wrapper">
-                    <div class="restaurant-filters ">
+                    <div class="restaurant-filters jumbotron">
                         <h2>Qu'est ce qui vous ferait plaisir?</h2>
-                        <div id="autoComplete_wrapper" class="dropdown-wrapper">
-                            <input id="autoComplete"  tabindex="1"> 
-                        </div>
-                        <div class="cooktypes">
-                            <div class="select-box dropdown-wrapper"> 
-                                <select  class="cook-select" name="" id=""> 
-                                    <option th:each="type : ${cookTypes}" th:text="${ #strings.toLowerCase(type.description)}" th:attr="value=${type.name}"></option>
-                                </select>
+                        <div class="filters-content container">
+                            <div id="autoComplete_wrapper" class="dropdown-wrapper">
+                                <input id="autoComplete"  tabindex="1"> 
                             </div>
-                        </div>
-                        <div class="eating-types">
-                            <div>
-                                <label class="checkbox-wrapper">A emporter
-                                    <input type="checkbox" data-filter-boolean="delivery" >
-                                    <span class="checkmark"></span>
-                                </label>
+                            <div class="cooktypes">
+                                <div class="select-box dropdown-wrapper"> 
+                                    <select  class="cook-select" name="" id=""> 
+                                        <option th:each="type : ${cookTypes}" th:text="${ #strings.toLowerCase(type.description)}" th:attr="value=${type.name}"></option>
+                                    </select>
+                                </div>
                             </div>
-                            <div>
-                                <label class="checkbox-wrapper">Livraison
-                                    <input type="checkbox" data-filter-boolean="takeAway">
-                                    <span class="checkmark"></span>
-                                </label>
+                            <div class="eating-types">
+                                <div>
+                                    <label class="checkbox-wrapper">A emporter
+                                        <input type="checkbox" data-filter-boolean="delivery" >
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="checkbox-wrapper">Livraison
+                                        <input type="checkbox" data-filter-boolean="takeAway">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="checkbox-wrapper">Sur place
+                                        <input type="checkbox" data-filter-boolean="eatOnSite">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
                             </div>
-                            <div>
-                                <label class="checkbox-wrapper">Sur place
-                                    <input type="checkbox" data-filter-boolean="eatOnSite">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>
+                        </div>    
                     </div>
                     <div th:insert="~{restaurant-list :: restaurantlist}"></div>
                 </div>

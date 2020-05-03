@@ -18,7 +18,7 @@ public class RestoConfiguration implements WebMvcConfigurer {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		
 		System.out.println("ADD handler " + directory + "**");
-        registry.addResourceHandler("/uploaded/**").addResourceLocations("file:" + directory);
+                registry.addResourceHandler("/uploaded/**").addResourceLocations("file:" + directory);
 
 	}
 	
