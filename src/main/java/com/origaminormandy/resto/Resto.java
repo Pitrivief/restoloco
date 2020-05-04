@@ -22,10 +22,6 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import com.origaminormandy.resto.Address.AddressType;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 @Entity
 @SqlResultSetMapping(
@@ -56,12 +52,10 @@ public class Resto {
 	    
 	    private String website;
             
-            
-	    
-	   
-	    
+       
 	    private boolean delivery = true;
 	    private boolean takeAway = true;
+	    private boolean preOrder = true;
 	    private boolean eatOnSite = false;
 	    
 	    @Min(-180)
@@ -77,6 +71,9 @@ public class Resto {
 	    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
 	    @JoinColumn(name="resto_id")
 	    private List<Schedule> openings = new ArrayList<>();
+	    @Column(nullable=false, columnDefinition = "boolean default true")
+	    private boolean showOpenings = true;
+	    private String openingsWarning;
 	    
 	    @ManyToMany(cascade={CascadeType.ALL})
 	    private List<CookType> cookTypes = new ArrayList<>();
@@ -247,5 +244,31 @@ public class Resto {
                     
                     return this.getExternalLinks().stream().filter(link-> Link.LinkType.ORDER.equals(link.getType())).collect(Collectors.toList());
                 }
+
+				public boolean isPreOrder() {
+					return preOrder;
+				}
+
+				public void setPreOrder(boolean preOrder) {
+					this.preOrder = preOrder;
+				}
+
+				public boolean isShowOpenings() {
+					return showOpenings;
+				}
+
+				public void setShowOpenings(boolean showOpenings) {
+					this.showOpenings = showOpenings;
+				}
+
+				public String getOpeningsWarning() {
+					return openingsWarning;
+				}
+
+				public void setOpeningsWarning(String openingsWarning) {
+					this.openingsWarning = openingsWarning;
+				}
 	    
+                
+                
 }

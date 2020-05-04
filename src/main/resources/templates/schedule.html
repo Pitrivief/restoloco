@@ -1,43 +1,64 @@
-<div th:fragment="schedule (openings, schedule, itemStat)">
-					
-					<div class="row">
-					
-						<input type="hidden" name="schedule-id"
-								th:field="*{openings[__${itemStat.index}__].id}" readOnly/>
-						<div>
-							<input type="text" name="schedule-day"
-								th:field="*{openings[__${itemStat.index}__].day}" readOnly/>
-						</div>
-					
-						<label for="fullName" class="col-form-label">Closed
-							? </label>
-						<div class="schedule-closed">
-							<input type="checkbox" 
-								th:field="*{openings[__${itemStat.index}__].closed}" />
-						</div>
-				
-						<label for="fullName" class="col-form-label">Midi de</label>
-						<div class="schedule-lunch-start">
-							<input type="time" 
-								th:field="*{openings[__${itemStat.index}__].lunchStart}" />
-						</div>
-						<label for="fullName" class="col-form-label">à</label>
-						<div class="schedule-lunch-end">
-							<input type="time"
-								th:field="*{openings[__${itemStat.index}__].lunchEnd}" />
-						</div>
-				
-					
-					
-						<label for="fullName" class="col-form-label">Soir de</label>
-						<div class="schedule-dinner-start">
-							<input type="time" 
-								th:field="*{openings[__${itemStat.index}__].dinnerStart}" />
-						</div>
-						<label for="fullName" class="col-form-label">à</label>
-						<div class="schedule-dinner-end">
-							<input type="time" 
-								th:field="*{openings[__${itemStat.index}__].dinnerEnd}" />
-						</div>
-					</div>
+<div th:fragment="schedule">
+
+	<h2>Schedules</h2>
+	
+	<div class="row">
+		<label>Affiche les horraires ? 
+		<input type="checkbox"
+					th:field="*{showOpenings}" />
+		</label>
+		<label>Warning : 
+		<input type="text"
+					th:field="*{openingsWarning}" />
+		</label>
+		
+	</div>
+	
+	<div th:replace="schedule-mask:: schedule-mask">...</div>
+
+	<div th:each="schedule, itemStat : *{openings}">
+
+
+
+		<div class="row">
+
+			<input type="hidden" name="schedule-id"
+				th:field="*{openings[__${itemStat.index}__].id}" readOnly />
+			<div>
+				<input type="text" name="schedule-day"
+					th:field="*{openings[__${itemStat.index}__].day}" readOnly />
+			</div>
+
+			<label for="fullName" class="col-form-label">Closed ? </label>
+			<div class="schedule-closed">
+				<input type="checkbox"
+					th:field="*{openings[__${itemStat.index}__].closed}" />
+			</div>
+
+			<label for="fullName" class="col-form-label">Midi de</label>
+			<div class="schedule-lunch-start">
+				<input type="time"
+					th:field="*{openings[__${itemStat.index}__].lunchStart}" />
+			</div>
+			<label for="fullName" class="col-form-label">à</label>
+			<div class="schedule-lunch-end">
+				<input type="time"
+					th:field="*{openings[__${itemStat.index}__].lunchEnd}" />
+			</div>
+
+
+
+			<label for="fullName" class="col-form-label">Soir de</label>
+			<div class="schedule-dinner-start">
+				<input type="time"
+					th:field="*{openings[__${itemStat.index}__].dinnerStart}" />
+			</div>
+			<label for="fullName" class="col-form-label">à</label>
+			<div class="schedule-dinner-end">
+				<input type="time"
+					th:field="*{openings[__${itemStat.index}__].dinnerEnd}" />
+			</div>
+		</div>
+
+	</div>
 </div>

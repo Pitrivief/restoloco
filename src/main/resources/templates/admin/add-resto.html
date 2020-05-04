@@ -156,12 +156,8 @@
 
 				</div>
 
-				<h2>Schedules</h2>
-				<div th:replace="schedule-mask:: schedule-mask">...</div>
-				<div th:each="schedule, index : *{openings}">
-					<div
-						th:include="schedule :: schedule (openings=*{openings},schedule=${schedule},itemStat=${index})">...</div>
-
+				<div th:replace="schedule :: schedule">
+					Replace with schedule fragment
 				</div>
 
 				<h2>Links</h2>

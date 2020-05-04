@@ -110,6 +110,9 @@
 						<label class="btn btn-secondary"  th:classappend="${takeAway} ? active: ''"> <input
 							type="checkbox" th:field="*{takeAway}" autocomplete="off"> A emporter
 						</label>
+						<label class="btn btn-secondary"  th:classappend="${preOrder} ? active: ''"> <input
+							type="checkbox" th:field="*{preOrder}" autocomplete="off"> Pré-commande
+						</label>
 						<label  class="btn btn-secondary"  th:classappend="${delivery} ? active: ''"> <input
 							type="checkbox" name="delivery" th:field="*{delivery}" autocomplete="off"> Livaison
 						</label>
@@ -155,15 +158,9 @@
 					<input type="button" value="Ajout Type" onclick="addCookType()">
 
 				</div>
-				<h2>Schedules</h2>
-				<div
-						th:replace="schedule-mask:: schedule-mask">...</div>
 				
-				<div th:each="schedule, index : *{openings}">
-					<div
-						th:include="schedule :: schedule (openings=*{openings},schedule=${schedule},itemStat=${index})">...</div>
-
-				</div>
+				<div th:replace="schedule :: schedule">...</div>
+				
 
 				<h2>Links</h2>
 
