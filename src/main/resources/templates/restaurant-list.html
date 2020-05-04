@@ -11,9 +11,9 @@
                         <i  th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} " class="icon-facebook"></i>
                     </a>
                 </h3>
-                <!--<div class="restaurant-tags" >
+                <div class="restaurant-tags" >
                     <span th:each="cooktype : ${resto.cookTypes}" th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
-                </div>-->
+                </div>
                 <div th:with="opening=${resto.getTodaysOpening()}" th:if="${ resto.getTodaysOpening() != null}" class="todays-opening dropdown-wrapper">
                     <div class="todays-opening-detail popup-trigger">
                         <i class='icon-clock'></i>
