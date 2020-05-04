@@ -230,7 +230,7 @@ body{
                             }
                             .todays-opening{
                                 white-space: nowrap;
-                                font-size:0.8em;
+                                font-size:0.8rem;
                                 i{
                                     font-size: 0.9rem;
                                     font-weight: bold;
@@ -258,16 +258,12 @@ body{
                                 }        
                             }
                             .restaurant-openings{
-                                font-size:0.7em;
+                                font-size:0.8rem;
                                 width:calc( 100% + 50px );
                                 left: 30px;
                                 top: 30px;
                                 &:before{
                                     border-bottom: 10px solid lightgray;
-                                }
-                                h4{
-                                    font-size: 0.9rem;
-                                    font-weight: bold;
                                 }
 
                                 .opening-day-name{
@@ -288,7 +284,7 @@ body{
                             }
                             .restaurant-infos{
                                 .restaurant-telephone {
-                                    font-size: 0.9rem;
+                                    font-size: 0.8rem;
                                 }
                                 .restaurant-links {
                                     height: 2em;
