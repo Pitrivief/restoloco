@@ -34,10 +34,10 @@ document.querySelector("#autoComplete").addEventListener("autoComplete", event =
 const autoCompletejs = new autoComplete({
     data: {
         src: async () => {
-            
+
             // Fetch External Data Source
             const query = document.querySelector("#autoComplete").value;
-            if(query.length <4){
+            if (query.length < 4) {
                 document.querySelector('#autoComplete_wrapper .dropdown-content').classList.add('dropdown-hide');
                 return [];
             }
@@ -133,7 +133,7 @@ class Restaurant {
             this.filters.concat(data_filters)
         }
 
-        tag.querySelector('.todays-opening h4').addEventListener('click', function(e){
+        tag.querySelector('.todays-opening h4').addEventListener('click', function (e) {
             this.parentNode.querySelector('.restaurant-openings').classList.remove('dropdown-hide');
         });
         if (tag.querySelector(".restaurant-seemap") !== null) {
@@ -149,10 +149,10 @@ class Restaurant {
                 this.marker.on('click', function () {
                     setSelectedMarker(_self.marker)
                     var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
-                    if(testElement){
+                    if (testElement) {
                         testElement.classList.remove('selected')
                     }
-                    
+
                     _self.tag.classList.add('selected');
                     _self.tag.scrollIntoView({behavior: "smooth", block: 'center'});
                 })
@@ -161,11 +161,11 @@ class Restaurant {
             tag.querySelector(".restaurant-seemap").addEventListener('click', function (e) {
                 e.preventDefault();
                 var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
-                    if(testElement){
-                        testElement.classList.remove('selected')
-                    }
-                    
-                    _self.tag.classList.add('selected');
+                if (testElement) {
+                    testElement.classList.remove('selected')
+                }
+
+                _self.tag.classList.add('selected');
                 setSelectedMarker(_self.marker)
 
             });
@@ -281,7 +281,7 @@ class Filters {
              * A function that will close all select boxes in the document,
              * except the current select box:
              */
-            
+
             if (elmnt.target.closest('.dropdown-wrapper') !== null) {
                 return;
             }
@@ -341,13 +341,13 @@ class Filters {
         c.innerHTML = text + "<div class='checkmark'></div>";
         c.addEventListener("click", function (e) {
             const value = this.getAttribute('data-value');
-            if(this.classList.contains('selected')){
-                 var index = _self.filters["cookTypes.name"].indexOf(value);
+            if (this.classList.contains('selected')) {
+                var index = _self.filters["cookTypes.name"].indexOf(value);
                 if (index > -1) {
                     _self.filters["cookTypes.name"].splice(index, 1);
                 }
-            }else{
-               _self.filters["cookTypes.name"].push(value) 
+            } else {
+                _self.filters["cookTypes.name"].push(value)
             }
             this.classList.toggle('selected');
             _self.triggerFilterChanged();
@@ -413,11 +413,11 @@ class RestaurantApp {
     applyFilters(filters) {
 
         const queryData = {
-            
+
             "page": this.page,
             "limit": this.limit
         }
-        if(Object.keys(filters).length> 0){
+        if (Object.keys(filters).length > 0) {
             queryData.filter = filters;
         }
         const filterQueryString = Object.keys(queryData).map(key => key + '=' + queryData[key]).join('&');
@@ -455,6 +455,7 @@ class RestaurantApp {
 
     }
 }
+
 
 
 window.onload = function () {
@@ -526,7 +527,58 @@ window.onload = function () {
                 ev.target.parentNode.classList.remove('input--filled');
             }
         }
+        [].slice.call(document.querySelectorAll('.contact .veil,.contact .close')).forEach(function (closeEl) {
+            closeEl.addEventListener("click", function () {
+                this.closest('.contact').classList.remove("show");
+                document.body.style.overflow = "visible";
+            });
+
+        });
+
+        document.querySelector(".contact-link").addEventListener("click", function (e) {
+            e.preventDefault();
+            document.querySelector('.contact').classList.add("show");
+            document.body.style.overflow = "hidden";
+        })
+        document.querySelector("#form-contact").addEventListener('submit', function (e) {
+            e.preventDefault();
+            const _this = this;
+            const formData = new FormData(this);
+            const XHR = new XMLHttpRequest();
+
+            XHR.onreadystatechange = function () {
+                if (XHR.readyState === 4) {
+
+
+                    var json = JSON.parse(XHR.responseText);
+                    if (XHR.status == 200) {
+                        _this.classList.remove('success');
+                        _this.classList.add('success');
+                        window.setTimeout(function(){
+                            _this.classList.remove('success');
+                        },2000);
+                        
+                        [].slice.call(document.querySelectorAll('.contact .input--filled')).forEach(function (el) {
+                            el.classList.remove('input--filled');
+                        });
+                        _this.reset();
+
+                    } else {
+                        _this.classList.add('error');
+
+
+                    }
+
+                }
+            }
+
+            // Configurez la requête
+            XHR.open(this.method, this.action);
+
+            XHR.send(formData)
+        });
     })();
+
 
     window.app = new RestaurantApp();
 }

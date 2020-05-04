@@ -11,16 +11,16 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <section th:fragment="contactForm" class="contact scrollWrapper">
-                <div class="scrollOffset" id="contact"></div>
+        <section th:fragment="contactForm" class="contact scrollWrapper popup">
+            <div class="veil"></div>
+            <div class="contact-box">
                 <div class="contact-inner">
+                    <div class="close">&#10005;</div>
                     <h2>Une question?<br>Contactez nous...</h2>
 
-                    <span id="form-contact-error"  class="input input--juro" style="display:none"></span>
-                    <span id="form-contact-success" class="input input--juro" style="display:none"></span>
-                    <form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact"  >
 
 
+                    <form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact" >
                         <span id ="form-contact-name" class="input input--juro">
                             <input type="text" class="input__field input__field--juro" id="name"
                                    th:field="*{name}"  />
@@ -41,12 +41,13 @@ and open the template in the editor.
                                 <span class="input__label-content input__label-content--juro">Message</span>
                             </label>
                         </span>
+                        <span id="form-contact-error"  class="alert alert-danger"></span>
+                        <span id="form-contact-success" class="alert alert-success">Message envoyé.<br>Nous reviendrons rapidement vers vous</span>
 
-                        <button type="button" class="btn" onclick="addContact()" >Envoyer</button>
+                        <button type="submit" class="btn" >Envoyer</button>
                     </form>
-
-
                 </div>
-            </section>
+            </div>    
+        </section>
     </body>
 </html>
