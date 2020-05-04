@@ -51,7 +51,7 @@
             </div>
             <div class="phone-links" th:unless="${ #lists.size(resto.getOrderLinks()) > 0 }">
                 <a th:href="'tel:'+${resto.phone}">
-                    Appeler <span th:text="${resto.phone}"></span>
+                    Commander au <span th:text="${resto.phone}"></span>
                 </a>	
             </div>
         </div>

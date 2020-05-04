@@ -211,7 +211,9 @@ body{
                             flex: 1;
                             display: flex;
                             flex-direction: column;
-
+                            i{
+                                color: gray;
+                            }
                             .restaurant-tags {
                                 padding: 0px 5px;
                                 color:gray;
@@ -296,6 +298,7 @@ body{
                                         }
                                     }	
                                 }
+                                
                             }
                             .restaurant-seemap {
                                 text-align: right;
@@ -322,9 +325,9 @@ body{
                                 margin-left: 15px;
                             }
                         }
-
-
-
+                        .phone-links{
+                            text-align: center;
+                        }
                     }      
                 }
             }
