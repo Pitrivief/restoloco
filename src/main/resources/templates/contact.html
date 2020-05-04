@@ -22,21 +22,21 @@ and open the template in the editor.
 
                     <form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact" >
                         <span id ="form-contact-name" class="input input--juro">
-                            <input type="text" class="input__field input__field--juro" id="name"
-                                   th:field="*{name}"  />
+                            <input type="text" class="input__field input__field--juro" placeholder=" " required id="name"
+                                   th:field="*{name}" pattern=".*\S.*" />
                             <label class="input__label input__label--juro" for="input-1">
                                 <span class="input__label-content input__label-content--juro">Nom</span>
                             </label>
                         </span>
                         <span  id="form-contact-email" class="input input--juro">
-                            <input type="text" class="input__field input__field--juro" id="email"
+                            <input type="email" pattern=".+@.+\..+" placeholder=" " class="input__field input__field--juro" required id="email"
                                    th:field="*{email}"  />
                             <label class="input__label input__label--juro" for="input-2">
                                 <span class="input__label-content input__label-content--juro">Email</span>
                             </label>
                         </span>
                         <span id="form-contact-text" class="input textarea input--juro">
-                            <textarea class="input__field input__field--juro" name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
+                            <textarea class="input__field input__field--juro" pattern=".*\S.*" placeholder=" " required name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
                             <label class="input__label input__label--juro" for="input-3">
                                 <span class="input__label-content input__label-content--juro">Message</span>
                             </label>
