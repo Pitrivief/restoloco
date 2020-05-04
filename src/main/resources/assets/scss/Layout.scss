@@ -36,12 +36,16 @@ header {
             .logo {
                 transition: width 0.2s ease-in;
                 height: 100%;
-
+                flex:1;
                 img {
                     height: 100%;
                     object-fit: contain;
                     object-position: center;
                 }
+            }
+            .contact-text{
+                flex: 0 0 404px;
+                text-align: justify;
             }
         }
     }
@@ -180,7 +184,7 @@ header {
                 }
                 .restaurant-picture {
                     background-color: lightgray;
-                    flex: 0 0 50%;
+                    flex: 0 0 33%;
                     border-top-left-radius: 10px;
                     border-bottom-left-radius: 10px;
                     overflow: hidden;
@@ -200,26 +204,8 @@ header {
                     flex-direction: column;
 
                     .restaurant-tags {
-
                         padding: 0px 5px;
                         color:gray;
-                        /*border-top-right-radius: 30px;
-                        border-bottom-right-radius: 30px;
-                        padding-right: 30px;
-                        max-width: 100%;
-                        
-                       /* &:before {
-                            content: "";
-                            position: absolute;
-                            height: 0px;
-                            width: 0px;
-                            left: 0px;
-                            top: -4px;
-                            border-right: 5px solid #2d621e;
-                            border-bottom: 2px solid #2d621e;
-                            border-top: 2px solid transparent;
-                            border-left: 5px solid transparent;
-                        }*/
                         span{  
                             font-style: italic;
                             text-transform: capitalize;
@@ -327,82 +313,6 @@ header {
 
 
                 }    
-                /* .order-links {
-                     color : white;
-                     padding: 10px;
-                     background-color: #53a63c;
-                     text-align: center;
-                     position: relative;
-                     .phone-links a{
-                         color: white !important;
-                     }
-                     .external-links{
-                         .external-links-button{
-                             cursor:pointer;
-                             width:100%;
-                             height:100%;
-                         }
-                         label{
-                             margin-bottom: 0px
-                         }
-                         .links-veil{
-                             position:fixed
-                         }
-                         .popup-trigger{
-                             display:none;
-                         }
-                         .popup-trigger:checked ~ .links-popup{
-                             transform: translateY(-50%) scaleX(1) scaleY(1);
-                         }
-                         .popup-trigger:checked ~ .popup-veil{
-                             display: block;
-                         }
-                         .popup-veil{
-                             position: fixed;
-                             height: 100%;
-                             width: 100%;
-                             display:none;
-                             top:0;
-                             left:0;
-                         }
-                         .links-popup{
-                             position: absolute;
-                             width:100%;
-                             left:0px;
-                             border: 1px solid #53a63c;
-                             top: 50%;
-                             transform: translateY(-50%) scaleX(0.5) scaleY(0);
-                             transition: transform 0.2s;
-                             z-index: 100;
-                             a{
-                                 width:100%;
-                                 color: white !important;
-                                 padding: 10px;
-                                 background-color: #53a63c;
-                                 text-align: center;
-                                 display: flex;
-                                 align-items: center;
-                                 &:hover{
-                                     text-decoration: none;
-                                     background-color: gray;
-                                     span{
-
-                                         text-decoration: underline
-                                     }
-                                 }
-                                 i{
-                                     font-size:1.5rem
-                                 }
-                                 span{
-                                     margin-left:5px;
-                                     text-transform: capitalize;
-                                 }
-
-                             }
-                         }
-                     }
-
-                 }*/
 
             }
         }
@@ -475,55 +385,114 @@ footer {
 
 
 
-.contact {
-    background-color: #b8e270;
-    border-top: 30px solid #53a63c;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+$contactMainColor : #344657;
 
-.contact-inner {
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    background-color: #9dcf61;
-    max-width: 600px;
+
+.contact {
+    position: fixed;
+    top: 0;
+    top: 80px;
     width: 100%;
-}
+    z-index: 100;
+    height: calc( 100vh - 80px );
+    z-index: 100;
+    display:none;
+    overflow-y: auto;
 
-
-
-.contact {
-    h2 {
-        text-align: left;
-        color: #53a63c;
-        font-size: 1.4em;
-        margin-bottom: 1em;
+    &.show{
+        display: grid;  
     }
-
-    textarea {
-        background-color: transparent;
-        font-size: 70.25%;
-        width: 100%;
-        border: 0;
+    .veil{
+        width:100%;
+        height:100vh;
+        background-color: rgba(0,0,0,0.5);
+        position:fixed;
+        z-index: 0;
+        top: 0;
+        left: 0;
+    }
+    .contact-box{
+        margin:auto;
         padding: 5px;
-        margin-bottom: .5rem;
-        height: 100%;
-        padding: 2.15em 0.75em 0;
+        max-width: 600px;
+        width: 100%; 
+    }
+    .contact-inner {
+
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.8);
+        width: 100%;
+        z-index: 1;
+        position: relative;
+        .close{
+            position: absolute;
+            top:10px;
+            right:10px;
+            cursor:pointer;
+
+        }
+        h2 {
+            text-align: left;
+            color: #333;
+            font-size: 1.4em;
+            margin-bottom: 1em;
+        }
+        form{
+            &.success{
+                #form-contact-success{
+                    display: block;
+                    -webkit-animation: hideAnimation 2s forwards; 
+                    animation: hideAnimation 2s forwards;
+                }
+            }
+            &.error{
+                #form-contact-error{
+                    display: block;
+                }
+            }
+
+            #form-contact-success{
+                display: none;
+            }
+            #form-contact-error{
+                display: none;
+            }
+        }
+        textarea {
+            background-color: transparent;
+            font-size: 0.85rem;
+            width: 100%;
+            border: 0;
+            padding: 5px;
+            margin-bottom: .5rem;
+            height: 100%;
+            padding: 2.15em 0.75em 0;
+        }
+
+        button {
+            background-color: $contactMainColor;
+            color: white;
+            font-weight: bold;
+            font-size: 70.25%;
+            width: 100%;
+            height: 40px;
+            border-radius: 0;
+        }
     }
 
-    button {
-        background-color: #53a63c;
-        color: white;
-        font-weight: bold;
-        font-size: 70.25%;
-        width: 100%;
-        height: 40px;
-        border-radius: 0;
-    }
 }
+
+@keyframes hideAnimation {
+    to{
+        display: none;
+    }
+    
+}
+
 
 .input {
     position: relative;
@@ -564,7 +533,7 @@ footer {
     display: inline-block;
     padding: 0 1em;
     width: 40%;
-    color: #6a7989;
+    color: darken($contactMainColor, 20%);
     font-weight: bold;
     font-size: 70.25%;
     -webkit-font-smoothing: antialiased;
@@ -606,15 +575,15 @@ footer {
     padding: 2.15em 0.75em 0;
     width: 100%;
     background: transparent;
-    color: #53a63c;
-    font-size: 0.85em;
+    color: darken($contactMainColor,20%);
+    font-size: 0.85rem;
 }
 
 .input__label--juro {
     padding: 0;
     width: 100%;
     height: 100%;
-    background: #dbf2b3;
+    background: #E9ECEF;
     text-align: left;
 }
 
@@ -644,7 +613,7 @@ footer {
 
 .input__field--juro:focus + .input__label--juro::before, .input--filled .input__label--juro::before {
     border-width: 8px;
-    border-color: #53a63c;
+    border-color: $contactMainColor;
     border-top-width: 2em;
 }
 
@@ -659,10 +628,6 @@ footer {
     color: red;
     border-color: red;
 }
-
-
-
-
 
 
 
@@ -705,42 +670,42 @@ footer {
 }
 
 .selectItem {
-        &:hover, &:active{
-            background-color: lightgray;
-        }
-        padding: 8px 16px;
-        border-bottom:  1px solid lightgray;
-        &:last-child{
-            border-bottom: none;
-        }
-        cursor: pointer;
-
-        &.selected .checkmark:after{
-            display:block;
-        }
-        .checkmark {
-            position: relative;
-            height: 1.2rem;
-            width: 25px;
-            display:inline-block;
-            /* Create the checkmark/indicator (hidden when not checked) */
-            &:after {
-                content: "";
-                position: absolute;
-                display: none;
-                left: 11px;
-                top: 5px;
-                width: 5px;
-                height: 12px;
-                border: solid;
-                border-width: 0 1px 2px 0;
-                -webkit-transform: rotate(45deg);
-                -ms-transform: rotate(45deg);
-                transform: rotate(45deg);
-            }
-        }
-
+    &:hover, &:active{
+        background-color: lightgray;
     }
+    padding: 8px 16px;
+    border-bottom:  1px solid lightgray;
+    &:last-child{
+        border-bottom: none;
+    }
+    cursor: pointer;
+
+    &.selected .checkmark:after{
+        display:block;
+    }
+    .checkmark {
+        position: relative;
+        height: 1.2rem;
+        width: 25px;
+        display:inline-block;
+        /* Create the checkmark/indicator (hidden when not checked) */
+        &:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 11px;
+            top: 5px;
+            width: 5px;
+            height: 12px;
+            border: solid;
+            border-width: 0 1px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+
+}
 
 
 .dropdown-wrapper{
@@ -756,7 +721,7 @@ footer {
         padding: 5px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
-        
+
 
         /* Hide the items when the select box is closed: */
         &.dropdown-hide {
