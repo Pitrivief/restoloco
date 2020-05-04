@@ -133,42 +133,42 @@ class Restaurant {
             this.filters.concat(data_filters)
         }
 
-        tag.querySelector('.todays-opening h4').addEventListener('click', function (e) {
+        tag.querySelector('.todays-opening .popup-trigger').addEventListener('click', function (e) {
             this.parentNode.querySelector('.restaurant-openings').classList.remove('dropdown-hide');
         });
-            var lat = tag.getAttribute('data-lat');
-            var lng = tag.getAttribute('data-lng');
-            if (lat !== null && lng !== null) {
+        var lat = tag.getAttribute('data-lat');
+        var lng = tag.getAttribute('data-lng');
+        if (lat !== null && lng !== null) {
 
-                var popup = L.popup({maxWidth: 350, minwidth: 350})
-                        .setContent(tag.querySelector('.restaurant-name').textContent)
-                this.marker = L.marker([lat, lng], {icon: markerIcon});
-                this.marker.addTo(window.map).bindPopup(popup, {closeButton: false});
-                this.marker.off('click');
-                this.marker.on('click', function () {
-                    setSelectedMarker(_self.marker)
-                    var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
-                    if (testElement) {
-                        testElement.classList.remove('selected')
-                    }
+            var popup = L.popup({maxWidth: 350, minwidth: 350})
+                    .setContent(tag.querySelector('.restaurant-name').textContent)
+            this.marker = L.marker([lat, lng], {icon: markerIcon});
+            this.marker.addTo(window.map).bindPopup(popup, {closeButton: false});
+            this.marker.off('click');
+            this.marker.on('click', function () {
+                setSelectedMarker(_self.marker)
+                var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
+                if (testElement) {
+                    testElement.classList.remove('selected')
+                }
 
-                    _self.tag.classList.add('selected');
-                    _self.tag.scrollIntoView({behavior: "smooth", block: 'center'});
-                })
-                tag.addEventListener('click', function (e) {
-                    
-                    var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
-                    if (testElement) {
-                        testElement.classList.remove('selected')
-                    }
+                _self.tag.classList.add('selected');
+                _self.tag.scrollIntoView({behavior: "smooth", block: 'center'});
+            })
+            tag.addEventListener('click', function (e) {
 
-                    _self.tag.classList.add('selected');
-                    setSelectedMarker(_self.marker)
+                var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
+                if (testElement) {
+                    testElement.classList.remove('selected')
+                }
 
-                });
-            }
-            
-        
+                _self.tag.classList.add('selected');
+                setSelectedMarker(_self.marker)
+
+            });
+        }
+
+
     }
     getFilters() {
         return this.filters;
