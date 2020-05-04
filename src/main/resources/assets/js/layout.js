@@ -136,9 +136,8 @@ class Restaurant {
         tag.querySelector('.todays-opening h4').addEventListener('click', function (e) {
             this.parentNode.querySelector('.restaurant-openings').classList.remove('dropdown-hide');
         });
-        if (tag.querySelector(".restaurant-seemap") !== null) {
-            var lat = tag.querySelector(".restaurant-seemap").getAttribute('data-lat');
-            var lng = tag.querySelector(".restaurant-seemap").getAttribute('data-lng');
+            var lat = tag.getAttribute('data-lat');
+            var lng = tag.getAttribute('data-lng');
             if (lat !== null && lng !== null) {
 
                 var popup = L.popup({maxWidth: 350, minwidth: 350})
@@ -156,20 +155,20 @@ class Restaurant {
                     _self.tag.classList.add('selected');
                     _self.tag.scrollIntoView({behavior: "smooth", block: 'center'});
                 })
+                tag.addEventListener('click', function (e) {
+                    
+                    var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
+                    if (testElement) {
+                        testElement.classList.remove('selected')
+                    }
 
+                    _self.tag.classList.add('selected');
+                    setSelectedMarker(_self.marker)
+
+                });
             }
-            tag.querySelector(".restaurant-seemap").addEventListener('click', function (e) {
-                e.preventDefault();
-                var testElement = document.querySelector('.restaurant-list .restaurant-item.selected');
-                if (testElement) {
-                    testElement.classList.remove('selected')
-                }
-
-                _self.tag.classList.add('selected');
-                setSelectedMarker(_self.marker)
-
-            });
-        }
+            
+        
     }
     getFilters() {
         return this.filters;
@@ -554,12 +553,16 @@ window.onload = function () {
                     if (XHR.status == 200) {
                         _this.classList.remove('success');
                         _this.classList.add('success');
-                        window.setTimeout(function(){
+                        window.setTimeout(function () {
                             _this.classList.remove('success');
-                        },2000);
-                        
+                        }, 2000);
+
                         [].slice.call(document.querySelectorAll('.contact .input--filled')).forEach(function (el) {
                             el.classList.remove('input--filled');
+                        });
+                        [].slice.call(document.querySelectorAll('.contact input,.contact textarea')).forEach(function (input) {
+                            input.classList.remove('visited');
+
                         });
                         _this.reset();
 
@@ -577,6 +580,13 @@ window.onload = function () {
 
             XHR.send(formData)
         });
+        [].slice.call(document.querySelectorAll('.contact input,.contact textarea')).forEach(function (input) {
+            input.addEventListener("focus", function () {
+                this.classList.add('visited');
+            });
+
+        });
+
     })();
 
 
