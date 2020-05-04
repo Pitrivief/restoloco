@@ -201,7 +201,6 @@ body{
                             overflow: hidden;
                             img{
                                 width: 100%;
-                                height: 100%;
                                 object-fit: cover;
                                 object-position: center;
                             }
@@ -225,14 +224,14 @@ body{
                                 }
 
                             }
-
+ 
                             .restaurant-name{
                                 font-size: 1.3em;
                             }
                             .todays-opening{
                                 white-space: nowrap;
                                 font-size:0.8em;
-                                h4{
+                                i{
                                     font-size: 0.9rem;
                                     font-weight: bold;
                                     margin-bottom: 0px;
@@ -288,7 +287,6 @@ body{
                                 }
                             }
                             .restaurant-infos{
-                                margin: 10px 0px ;
                                 .restaurant-telephone {
                                     font-size: 0.9rem;
                                 }
