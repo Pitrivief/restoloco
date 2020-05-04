@@ -211,7 +211,9 @@ body{
                             flex: 1;
                             display: flex;
                             flex-direction: column;
-
+                            i{
+                                color: gray;
+                            }
                             .restaurant-tags {
                                 padding: 0px 5px;
                                 color:gray;
@@ -227,10 +229,15 @@ body{
  
                             .restaurant-name{
                                 font-size: 1.3em;
+                                display: flex;
+                                justify-content: space-between;
+                                .icon-facebook{
+                                    color:#4267B2
+                                }
                             }
                             .todays-opening{
                                 white-space: nowrap;
-                                font-size:0.8em;
+                                font-size:0.8rem;
                                 i{
                                     font-size: 0.9rem;
                                     font-weight: bold;
@@ -258,16 +265,12 @@ body{
                                 }        
                             }
                             .restaurant-openings{
-                                font-size:0.7em;
+                                font-size:0.8rem;
                                 width:calc( 100% + 50px );
                                 left: 30px;
                                 top: 30px;
                                 &:before{
                                     border-bottom: 10px solid lightgray;
-                                }
-                                h4{
-                                    font-size: 0.9rem;
-                                    font-weight: bold;
                                 }
 
                                 .opening-day-name{
@@ -288,18 +291,10 @@ body{
                             }
                             .restaurant-infos{
                                 .restaurant-telephone {
-                                    font-size: 0.9rem;
+                                    font-size: 0.8rem;
                                 }
-                                .restaurant-links {
-                                    height: 2em;
-                                    .restaurant-external-link{
-                                        font-size: 1.5em;
-                                        margin: 5px;
-                                        .icon-facebook{
-                                            color:#4267B2
-                                        }
-                                    }	
-                                }
+                               
+                                
                             }
                             .restaurant-seemap {
                                 text-align: right;
@@ -326,9 +321,9 @@ body{
                                 margin-left: 15px;
                             }
                         }
-
-
-
+                        .phone-links{
+                            text-align: center;
+                        }
                     }      
                 }
             }
