@@ -15,7 +15,7 @@
                     <span th:each="cooktype : ${resto.cookTypes}" th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
                 </div>-->
                 <div th:with="opening=${resto.getTodaysOpening()}" th:if="${ resto.getTodaysOpening() != null}" class="todays-opening dropdown-wrapper">
-                    <h4>Horaires</h4>
+                    <i class='icon-clock'></i>
                     <div class="todays-opening-detail">
                         <span th:if="${ opening.closed == true }">Fermé</span>
                         <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+' - '+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="restaurant-infos">
                     <div class="restaurant-telephone">
-                        <span class="font-weight-bold">Téléphone: </span><a th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
+                        <span class="font-weight-bold"><i class='icon-phone'></i> </span><a th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
                     </div> 
 
                 </div>
