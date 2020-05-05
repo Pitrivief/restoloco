@@ -171,12 +171,16 @@ body{
 
             }
 
-            .restaurant-list {
+            .restaurant-list{
+
+                padding-bottom: 200px;
+                
+                .restaurant-grid {
                 display: grid;
                 grid-template-columns: repeat( auto-fit, minmax(350px, 1fr) );
                 grid-gap: 10px;
                 padding:10px;
-                padding-bottom: 200px;
+               
                 .restaurant-item {
                     
                     background-color: white;
@@ -331,6 +335,7 @@ body{
                             text-align: center;
                         }
                     }      
+                }
                 }
             }
         }

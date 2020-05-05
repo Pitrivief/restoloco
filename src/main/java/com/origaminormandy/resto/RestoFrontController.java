@@ -1,8 +1,8 @@
 package com.origaminormandy.resto;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.origaminormandy.contact.Contact;
 import com.origaminormandy.maps.GeocodingAddress;
 import com.origaminormandy.maps.GeocodingPointSimpleImpl;
+
 import io.github.perplexhub.rsql.RSQLJPASupport;
 
 @Controller
@@ -60,6 +61,17 @@ public class RestoFrontController {
 			System.out.print(r.getDistance());
 		});
 	     
+		model.addAttribute("pageSize", restosPage.getSize());
+ 		model.addAttribute("currentPage", restosPage.getNumber());
+ 		 
+         int totalPages = restosPage.getTotalPages();
+         if (totalPages > 0) {
+             List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                 .boxed()
+                 .collect(Collectors.toList());
+             model.addAttribute("pageNumbers", pageNumbers);
+         }
+         
 	    model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));
 	    model.addAttribute("cookTypes", cookTypes);
 	    model.addAttribute("contact", new Contact());
@@ -108,13 +120,19 @@ public class RestoFrontController {
                 Page<RestoDTO> restosPage = restoRepository.findAllOrderByDistanceFromGeocodePointNative(lng,  lat, RSQLJPASupport.toSpecification(filter, true), pageable);
          		
          		List<RestoDTO> restos = restosPage.getContent();
-         		//List<Resto> restos = new ArrayList<Resto>();
-         				System.out.println("Controller");
-         		restos.forEach(r -> {
-         			System.out.println(r.getResto().getName());
-         			System.out.print(r.getDistance());
-         		});
-         	     
+         		
+         		model.addAttribute("pageSize", restosPage.getSize());
+         		model.addAttribute("currentPage", restosPage.getNumber());
+         		 
+                 int totalPages = restosPage.getTotalPages();
+                 if (totalPages > 0) {
+                     List<Integer> pageNumbers = IntStream.rangeClosed(1, totalPages)
+                         .boxed()
+                         .collect(Collectors.toList());
+                     model.addAttribute("pageNumbers", pageNumbers);
+                 }
+          
+       
 		model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));
 
 		return "restaurant-list";

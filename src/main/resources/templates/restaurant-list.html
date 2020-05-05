@@ -1,101 +1,166 @@
-<div th:fragment="restaurantlist" class="restaurant-list " >
-    <article class="restaurant-item" th:each="resto : ${restos}"  th:attr="data-lat=${resto.lat},data-lng=${resto.lng}" th:id="'resto'+${restoStat.index}" >
-        <div class="restaurant-box">
-            <div class="restaurant-picture">
-                <img th:src="'/uploaded/'+${resto.photo}" />
-            </div>
-            <div class="restaurant-description" >
-                <h3 class="restaurant-name" >
-                    <span th:text="${resto.name}"></span>
-                    <a th:each="externallink : ${resto.externalLinks}"  th:if="${ #strings.equals(externallink.type , 'SOCIAL')}" th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
-                        <i  th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} " class="icon-facebook"></i>
-                    </a>
-                </h3>
-                <div class="restaurant-tags" >
-                    <span th:each="cooktype : ${resto.cookTypes}" th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
-                </div>
-                <div th:with="opening=${resto.getTodaysOpening()}" th:if="${ resto.getTodaysOpening() != null}" class="todays-opening dropdown-wrapper">
-                    <div class="todays-opening-detail popup-trigger">
-                        <i class='icon-clock'></i>
-                        <span th:if="${ opening.closed == true }">Fermé</span>
-                        <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
-                        <span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
-                    </div>
-                    <div class="restaurant-openings dropdown-content dropdown-hide " >
-                        <div class="opening-day" th:each="opening : ${resto.openings}">
-                            <div class="opening-day-name" th:text="${opening.day}"></div>
-                            <div class="opening-day-hours" 
-                                 >
-                                <span th:if="${ opening.closed == true }">Fermé</span>
-                                <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
-                                <span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="restaurant-infos">
-                    <div class="restaurant-telephone">
-                        <span class="font-weight-bold"><i class='icon-phone'></i> </span><a th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
-                    </div> 
+<div th:fragment="restaurantlist" class="restaurant-list ">
+	<div class="restaurant-grid ">
+		<article class="restaurant-item" th:each="resto : ${restos}"
+			th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"
+			th:id="'resto'+${restoStat.index}">
+			<div class="restaurant-box">
+				<div class="restaurant-picture">
+					<img th:src="'/uploaded/'+${resto.photo}" />
+				</div>
+				<div class="restaurant-description">
+					<h3 class="restaurant-name">
+						<span th:text="${resto.name}"></span> <a
+							th:each="externallink : ${resto.externalLinks}"
+							th:if="${ #strings.equals(externallink.type , 'SOCIAL')}"
+							th:href="${externallink.url}" class="restaurant-external-link"
+							target="_blank" rel="nofollow"> <i
+							th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} "
+							class="icon-facebook"></i>
+						</a>
+					</h3>
+					<div class="restaurant-tags">
+						<span th:each="cooktype : ${resto.cookTypes}"
+							th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
+					</div>
+					<div th:with="opening=${resto.getTodaysOpening()}"
+						th:if="${ resto.getTodaysOpening() != null}"
+						class="todays-opening dropdown-wrapper">
+						<div class="todays-opening-detail popup-trigger">
+							<i class='icon-clock'></i> <span
+								th:if="${ opening.closed == true }">Fermé</span> <span
+								th:if="${ opening.closed == false }"
+								th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
+							<span th:if="${ opening.closed == false }"
+								th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
+						</div>
+						<div class="restaurant-openings dropdown-content dropdown-hide ">
+							<div class="opening-day" th:each="opening : ${resto.openings}">
+								<div class="opening-day-name" th:text="${opening.day}"></div>
+								<div class="opening-day-hours">
+									<span th:if="${ opening.closed == true }">Fermé</span> <span
+										th:if="${ opening.closed == false }"
+										th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
+									<span th:if="${ opening.closed == false }"
+										th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="restaurant-infos">
+						<div class="restaurant-telephone">
+							<span class="font-weight-bold"><i class='icon-phone'></i>
+							</span><a th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
+						</div>
 
-                </div>
-            </div>
-        </div>   
-        <div class="order-links">
-            <div class="external-links" th:if="${ #lists.size(resto.getOrderLinks()) > 0 }">
-                <a th:each="externallink : ${resto.getOrderLinks()}"   th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
-                    <i th:class="'icon-'+  ${ #strings.replace(#strings.toLowerCase(externallink.subtype), ' ', '')}"></i>
-                    <span th:text="${(externallink.subtype == 'WEBSITE')? 'Site web' :#strings.toLowerCase(externallink.subtype)}"></span>
-                </a>
-            </div>
-            <div class="phone-links" th:unless="${ #lists.size(resto.getOrderLinks()) > 0 }">
-                <a th:href="'tel:'+${resto.phone}">
-                    Commander au <span th:text="${resto.phone}"></span>
-                </a>	
-            </div>
-        </div>
-        <template>
-            
-                <div class="restaurant-picture">
-                    <img th:src="'/uploaded/'+${resto.photo}" />
-                </div>
-                <div class="restaurant-description" >
-                    <h3 class="restaurant-name" >
-                        <span th:text="${resto.name}"></span>
-                        <a th:each="externallink : ${resto.externalLinks}"  th:if="${ #strings.equals(externallink.type , 'SOCIAL')}" th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
-                            <i  th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} " class="icon-facebook"></i>
-                        </a>
-                    </h3>
-                    <div class="restaurant-tags" >
-                        <span th:each="cooktype : ${resto.cookTypes}" th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
-                    </div>
-                    <div th:with="opening=${resto.getTodaysOpening()}" th:if="${ resto.getTodaysOpening() != null}" class="todays-opening dropdown-wrapper">
-                        <div class="todays-opening-detail popup-trigger">
-                            <i class='icon-clock'></i>
-                            <span th:if="${ opening.closed == true }">Fermé</span>
-                            <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
-                            <span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
-                        </div>
-                        <div class="restaurant-openings dropdown-content dropdown-hide " >
-                            <div class="opening-day" th:each="opening : ${resto.openings}">
-                                <div class="opening-day-name" th:text="${opening.day}"></div>
-                                <div class="opening-day-hours" 
-                                     >
-                                    <span th:if="${ opening.closed == true }">Fermé</span>
-                                    <span th:if="${ opening.closed == false }" th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
-                                    <span th:if="${ opening.closed == false }" th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="restaurant-infos">
-                        <div class="restaurant-telephone">
-                            <span class="font-weight-bold"><i class='icon-phone'></i> </span><a th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
-                        </div> 
+					</div>
+				</div>
+			</div>
+			<div class="order-links">
+				<div class="external-links"
+					th:if="${ #lists.size(resto.getOrderLinks()) > 0 }">
+					<a th:each="externallink : ${resto.getOrderLinks()}"
+						th:href="${externallink.url}" class="restaurant-external-link"
+						target="_blank" rel="nofollow"> <i
+						th:class="'icon-'+  ${ #strings.replace(#strings.toLowerCase(externallink.subtype), ' ', '')}"></i>
+						<span
+						th:text="${(externallink.subtype == 'WEBSITE')? 'Site web' :#strings.toLowerCase(externallink.subtype)}"></span>
+					</a>
+				</div>
+				<div class="phone-links"
+					th:unless="${ #lists.size(resto.getOrderLinks()) > 0 }">
+					<a th:href="'tel:'+${resto.phone}"> Commander au <span
+						th:text="${resto.phone}"></span>
+					</a>
+				</div>
+			</div>
+			<template>
 
-                    </div>
-                </div>
-            
-        </template>    
-    </article>
+			<div class="restaurant-picture">
+				<img th:src="'/uploaded/'+${resto.photo}" />
+			</div>
+			<div class="restaurant-description">
+				<h3 class="restaurant-name">
+					<span th:text="${resto.name}"></span> <a
+						th:each="externallink : ${resto.externalLinks}"
+						th:if="${ #strings.equals(externallink.type , 'SOCIAL')}"
+						th:href="${externallink.url}" class="restaurant-external-link"
+						target="_blank" rel="nofollow"> <i
+						th:if="${ #strings.equals(externallink.subtype , 'FACEBOOK')} "
+						class="icon-facebook"></i>
+					</a>
+				</h3>
+				<div class="restaurant-tags">
+					<span th:each="cooktype : ${resto.cookTypes}"
+						th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
+				</div>
+				<div th:with="opening=${resto.getTodaysOpening()}"
+					th:if="${ resto.getTodaysOpening() != null}"
+					class="todays-opening dropdown-wrapper">
+					<div class="todays-opening-detail popup-trigger">
+						<i class='icon-clock'></i> <span
+							th:if="${ opening.closed == true }">Fermé</span> <span
+							th:if="${ opening.closed == false }"
+							th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
+						<span th:if="${ opening.closed == false }"
+							th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
+					</div>
+					<div class="restaurant-openings dropdown-content dropdown-hide ">
+						<div class="opening-day" th:each="opening : ${resto.openings}">
+							<div class="opening-day-name" th:text="${opening.day}"></div>
+							<div class="opening-day-hours">
+								<span th:if="${ opening.closed == true }">Fermé</span> <span
+									th:if="${ opening.closed == false }"
+									th:text="((${opening.lunchStart  == null})?'':${#temporals.format(opening.lunchStart, 'HH:mm')}+'-'+${#temporals.format(opening.lunchEnd, 'HH:mm')})"></span>
+								<span th:if="${ opening.closed == false }"
+									th:text="((${opening.dinnerStart  == null})?'':', '+${#temporals.format(opening.dinnerStart, 'HH:mm')}+'-'+${#temporals.format(opening.dinnerEnd, 'HH:mm')})"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="restaurant-infos">
+					<div class="restaurant-telephone">
+						<span class="font-weight-bold"><i class='icon-phone'></i> </span><a
+							th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
+					</div>
+
+				</div>
+			</div>
+
+			</template>
+		</article>
+
+
+
+	</div>
+
+	<!-- 
+<div th:if="${bookPage.totalPages > 0}" class="pagination"
+    th:each="pageNumber : ${pageNumbers}">
+    <a th:href="@{/listBooks(size=${bookPage.size}, page=${pageNumber})}"
+        th:text=${pageNumber}
+        th:class="${pageNumber==bookPage.number + 1} ? active"></a>
+
+ -->
+	<ul th:if="${#lists.size(pageNumbers) > 1}" class="pagination justify-content-center">
+		<li class="page-item" th:classappend="${currentPage == 0} ? disabled">
+			<a class="page-link"
+			th:href="@{/(size=${pageSize}, page=${currentPage - 1})}"
+			aria-label="Précédent"> <span aria-hidden="true">&laquo;</span> <span
+				class="sr-only">Précedent</span>
+		</a>
+		</li>
+		<li class="page-item"
+			th:classappend="${pageNumber==currentPage + 1} ? active"
+			th:each="pageNumber : ${pageNumbers}"><a class="page-link"
+			th:text=${pageNumber}
+			th:href="@{/(size=${pageSize}, page=${pageNumber -1})}">1</a></li>
+		<li class="page-item"
+			th:classappend="${currentPage + 1 == #lists.size(pageNumbers)} ? disabled">
+			<a class="page-link"
+			th:href="@{/(size=${pageSize}, page=${currentPage + 1})}"
+			aria-label="Suivant"> <span aria-hidden="true">&raquo;</span> <span
+				class="sr-only">Suivant</span>
+		</a>
+		</li>
+	</ul>
 </div>
