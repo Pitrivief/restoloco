@@ -2,6 +2,7 @@
 @import "~bootstrap";
 @import "./icon.css";
 
+$restaurantBorderRadius : 5px;
 
 body{
     color: #333;
@@ -63,7 +64,7 @@ body{
             @include media-breakpoint-up(md){ 
                 flex:0 0 370px;
             }
-            @include media-breakpoint-up(lg){ 
+            @include media-breakpoint-up(xl){ 
                 flex:0 0 730px;
             }
             max-width: 100%;
@@ -169,7 +170,7 @@ body{
 
 
             }
-            
+
             .restaurant-list {
                 display: grid;
                 grid-template-columns: repeat( auto-fit, minmax(350px, 1fr) );
@@ -177,7 +178,7 @@ body{
                 padding:10px;
                 padding-bottom: 200px;
                 .restaurant-item {
-                    $restaurantBorderRadius : 5px;
+                    
                     background-color: white;
                     cursor: pointer;
                     position: relative;
@@ -186,7 +187,7 @@ body{
                     height:100%;
                     display: flex;
                     flex-direction: column;
-                    &:hover{
+                    &:hover, &.visited{
                         box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
                     }
                     &.selected{
@@ -213,8 +214,8 @@ body{
                             position: relative;
                             flex: 0 0 250px;
                             max-width: 263px;
-                            
-                            
+
+
                             i{
                                 color: gray;
                             }
@@ -234,7 +235,7 @@ body{
                                 }
 
                             }
- 
+
                             .restaurant-name{
                                 font-size: 1.3em;
                                 display: flex;
@@ -254,8 +255,8 @@ body{
                                 white-space: nowrap;
                                 font-size:0.8rem;
                                 display: inline-block;
-                                
-                                
+
+
                                 .todays-opening-detail{
                                     display:inline-block;
                                     position: relative;
@@ -292,7 +293,7 @@ body{
                                     .opening-day-hours{
                                         flex:1;
                                         margin-left: 5px;
-                                        
+
                                     }
                                 }
                             }
@@ -300,8 +301,8 @@ body{
                                 .restaurant-telephone {
                                     font-size: 0.8rem;
                                 }
-                               
-                                
+
+
                             }
                             .restaurant-seemap {
                                 text-align: right;
@@ -320,7 +321,7 @@ body{
                         border-bottom-left-radius:$restaurantBorderRadius;
                         border-bottom-right-radius:$restaurantBorderRadius;
                         .external-links{
-                            
+
                             text-align:center;
                             .restaurant-external-link:not(:first-child){
                                 margin-left: 15px;
@@ -346,14 +347,178 @@ body{
             .map{
                 height:100%;
                 width:100%;
-                .restaurant-seemap{
-                    display: none;
+                position:relative;
+                z-index: 1;
+            }
+            .map-restaurant-detail{
+                position:absolute;
+                display:none;
+                left:0;
+                right: 0;
+                top: calc(25% + 5px);
+                height: 300px;
+                padding: 10px;
+                z-index: 2;
+                width:350px;
+                flex-direction: column;
+                
+                left:50%;
+                transform: translateX(-50%);
+                background-color: #F8F8F8;
+                border-radius: 10px;
+                border: 1px solid lightgray;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+                padding: 10px;
+                @include media-breakpoint-up(xl) {
+                    width: 450px;
+                    flex-direction: row;
                 }
+
+
+                &:before{
+                    content: "";
+                    border: 20px solid transparent;
+                    border-bottom-color: #F8F8F8;
+                    height:0px;
+                    width:0px;
+                    top: -40px;
+                    left: calc( 50% - 20px );
+                    display: block;
+                    position: absolute;  
+                    z-index:-1;
+                }
+                &:after{
+                    content: "";
+                    border: 22px solid transparent;
+                    border-bottom-color: lightgray;
+                    height:0px;
+                    width:0px;
+                    top: -44px;
+                    left: calc( 50% - 22px );
+                    display: block;
+                    position: absolute;   
+                    z-index:-2;
+                }
+
+                .restaurant-picture {
+
+                    flex: 0 0 100px;
+                    border-top-left-radius: $restaurantBorderRadius;
+                    overflow: hidden;
+                    img{
+                        width: 100%;
+                        object-fit: cover;
+                        object-position: center;
+                    }
+                }
+                .restaurant-description {
+                    padding: 0.5rem;
+                    position: relative;
+                    flex: 0 0 250px;
+                    max-width: 263px;
+
+
+                    i{
+                        color: gray;
+                    }
+                    .restaurant-tags {
+                        color:gray;
+                        width: 100%;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                        font-size: 0.7rem;
+                        span{  
+                            font-style: italic;
+                            text-transform: capitalize;
+                            &:not(:first-child):before{
+                                content:", "; 
+                            }
+                        }
+
+                    }
+
+                    .restaurant-name{
+                        font-size: 1.3em;
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 0;
+                        white-space: nowrap;
+                        span{
+                            max-width: 200px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+                        .icon-facebook{
+                            color:#4267B2
+                        }
+                    }
+                    .todays-opening{
+                        white-space: nowrap;
+                        font-size:0.8rem;
+                        display: inline-block;
+
+
+                        .todays-opening-detail{
+                            display:inline-block;
+                            position: relative;
+                            &:hover{
+                                text-decoration: underline;
+                            }
+                            &:after {
+                                position: absolute;
+                                content: "";
+                                top: 7px;
+                                right: -18px;
+                                width: 0; 
+                                height: 0;
+                                border: 6px solid transparent;
+                                border-color: gray transparent transparent transparent;
+                            }    
+                        }        
+                    }
+                    .restaurant-openings{
+                        font-size:0.8rem;
+                        width:auto;
+                        top: 30px;
+                        left: calc( 100% + 13px );
+                        &:before{
+                            border-bottom: 10px solid lightgray;
+                        }
+
+                        .opening-day-name{
+                            flex: 0 0 80px;
+                        }
+                        .opening-day{
+                            display:flex;
+                            justify-content: space-between;
+                            .opening-day-hours{
+                                flex:1;
+                                margin-left: 5px;
+
+                            }
+                        }
+                    }
+                    .restaurant-infos{
+                        .restaurant-telephone {
+                            font-size: 0.8rem;
+                        }
+
+
+                    }
+                    .restaurant-seemap {
+                        text-align: right;
+                        width: 100%;
+                        display:none;
+                        @include media-breakpoint-up(md) { 
+                            display: inline-block;
+                        }
+                    }
+                }
+
             }
         }
     }
-
-
     .about-us{
         position: relative;
         &:before{
