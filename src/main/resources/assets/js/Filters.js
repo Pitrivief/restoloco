@@ -1,3 +1,5 @@
+import { and, comparison, eq, inList, } from "rsql-builder";
+import autoComplete from '@tarekraafat/autocomplete.js/dist/js/autoComplete.min.js'
 export default class Filters {
 
     selectBox;
@@ -15,7 +17,78 @@ export default class Filters {
         const _self = this;
 
 
+        new autoComplete({
+            data: {
+                src: async () => {
 
+                    // Fetch External Data Source
+                    const query = document.querySelector("#autoComplete").value;
+                    if (query.length < 4) {
+                        document.querySelector('#autoComplete_wrapper .dropdown-content').classList.add('dropdown-hide');
+                        return [];
+                    }
+                    // Loading placeholder text
+                    document
+                            .querySelector("#autoComplete")
+                            .setAttribute("placeholder", "Loading...");
+                    const source = await fetch(
+                            `/maps/geocode?q=${query}`
+                            );
+                    const data = await source.json();
+
+                    document.querySelector('#autoComplete_wrapper .dropdown-content').classList.remove('dropdown-hide');
+                    // Post loading placeholder text
+                    document
+                            .querySelector("#autoComplete")
+                            .setAttribute("placeholder", "Saisissez une adresse");
+                    // Returns Fetched data
+                    return data;
+                },
+                key: ["label"],
+                cache: false
+            },
+
+            placeHolder: "Saisissez une adresse",
+            selector: "#autoComplete",
+            threshold: 3,
+            debounce: 300,
+            searchEngine: (query, record) => {
+                return record;
+            },
+            highlight: false,
+            maxResults: 5,
+            resultsList: {
+                render: true,
+                container: source => {
+                    source.setAttribute("id", "autoComplete_list");
+                    source.setAttribute("class", "dropdown-content dropdown-hide");
+                },
+                destination: document.querySelector("#autoComplete"),
+                position: "afterend",
+                element: "div"
+            },
+            resultItem: {
+                content: (data, source) => {
+                    source.innerHTML = data.value.label;
+                    source.setAttribute("class", "selectItem");
+                },
+                element: "div"
+            },
+            noResults: () => {
+                const result = document.createElement("li");
+                result.setAttribute("class", "no_result");
+                result.setAttribute("tabindex", "1");
+                result.innerHTML = "No Results";
+                document.querySelector("#autoComplete_list").appendChild(result);
+            },
+            onSelection: feedback => {
+                console.log(feedback);
+                const selection = feedback.selection.value;
+                document.querySelector("#autoComplete").value = feedback.selection.match;
+                document.querySelector('#autoComplete_wrapper .dropdown-content ').classList.add('dropdown-hide');
+                window.app.setLocalisation(selection);
+            }
+        });
 
         [].slice.call(document.querySelectorAll("input[data-filter-boolean]")).forEach(function (input) {
 
