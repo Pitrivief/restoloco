@@ -1,5 +1,5 @@
 @import "~leaflet";
-@import "~bootstrap";
+@import "./restoBootstrap";
 @import "./icon.css";
 
 $restaurantBorderRadius : 5px;
@@ -371,6 +371,14 @@ body{
                 padding: 10px;
                 @include media-breakpoint-up(xl) {
                     width: 450px;
+                    flex-direction: row;
+                }
+                @include media-breakpoint-up(xxl) {
+                    width: 600px;
+                    flex-direction: row;
+                }
+                @include media-breakpoint-up(xxxl) {
+                    width: 700px;
                     flex-direction: row;
                 }
 
