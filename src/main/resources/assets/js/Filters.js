@@ -1,4 +1,4 @@
-import { and, comparison, eq, inList, } from "rsql-builder";
+import { and, or, comparison, eq, inList, } from "rsql-builder";
 import autoComplete from '@tarekraafat/autocomplete.js/dist/js/autoComplete.min.js'
 export default class Filters {
 
@@ -177,22 +177,32 @@ export default class Filters {
 
     generateRSQL() {
 
-        const preparedfilters = [];
+    	const preparedfilters = [];
+        const orfilters = [];
         for (let [key, value] of Object.entries(this.filters)) {
 
-
+        	console.log("key " + key);
             let filt;
             if (Array.isArray(value)) {
-                if (value.length > 0) {
-                    preparedfilters.push(comparison(key, inList(...value)))
+                if (value.length == 0) {
+                	continue;
                 }
+                filt = comparison(key, inList(...value))
+                
             } else {
-                preparedfilters.push(comparison(key, eq(value)))
+               filt = comparison(key, eq(value))
+            }
+            
+            
+            if(key === "cookTypes.name"){
+            	preparedfilters.push(filt);
+            }else{
+            	orfilters.push(filt);
             }
 
         }
-
-        return and(...preparedfilters);
+       
+        return (preparedfilters.length>0)?and(...preparedfilters, or(...orfilters)):or(...orfilters);
     }
 
     triggerFilterChanged() {
