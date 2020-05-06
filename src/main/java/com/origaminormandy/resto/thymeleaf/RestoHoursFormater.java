@@ -77,12 +77,13 @@ public class RestoHoursFormater {
     public String actualState(Schedule schedule){
         OffsetTime now = OffsetTime.now();
         String closingTime = null;
-        if(schedule.getLunchStart()!= null && schedule.getLunchEnd() != null && now.compareTo(schedule.getLunchStart()) <= 0 &&  now.compareTo(schedule.getLunchEnd()) >= 0){
+        if(schedule.getLunchStart()!= null && schedule.getLunchEnd() != null && now.compareTo(schedule.getLunchStart()) >= 0 &&  now.compareTo(schedule.getLunchEnd()) <= 0){
             closingTime = schedule.getLunchEnd().format(DateTimeFormatter.ofPattern("HH:mm"));
         }
-        if(schedule.getDinnerStart() != null && schedule.getDinnerEnd()!= null && now.compareTo(schedule.getDinnerStart()) <= 0 &&  now.compareTo(schedule.getDinnerEnd()) >= 0){
+        if(schedule.getDinnerStart() != null && schedule.getDinnerEnd()!= null && now.compareTo(schedule.getDinnerStart()) >= 0 &&  now.compareTo(schedule.getDinnerEnd()) <= 0){
             closingTime = schedule.getDinnerEnd().format(DateTimeFormatter.ofPattern("HH:mm"));
         }
+        
         
         return (closingTime == null)?
                 "<span class='today-closed'>Fermé</span>":
