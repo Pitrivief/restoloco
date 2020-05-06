@@ -5,7 +5,7 @@
  */
 package com.origaminormandy.resto.thymeleaf;
 
-import com.origaminormandy.resto.Schedule;
+import com.origaminormandy.resto.domain.Schedule;
 import java.text.SimpleDateFormat;
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;

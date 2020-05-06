@@ -1,4 +1,4 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;

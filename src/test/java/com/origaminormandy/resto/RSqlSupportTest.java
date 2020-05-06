@@ -1,5 +1,6 @@
 package com.origaminormandy.resto;
 
+import com.origaminormandy.resto.service.RSQLSQLSupport;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;

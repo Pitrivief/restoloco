@@ -1,4 +1,4 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.domain;
 
 import java.util.List;
 

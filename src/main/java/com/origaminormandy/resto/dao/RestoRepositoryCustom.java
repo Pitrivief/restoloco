@@ -1,6 +1,7 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.dao;
 
 
+import com.origaminormandy.resto.domain.RestoDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;

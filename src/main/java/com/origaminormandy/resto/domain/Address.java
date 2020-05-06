@@ -1,4 +1,4 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,12 +11,7 @@ import javax.persistence.Id;
 public class Address {
 	
 	
-	
-	
-	enum AddressType{
-		DELIVERY,
-		BILLING,
-	}
+
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

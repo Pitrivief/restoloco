@@ -1,4 +1,4 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.service;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;

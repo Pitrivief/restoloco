@@ -2,7 +2,7 @@ package com.origaminormandy.maps;
 
 import java.util.List;
 
-import com.origaminormandy.resto.Address;
+import com.origaminormandy.resto.domain.Address;
 
 public interface GeocodingService {
 

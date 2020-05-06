@@ -1,5 +1,7 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.dao;
 
+import com.origaminormandy.resto.domain.RestoDTO;
+import com.origaminormandy.resto.domain.Resto;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;

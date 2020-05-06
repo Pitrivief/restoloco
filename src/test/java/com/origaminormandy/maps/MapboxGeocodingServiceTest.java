@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import com.origaminormandy.maps.mapbox.MapboxGeocodingService;
-import com.origaminormandy.resto.Address;
+import com.origaminormandy.resto.domain.Address;
 
 
 @ContextConfiguration(classes = {MapboxGeocodingService.class})

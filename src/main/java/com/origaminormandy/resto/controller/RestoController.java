@@ -1,4 +1,4 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.controller;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
@@ -20,7 +20,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.origaminormandy.maps.GeocodingException;
 import com.origaminormandy.maps.GeocodingService;
 import com.origaminormandy.maps.Point;
-import com.origaminormandy.resto.Address.AddressType;
+import com.origaminormandy.resto.domain.Address;
+import com.origaminormandy.resto.domain.AddressType;
+import com.origaminormandy.resto.domain.CookType;
+import com.origaminormandy.resto.dao.CookTypeRepository;
+import com.origaminormandy.resto.domain.Resto;
+import com.origaminormandy.resto.dao.RestoRepository;
+import com.origaminormandy.resto.domain.Schedule;
 
 @Controller
 public class RestoController {

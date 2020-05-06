@@ -1,6 +1,8 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.dao;
 
 
+import com.origaminormandy.resto.domain.RestoDTO;
+import com.origaminormandy.resto.domain.Resto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,7 +28,7 @@ public interface RestoRepository extends JpaRepository<Resto, Long>, RestoReposi
                  */
 	
     @Query(value="SELECT "
-            + "new com.origaminormandy.resto.RestoDTO(r, st_distance_sphere(POINT(r.lng, r.lat), POINT(:lng,:lat)) AS distance ) "
+            + "new com.origaminormandy.resto.domain.RestoDTO(r, st_distance_sphere(POINT(r.lng, r.lat), POINT(:lng,:lat)) AS distance ) "
             + "FROM Resto r ORDER BY distance")
     public Page<RestoDTO> findAllOrderByDistanceFromGeocodePoint(@Param("lng") Double lng, @Param("lat") Double lat,Pageable p);
 

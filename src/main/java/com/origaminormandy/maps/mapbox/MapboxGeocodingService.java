@@ -11,7 +11,7 @@ import com.origaminormandy.maps.GeocodingException;
 import com.origaminormandy.maps.GeocodingService;
 import com.origaminormandy.maps.Point;
 import com.origaminormandy.maps.mapbox.response.MapboxGeocodingResponse;
-import com.origaminormandy.resto.Address;
+import com.origaminormandy.resto.domain.Address;
 
 
 @Service("mapbox")

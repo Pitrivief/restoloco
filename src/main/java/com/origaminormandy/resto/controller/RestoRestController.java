@@ -1,5 +1,6 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.controller;
 
+import com.origaminormandy.resto.dao.RestoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

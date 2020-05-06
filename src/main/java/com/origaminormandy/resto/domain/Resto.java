@@ -1,4 +1,4 @@
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
-import com.origaminormandy.resto.Address.AddressType;
+import com.origaminormandy.resto.domain.AddressType;
 
 @Entity
 @SqlResultSetMapping(

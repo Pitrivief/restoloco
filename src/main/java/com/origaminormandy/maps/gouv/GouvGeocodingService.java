@@ -13,7 +13,7 @@ import com.origaminormandy.maps.GeocodingService;
 import com.origaminormandy.maps.Point;
 import com.origaminormandy.maps.gouv.response.Feature;
 import com.origaminormandy.maps.gouv.response.GouvGeocodingResponse;
-import com.origaminormandy.resto.Address;
+import com.origaminormandy.resto.domain.Address;
 
 @Service("gouv")
 public class GouvGeocodingService implements GeocodingService {
