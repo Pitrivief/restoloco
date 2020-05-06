@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.origaminormandy.resto;
+package com.origaminormandy.resto.thymeleaf;
 
+import com.origaminormandy.resto.Schedule;
 import java.text.SimpleDateFormat;
 import java.time.OffsetTime;
 import java.time.format.DateTimeFormatter;

@@ -109,7 +109,15 @@ export default class App {
 
     fillRestaurantTemplate(template) {
         this.restaurantPanel.innerHTML = template;
+        this.restaurantPanel.style.visibility= "hidden";
         this.restaurantPanel.style.display = "block";
+        const testHeight = this.restaurantPanel.querySelector('.right-infos').offsetHeight+20;
+        if( testHeight > this.restaurantPanel.offsetHeight){
+            this.restaurantPanel.style.height = (testHeight)+'px';
+        }
+        this.restaurantPanel.style.visibility= "visible";
+        
+        
        
         
     }
