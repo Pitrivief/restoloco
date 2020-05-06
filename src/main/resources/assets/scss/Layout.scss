@@ -220,9 +220,9 @@ body{
 
             }
             .restaurant-list{
-
-                padding-bottom: 200px;
-
+                @include media-breakpoint-up(md){
+                    padding-bottom: 200px;
+                }
                 .restaurant-grid {
                     display: grid;
                     
@@ -533,16 +533,16 @@ body{
                             max-width: 160px;
                         }
                         @include media-breakpoint-up(lg) {
-                            flex: 0 0 260px;
-                            max-width: 260px;
+                            flex: 0 0 185px;
+                            max-width: 185px;
                         }
                         @include media-breakpoint-up(xl) {
                             flex: 0 0 160px;
                             max-width: 160px;
                         }
                         @include media-breakpoint-up(xxl) {
-                            flex: 0 0 260px;
-                            max-width: 260px;
+                            flex: 0 0 185px;
+                            max-width: 185px;
                         }
 
 
@@ -724,10 +724,17 @@ body{
             background-repeat: no-repeat;
             background-position: 100%;
             z-index: 10;  
+            @include media-breakpoint-up(md){
+                left: 110px;
+            }
         }
         .about-us-content{
             font-size: 1.2rem;
-            padding: 10rem 6rem; 
+            padding-bottom: 10rem;
+            padding-top: 2rem;
+            @include media-breakpoint-up(md){
+                padding: 10rem 6rem;
+            }
             position:relative;
             &:before{
                 content: "";
