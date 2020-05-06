@@ -665,12 +665,17 @@ body{
                 }
                 .restaurant-bottom-infos{
                     flex: 1 1 50%;
+                    
                     .restaurant-command-info{
                         display: flex;
                         justify-content: space-between;
                         padding: 5px;
                         font-size: 0.8rem;
                         flex-wrap: wrap;
+                        .restaurant-command-type{
+                            //48% prevents crazy display 49 and 50 are not good
+                             flex: 0 0 48%;
+                        }
                         .cross:before{
                             content: "\e905";
                             font-family: 'icomoon' !important;
