@@ -1,17 +1,20 @@
 require('../scss/layout.scss');
 
-
-
 import App from "./App.js"
+require('./GDPR-cookies.js')
 
 
-
+window.orejimeConfig = orejimeConfig;
 window.onload = function () {
 
     /** ******************** */
     // Contact
     /** ******************** */
     (function () {
+    	
+    	
+    	Orejime.init(orejimeConfig);
+    	
         // trim polyfill :
         // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
         if (!String.prototype.trim) {
