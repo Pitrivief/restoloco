@@ -181,7 +181,7 @@ export default class Filters {
         const orfilters = [];
         for (let [key, value] of Object.entries(this.filters)) {
 
-        	console.log("key " + key);
+        
             let filt;
             if (Array.isArray(value)) {
                 if (value.length == 0) {
@@ -194,7 +194,7 @@ export default class Filters {
             }
             
             
-            if(key === "cookTypes.name"){
+            if(key !== "cookTypes.name"){
             	preparedfilters.push(filt);
             }else{
             	orfilters.push(filt);
