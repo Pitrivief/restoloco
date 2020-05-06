@@ -7,11 +7,17 @@
 
 
 <link href="../static/css/layout.css" th:href="@{css/layout.css}" rel="stylesheet" />
-<script async th:attr="src=@{js/layout.js}"></script>
+<script  th:attr="src=@{js/layout.js}"></script>
 <script async th:attr="src=@{js/add.js}"></script>
 
 <!-- Google Tag Manager -->
-<script>
+<script
+   type="opt-in"
+   data-type="application/javascript"
+   data-name="google-tag-manager">
+
+
+
 	(function(w, d, s, l, i) {
 		w[l] = w[l] || [];
 		w[l].push({
@@ -38,12 +44,14 @@
 	</noscript>
 	<!-- End Google Tag Manager (noscript) -->
 
+
+	<div id="app">
 	<div th:replace="header :: header"></div>
 
 	<div layout:fragment="content"></div>
 	<!--footer.html  that's here  -->
 	<div th:replace="footer :: footer"></div>
-
+	</div>
 	
 </body>
 </html>
