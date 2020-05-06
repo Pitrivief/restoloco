@@ -83,7 +83,7 @@ export default class Restaurant {
         });
         this.tag.addEventListener('mouseleave', function (e) {
             
-            app[fn](app, _self)
+            app[fn].call(app, _self)
 
         });
     }

@@ -59,15 +59,18 @@ export default class App {
         
     }
 
-    leaveRestaurant() {
-        
+    leaveRestaurant(restaurant) {
+
         if(this.selectedRestaurant){
-            this.fillRestaurantTemplate(this.selectedRestaurant.getTemplate());
-            this.map.setSelectedMarker(this.selectedRestaurant.marker);
+            if(this.selectedRestaurant != restaurant){
+                
+                this.fillRestaurantTemplate(this.selectedRestaurant.getTemplate());
+                this.map.setSelectedMarker(this.selectedRestaurant.marker);
+            }
+            
         }
         else{
             this.hideRestaurant()
-            this.map.setSelectedMarker(null);
         }
         
 
@@ -106,7 +109,9 @@ export default class App {
 
     fillRestaurantTemplate(template) {
         this.restaurantPanel.innerHTML = template;
-        this.restaurantPanel.style.display = "flex";
+        this.restaurantPanel.style.display = "block";
+       
+        
     }
 
     hideRestaurant() {
