@@ -69,7 +69,7 @@ public class RestoFrontController {
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
         }else{
-            model.addAttribute("pageNumbers", new ArrayList<Object>());
+            model.addAttribute("pageNumbers", new ArrayList<Integer>());
         }
 
         model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));
@@ -121,6 +121,8 @@ public class RestoFrontController {
                     .boxed()
                     .collect(Collectors.toList());
             model.addAttribute("pageNumbers", pageNumbers);
+        }else{
+            model.addAttribute("pageNumbers", new ArrayList<Integer>());
         }
 
         model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));

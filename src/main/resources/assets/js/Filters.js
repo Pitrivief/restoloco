@@ -194,15 +194,16 @@ export default class Filters {
             }
             
             
-            if(key !== "cookTypes.name"){
+            if(key === "cookTypes.name"){
             	preparedfilters.push(filt);
             }else{
             	orfilters.push(filt);
             }
 
         }
-       
-        return (preparedfilters.length>0)?and(...preparedfilters, or(...orfilters)):or(...orfilters);
+        console.log(preparedfilters)
+        console.log(orfilters)
+        return (preparedfilters.length>0)?((orfilters.length>0)?and(...preparedfilters, or(...orfilters)):and(...preparedfilters)):or(...orfilters);
     }
 
     triggerFilterChanged() {
