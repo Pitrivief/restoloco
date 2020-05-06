@@ -21,16 +21,18 @@ export default class Restaurant {
         });*/
         this.lat = tag.getAttribute('data-lat');
         this.lng = tag.getAttribute('data-lng');
+        tag.querySelector('.see-more').addEventListener('click', function (e) {
+            const restoExtra = _self.tag.querySelector('.restaurant-extra-infos');
+            restoExtra.style.maxHeight = restoExtra.firstChild.offsetHeight;
+            this.closest(".restaurant-item").classList.toggle('open');
+        });
+         
 
     }
 
     getTemplate() {
-        if (!this.template) {
-            this.template = document.createElement('div');
-            this.template.innerHTML = this.tag.querySelector('template').innerHTML
-
-        }
-        return this.template;
+        
+        return `<div class="restaurant-map-template">${this.tag.innerHTML}</div>`;
     }
 
     getFilters() {

@@ -4,6 +4,55 @@
 
 $restaurantBorderRadius : 5px;
 
+
+/********************************/
+// Common restaurant style
+/********************************/
+.restaurant-openings{
+    margin-top:1rem;
+    h4{
+        font-size: 1.2rem;
+        margin-bottom: 0;
+        text-decoration: underline;
+    }
+    .dayName{
+        font-weight:bold;
+
+        display: inline-block;
+
+        @include media-breakpoint-up(md) {
+            width: 21px;
+        }
+        @include media-breakpoint-up(lg) {
+            width:80px;
+        }
+        @include media-breakpoint-up(xl) {
+            width: 25px;
+        }
+        @include media-breakpoint-up(xxl) {
+            width:80px;
+        }
+    }
+}
+
+.see-more{
+    color:gray;
+    cursor:pointer;
+    &:hover{
+        text-decoration: underline;
+    }
+    @include media-breakpoint-up(md) {
+        display: none;
+    }
+}
+
+.today-closed{
+    color: firebrick;
+}
+
+.today-open{
+    color: olivedrab
+}
 body{
     color: #333;
     a {
@@ -170,167 +219,197 @@ body{
 
 
             }
+            .restaurant-list{
 
-            .restaurant-list {
-                display: grid;
-                grid-template-columns: repeat( auto-fit, minmax(350px, 1fr) );
-                grid-gap: 10px;
-                padding:10px;
                 padding-bottom: 200px;
-                .restaurant-item {
-                    
-                    background-color: white;
-                    cursor: pointer;
-                    position: relative;
-                    border-radius: $restaurantBorderRadius;
-                    border: 1px solid lightgray;
-                    height:100%;
-                    display: flex;
-                    flex-direction: column;
-                    &:hover, &.visited{
-                        box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-                    }
-                    &.selected{
-                        border: 1px solid gray;
-                        box-shadow: 0px 0px 0px 1px gray;
-                    }
-                    .restaurant-box{
-                        flex:1;
-                        display: flex;
-                        .restaurant-picture {
 
-                            flex: 0 0 100px;
-                            border-top-left-radius: $restaurantBorderRadius;
-                            overflow: hidden;
-                            img{
-                                width: 100%;
-                                height: 100%;
-                                object-fit: cover;
-                                object-position: center;
+                .restaurant-grid {
+                    display: grid;
+                    grid-template-columns: repeat( auto-fit, minmax(350px, 1fr) );
+                    grid-gap: 10px;
+                    padding:10px;
+
+                    .restaurant-item {
+                        background-color: white;
+                        cursor: pointer;
+                        position: relative;
+                        border-radius: $restaurantBorderRadius;
+                        border: 1px solid lightgray;
+                        height:100%;
+                        display: flex;
+                        flex-direction: column;
+                        @include media-breakpoint-up(md) {
+                            &:hover, &.visited{
+                                box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+                            }
+                            &.selected{
+                                border: 1px solid gray;
+                                box-shadow: 0px 0px 0px 1px gray;
                             }
                         }
-                        .restaurant-description {
-                            padding: 0.5rem;
-                            position: relative;
-                            flex: 0 0 250px;
-                            max-width: 263px;
+                        .restaurant-box{
+                            flex:1;
+                            display: flex;
+                            .restaurant-picture {
 
-
-                            i{
-                                color: gray;
-                            }
-                            .restaurant-tags {
-                                color:gray;
-                                width: 100%;
+                                flex: 0 0 100px;
+                                border-top-left-radius: $restaurantBorderRadius;
                                 overflow: hidden;
-                                white-space: nowrap;
-                                text-overflow: ellipsis;
-                                font-size: 0.7rem;
-                                span{  
-                                    font-style: italic;
-                                    text-transform: capitalize;
-                                    &:not(:first-child):before{
-                                        content:", "; 
+                                img{
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    object-position: center;
+                                }
+                            }
+                            .restaurant-description {
+                                padding: 0.5rem;
+                                position: relative;
+                                flex: 0 0 250px;
+                                max-width: 263px;
+
+
+                                i{
+                                    color: gray;
+                                }
+                                .restaurant-name{
+                                    font-size: 1.3em;
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin-bottom: 0;
+                                    white-space: nowrap;
+                                    span{
+                                        max-width: 200px;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                    }
+                                    .icon-facebook{
+                                        color:#4267B2
                                     }
                                 }
+                                .restaurant-tags {
+                                    color:gray;
+                                    width: 100%;
+                                    overflow: hidden;
+                                    white-space: nowrap;
+                                    text-overflow: ellipsis;
+                                    font-size: 0.7rem;
+                                    span{  
+                                        font-style: italic;
+                                        text-transform: capitalize;
+                                        &:not(:first-child):before{
+                                            content:", "; 
+                                        }
+                                    }
+
+                                }
+
+
+                                .todays-opening{
+                                    white-space: nowrap;
+                                    font-size:0.8rem;
+
+                                    display: inline-block;
+
+
+                                    .todays-opening-detail{
+                                        display:inline-block;
+                                        position: relative;
+                                        &:hover{
+                                            text-decoration: underline;
+                                        }
+                                        &:after {
+                                            position: absolute;
+                                            content: "";
+                                            top: 7px;
+                                            right: -18px;
+                                            width: 0; 
+                                            height: 0;
+                                            border: 6px solid transparent;
+                                            border-color: gray transparent transparent transparent;
+                                        }    
+                                    }        
+                                }
+
 
                             }
+                        }
+                        .restaurant-extra-infos{
 
-                            .restaurant-name{
-                                font-size: 1.3em;
+                            height:100%;
+                            overflow:hidden;
+                            @include media-breakpoint-up(md) {
+                                display: none;
+                            }    
+                            &>div{
+                                padding:5px;
+                                .restaurant-bio{
+                                    margin:3px 0px;
+                                }
+                                .restaurant-openings{
+                                    font-size:0.8rem;
+                                    .dayPlain{
+                                        display: inline;
+                                        @include media-breakpoint-up(md){ 
+                                            display: none;
+                                        }
+                                        @include media-breakpoint-up(xxl){ 
+                                            display: inline;
+                                        }
+                                    }
+
+
+
+                                }
+                                .restaurant-infos{
+                                    .restaurant-telephone {
+                                        font-size: 0.8rem;
+                                    }
+
+
+                                }
+                            }
+                        }
+                        &:not(.open) .restaurant-extra-infos{
+                            max-height: 0px !important
+                        }
+                        .restaurant-bottom-infos{
+                            .restaurant-command-info{
                                 display: flex;
                                 justify-content: space-between;
-                                margin-bottom: 0;
-                                white-space: nowrap;
-                                span{
-                                    max-width: 200px;
-                                    overflow: hidden;
-                                    text-overflow: ellipsis;
+                                padding: 5px;
+                                font-size: 0.8rem;
+                                .cross:before{
+                                    content: "\e905";
+                                    font-family: 'icomoon' !important;
+                                    color:firebrick;
                                 }
-                                .icon-facebook{
-                                    color:#4267B2
-                                }
-                            }
-                            .todays-opening{
-                                white-space: nowrap;
-                                font-size:0.8rem;
-                                display: inline-block;
-
-
-                                .todays-opening-detail{
-                                    display:inline-block;
-                                    position: relative;
-                                    &:hover{
-                                        text-decoration: underline;
-                                    }
-                                    &:after {
-                                        position: absolute;
-                                        content: "";
-                                        top: 7px;
-                                        right: -18px;
-                                        width: 0; 
-                                        height: 0;
-                                        border: 6px solid transparent;
-                                        border-color: gray transparent transparent transparent;
-                                    }    
-                                }        
-                            }
-                            .restaurant-openings{
-                                font-size:0.8rem;
-                                width:auto;
-                                top: 30px;
-                                left: calc( 100% + 13px );
-                                &:before{
-                                    border-bottom: 10px solid lightgray;
-                                }
-
-                                .opening-day-name{
-                                    flex: 0 0 80px;
-                                }
-                                .opening-day{
-                                    display:flex;
-                                    justify-content: space-between;
-                                    .opening-day-hours{
-                                        flex:1;
-                                        margin-left: 5px;
-
-                                    }
+                                .check:before{
+                                    content: "\e906";
+                                    font-family: 'icomoon' !important;
+                                    color: olivedrab;
                                 }
                             }
-                            .restaurant-infos{
-                                .restaurant-telephone {
-                                    font-size: 0.8rem;
-                                }
-
-
-                            }
-                            .restaurant-seemap {
+                            .restaurant-order-links{
                                 text-align: right;
-                                width: 100%;
-                                display:none;
-                                @include media-breakpoint-up(md) { 
-                                    display: inline-block;
-                                }
-                            }
-                        }
-                    }
-                    .order-links{
-                        text-align: right;
-                        padding: 0.3rem 0rem;
-                        background-color: #f7f7f7;
-                        border-bottom-left-radius:$restaurantBorderRadius;
-                        border-bottom-right-radius:$restaurantBorderRadius;
-                        .external-links{
+                                padding: 0.3rem 0rem;
+                                background-color: #f7f7f7;
+                                border-bottom-left-radius:$restaurantBorderRadius;
+                                border-bottom-right-radius:$restaurantBorderRadius;
+                                .external-links{
 
-                            text-align:center;
-                            .restaurant-external-link:not(:first-child){
-                                margin-left: 15px;
-                            }
+                                    text-align:center;
+                                    .restaurant-external-link:not(:first-child){
+                                        margin-left: 15px;
+                                    }
+                                }
+                                .phone-links{
+                                    text-align: center;
+                                }
+                            }  
                         }
-                        .phone-links{
-                            text-align: center;
-                        }
-                    }      
+
+                    }
                 }
             }
         }
@@ -361,7 +440,7 @@ body{
                 z-index: 2;
                 width:350px;
                 flex-direction: column;
-                
+
                 left:50%;
                 transform: translateX(-50%);
                 background-color: #F8F8F8;
@@ -369,18 +448,21 @@ body{
                 border: 1px solid lightgray;
                 box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
                 padding: 10px;
+                @include media-breakpoint-up(md) {
+                    width: 400px;
+                }
+                @include media-breakpoint-up(lg) {
+                    width: 600px;
+                    height: 250px;
+                }
                 @include media-breakpoint-up(xl) {
                     width: 450px;
-                    flex-direction: row;
                 }
                 @include media-breakpoint-up(xxl) {
                     width: 600px;
-                    flex-direction: row;
+                    height: 250px;
                 }
-                @include media-breakpoint-up(xxxl) {
-                    width: 700px;
-                    flex-direction: row;
-                }
+
 
 
                 &:before{
@@ -407,123 +489,221 @@ body{
                     position: absolute;   
                     z-index:-2;
                 }
-
-                .restaurant-picture {
-
-                    flex: 0 0 100px;
-                    border-top-left-radius: $restaurantBorderRadius;
-                    overflow: hidden;
-                    img{
-                        width: 100%;
-                        object-fit: cover;
-                        object-position: center;
+                .restaurant-map-template{
+                    max-width:50%;
+                    position:relative;
+                    @include media-breakpoint-up(md){
+                        padding-right: 10px;
                     }
                 }
-                .restaurant-description {
-                    padding: 0.5rem;
-                    position: relative;
-                    flex: 0 0 250px;
-                    max-width: 263px;
+                .restaurant-box{
+                    display: flex;
+                    flex: 1 1 100%;
+                    .restaurant-picture {
 
-
-                    i{
-                        color: gray;
-                    }
-                    .restaurant-tags {
-                        color:gray;
-                        width: 100%;
+                        flex: 0 0 100px;
+                        @include media-breakpoint-up(md) {
+                            flex: 0 0 50px;
+                        }
+                        @include media-breakpoint-up(lg) {
+                            flex: 0 0 100px;
+                        }
+                        @include media-breakpoint-up(xl) {
+                            flex: 0 0 50px;
+                        }
+                        @include media-breakpoint-up(xxl) {
+                            flex: 0 0 100px;
+                        }
+                        border-top-left-radius: $restaurantBorderRadius;
                         overflow: hidden;
-                        white-space: nowrap;
-                        text-overflow: ellipsis;
-                        font-size: 0.7rem;
-                        span{  
-                            font-style: italic;
-                            text-transform: capitalize;
-                            &:not(:first-child):before{
-                                content:", "; 
+                        img{
+                            width: 100%;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                    }
+                    .restaurant-description {
+                        padding: 0 0.5rem;
+                        position: relative;
+                        flex: 0 0 260px;
+                        max-width: 260px;
+                        @include media-breakpoint-up(md) {
+                            flex: 0 0 160px;
+                            max-width: 160px;
+                        }
+                        @include media-breakpoint-up(lg) {
+                            flex: 0 0 260px;
+                            max-width: 260px;
+                        }
+                        @include media-breakpoint-up(xl) {
+                            flex: 0 0 160px;
+                            max-width: 160px;
+                        }
+                        @include media-breakpoint-up(xxl) {
+                            flex: 0 0 260px;
+                            max-width: 260px;
+                        }
+
+
+                        i{
+                            color: gray;
+                        }
+                        .restaurant-tags {
+                            color:gray;
+                            width: 100%;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            text-overflow: ellipsis;
+                            font-size: 0.7rem;
+                            span{  
+                                font-style: italic;
+                                text-transform: capitalize;
+                                &:not(:first-child):before{
+                                    content:", "; 
+                                }
+                            }
+
+                        }
+
+                        .restaurant-name{
+                            font-size: 1.3em;
+                            display: flex;
+                            justify-content: space-between;
+                            margin-bottom: 0;
+                            white-space: nowrap;
+                            span{
+                                max-width: 200px;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+                        }
+                        .todays-opening{
+                            white-space: nowrap;
+                            font-size:0.8rem;
+                            display: inline-block;
+
+
+                            .todays-opening-detail{
+                                display:inline-block;
+                                position: relative;
+                                &:hover{
+                                    text-decoration: underline;
+                                }
+                                &:after {
+                                    position: absolute;
+                                    content: "";
+                                    top: 7px;
+                                    right: -18px;
+                                    width: 0; 
+                                    height: 0;
+                                    border: 6px solid transparent;
+                                    border-color: gray transparent transparent transparent;
+                                }    
+                            }        
+                        }
+
+
+                        .restaurant-infos{
+                            .restaurant-telephone {
+                                font-size: 0.8rem;
+                            }
+
+
+                        }
+
+                    }
+                }
+                .restaurant-extra-infos{
+
+
+                    &>div{
+                        padding:5px;
+                        .restaurant-bio{
+                            margin:3px 0px;
+                        }
+                        .left-infos{
+                            position: absolute;
+                            width:100%;
+                            height:100%;
+                            left:100%;
+                            top:0;
+                            @include media-breakpoint-up(md){ 
+                                padding-left: 10px
+                            }
+                            .restaurant-openings{
+                                font-size:0.8rem;
+                                .dayPlain{
+                                    display: none;
+
+                                    @include media-breakpoint-up(md) {
+                                        display: none;
+                                    }
+                                    @include media-breakpoint-up(lg) {
+                                        display: inline;
+                                    }
+                                    @include media-breakpoint-up(xl) {
+                                        display: none;
+                                    }
+                                    @include media-breakpoint-up(xxl) {
+                                        display: inline;
+                                    }
+                                }
+
+
+                            }
+                            .restaurant-infos{
+                                .restaurant-telephone {
+                                    font-size: 0.8rem;
+                                }
+
+
                             }
                         }
 
                     }
-
-                    .restaurant-name{
-                        font-size: 1.3em;
+                }
+                .restaurant-bottom-infos{
+                    flex: 1 1 50%;
+                    .restaurant-command-info{
                         display: flex;
                         justify-content: space-between;
-                        margin-bottom: 0;
-                        white-space: nowrap;
-                        span{
-                            max-width: 200px;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
+                        padding: 5px;
+                        font-size: 0.8rem;
+                        flex-wrap: wrap;
+                        .cross:before{
+                            content: "\e905";
+                            font-family: 'icomoon' !important;
+                            color:firebrick;
                         }
-                        .icon-facebook{
-                            color:#4267B2
-                        }
-                    }
-                    .todays-opening{
-                        white-space: nowrap;
-                        font-size:0.8rem;
-                        display: inline-block;
-
-
-                        .todays-opening-detail{
-                            display:inline-block;
-                            position: relative;
-                            &:hover{
-                                text-decoration: underline;
-                            }
-                            &:after {
-                                position: absolute;
-                                content: "";
-                                top: 7px;
-                                right: -18px;
-                                width: 0; 
-                                height: 0;
-                                border: 6px solid transparent;
-                                border-color: gray transparent transparent transparent;
-                            }    
-                        }        
-                    }
-                    .restaurant-openings{
-                        font-size:0.8rem;
-                        width:auto;
-                        top: 30px;
-                        left: calc( 100% + 13px );
-                        &:before{
-                            border-bottom: 10px solid lightgray;
-                        }
-
-                        .opening-day-name{
-                            flex: 0 0 80px;
-                        }
-                        .opening-day{
-                            display:flex;
-                            justify-content: space-between;
-                            .opening-day-hours{
-                                flex:1;
-                                margin-left: 5px;
-
-                            }
+                        .check:before{
+                            content: "\e906";
+                            font-family: 'icomoon' !important;
+                            color:olivedrab;
                         }
                     }
-                    .restaurant-infos{
-                        .restaurant-telephone {
-                            font-size: 0.8rem;
-                        }
-
-
-                    }
-                    .restaurant-seemap {
+                    .restaurant-order-links{
                         text-align: right;
-                        width: 100%;
-                        display:none;
-                        @include media-breakpoint-up(md) { 
-                            display: inline-block;
+                        padding: 0.3rem 0rem;
+                        background-color: #f7f7f7;
+                        border-bottom-left-radius:$restaurantBorderRadius;
+                        border-bottom-right-radius:$restaurantBorderRadius;
+                        .external-links{
+                            text-align:center;
+                            display: flex;
+                            flex-wrap: wrap;
+                            .restaurant-external-link
+                            {
+                                white-space: nowrap;
+                                &:not(:first-child){
+                                    margin-left: 15px;
+                                } 
+                            }
                         }
-                    }
+                        .phone-links{
+                            text-align: center;
+                        }
+                    }    
                 }
-
             }
         }
     }

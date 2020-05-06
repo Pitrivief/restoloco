@@ -105,7 +105,7 @@ export default class App {
     }
 
     fillRestaurantTemplate(template) {
-        this.restaurantPanel.innerHTML = template.innerHTML;
+        this.restaurantPanel.innerHTML = template;
         this.restaurantPanel.style.display = "flex";
     }
 
