@@ -7,106 +7,116 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 }
 
 Encore
-    // directory where compiled assets will be stored
-    .setOutputPath('./src/main/resources/static/')
-    // public path used by the web server to access the output path
-    .setPublicPath('/')
-    .configureFilenames({
-        css: 'css/[name].css',
-        js: 'js/[name].js'
-    })
-    // only needed for CDN's or sub-directory deploy
-    //.setManifestKeyPrefix('build/')
+        // directory where compiled assets will be stored
+        .setOutputPath('./src/main/resources/static/')
+        // public path used by the web server to access the output path
+        .setPublicPath('/')
+        .configureFilenames({
+            css: 'css/[name].css',
+            js: 'js/[name].js'
+        })
+        // only needed for CDN's or sub-directory deploy
+        //.setManifestKeyPrefix('build/')
 
-    /*
-     * ENTRY CONFIG
-     *
-     * Add 1 entry for each "page" of your app
-     * (including one that's included on every page - e.g. "app")
-     *
-     * Each entry will result in one JavaScript file (e.g. app.js)
-     * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
-     */
-    .addEntry('layout',     './src/main/resources/assets/js/layout.js')
-    .addEntry('add',        './src/main/resources/assets/js/add.js')
-    .addEntry('bootstrap',  './src/main/resources/assets/js/bootstrap.js')
-    //.addEntry('page1', './assets/js/page1.js')
-    //.addEntry('page2', './assets/js/page2.js')
-    //.addStyleEntry('layout', './asset_sources/scss/layout.scss')
-    // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-    //.splitEntryChunks()
+        /*
+         * ENTRY CONFIG
+         *
+         * Add 1 entry for each "page" of your app
+         * (including one that's included on every page - e.g. "app")
+         *
+         * Each entry will result in one JavaScript file (e.g. app.js)
+         * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
+         */
+        .addEntry('layout', './src/main/resources/assets/js/layout.js')
+        .addEntry('add', './src/main/resources/assets/js/add.js')
+        .addEntry('bootstrap', './src/main/resources/assets/js/bootstrap.js')
+        //.addEntry('page1', './assets/js/page1.js')
+        //.addEntry('page2', './assets/js/page2.js')
+        //.addStyleEntry('layout', './asset_sources/scss/layout.scss')
+        // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
+        //.splitEntryChunks()
 
-    // will require an extra script tag for runtime.js
-    // but, you probably want this, unless you're building a single-page app
-    //.enableSingleRuntimeChunk()
+        // will require an extra script tag for runtime.js
+        // but, you probably want this, unless you're building a single-page app
+        //.enableSingleRuntimeChunk()
 
-    /*
-     * FEATURE CONFIG
-     *
-     * Enable & configure other features below. For a full
-     * list of features, see:
-     * https://symfony.com/doc/current/frontend.html#adding-more-features
-     */
-    .cleanupOutputBeforeBuild()
-    .enableBuildNotifications()
-    .enableSourceMaps(!Encore.isProduction())
-    // enables hashed filenames (e.g. app.abc123.css)
-    .enableVersioning(Encore.isProduction())
+        /*
+         * FEATURE CONFIG
+         *
+         * Enable & configure other features below. For a full
+         * list of features, see:
+         * https://symfony.com/doc/current/frontend.html#adding-more-features
+         */
+        .cleanupOutputBeforeBuild()
+        .enableBuildNotifications()
+        .enableSourceMaps(!Encore.isProduction())
+        // enables hashed filenames (e.g. app.abc123.css)
+        .enableVersioning(Encore.isProduction())
 
-    // enables @babel/preset-env polyfills
-    .configureBabelPresetEnv((config) => {
-        config.useBuiltIns = 'usage';
-        config.corejs = 3;
-    })
-    .configureBabel(function (babelConfig) {
-        babelConfig.plugins = [
-            "@babel/plugin-proposal-object-rest-spread","@babel/plugin-proposal-class-properties",
-            "@babel/plugin-transform-runtime"
-        ]
-    })
+        // enables @babel/preset-env polyfills
+        .configureBabelPresetEnv((config) => {
+            config.useBuiltIns = 'usage';
+            config.corejs = 3;
+        })
+        .configureBabel(function (babelConfig) {
+            babelConfig.plugins = [
+                "@babel/plugin-proposal-object-rest-spread", "@babel/plugin-proposal-class-properties",
+                "@babel/plugin-transform-runtime"
+            ]
+        })
 
-    // enables Sass/SCSS support
-    .enableSassLoader(function (options) {
-        options.includePaths = ['node_modules'];
-        options.sourceComments = 'normal';
-        options.outputStyle = 'nested';
-    })
-    .copyFiles([{
-         from: './src/main/resources/assets/images',
+        // enables Sass/SCSS support
+        .enableSassLoader(function (options) {
+            options.includePaths = ['node_modules'];
+            options.sourceComments = 'normal';
+            options.outputStyle = 'nested';
+        })
+        .copyFiles([{
+                from: './src/main/resources/assets/images',
 
-         // optional target path, relative to the output dir
-         to: 'images/[path][name].[ext]',
+                // optional target path, relative to the output dir
+                to: 'images/[path][name].[ext]',
 
-        // if versioning is enabled, add the file hash too
-         //to: 'images/[path][name].[hash:8].[ext]',
+                // if versioning is enabled, add the file hash too
+                //to: 'images/[path][name].[hash:8].[ext]',
 
-         // only copy files matching this pattern
-         pattern: /\.(png|jpg|jpeg)$/
-     },{
-         from: './src/main/resources/assets/fonts',
+                // only copy files matching this pattern
+                pattern: /\.(png|jpg|jpeg)$/
+            }, {
+                from: './src/main/resources/assets/fonts',
 
-         // optional target path, relative to the output dir
-         to: 'fonts/[path][name].[ext]',
+                // optional target path, relative to the output dir
+                to: 'fonts/[path][name].[ext]',
 
-        // if versioning is enabled, add the file hash too
-         //to: 'images/[path][name].[hash:8].[ext]',
+                // if versioning is enabled, add the file hash too
+                //to: 'images/[path][name].[hash:8].[ext]',
 
-         // only copy files matching this pattern
-         pattern: /\.(svg|ttf|woff)$/
-     }])
-    // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
+                // only copy files matching this pattern
+                pattern: /\.(svg|ttf|woff)$/
+            }])
 
-    // uncomment to get integrity="..." attributes on your script & link tags
-    // requires WebpackEncoreBundle 1.4 or higher
-    //.enableIntegrityHashes(Encore.isProduction())
+        // uncomment if you use TypeScript
+        //.enableTypeScriptLoader()
 
-    // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+        // uncomment to get integrity="..." attributes on your script & link tags
+        // requires WebpackEncoreBundle 1.4 or higher
+        //.enableIntegrityHashes(Encore.isProduction())
 
-    // uncomment if you use API Platform Admin (composer require api-admin)
-    //.enableReactPreset()
-    //.addEntry('admin', './assets/js/admin.js')
-;
+        // uncomment if you're having problems with a jQuery plugin
+        //.autoProvidejQuery()
 
+        // uncomment if you use API Platform Admin (composer require api-admin)
+        //.enableReactPreset()
+        //.addEntry('admin', './assets/js/admin.js')
+        ;
+if (Encore.isProduction()) {
+    Encore.configureTerserPlugin((options) => {
+        options.cache = true;
+        options.terserOptions = {
+            output: {
+                comments: false
+            }
+        }
+    });
+}
 module.exports = Encore.getWebpackConfig();

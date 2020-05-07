@@ -25,6 +25,5 @@ $container-max-widths: (
   xxl: 1440px,
   xxxl: 1600px
 );
-
-/* override the !default vars with the values we set above */
-@import "~bootstrap";
+@import "~bootstrap/scss/mixins/breakpoints";
+@import "~bootstrap/scss/bootstrap-reboot.scss";

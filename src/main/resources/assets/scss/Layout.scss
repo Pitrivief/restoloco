@@ -22,7 +22,7 @@ $restaurantBorderRadius : 5px;
 
         @include media-breakpoint-up(md) {
             width: 21px;
-        }
+        } 
         @include media-breakpoint-up(lg) {
             width:80px;
         }
@@ -58,10 +58,7 @@ body{
     a {
         color: #2e62b0;
     }
-    .container-xxl{
-        @extend .container;
-        max-width: 1900px;
-    }
+    
     background-color: #F8F8F8;
     header {
         width: 100%;
@@ -82,10 +79,14 @@ body{
             .menu-bar-inner {
                 display: flex;
                 align-items: center;
+                width: 100%;
+                padding: 0 15px;
+                justify-content: space-between;
                 .logo {
                     transition: width 0.2s ease-in;
                     height: 100%;
                     flex:1;
+                    max-width: 80px;
                     img {
                         height: 100%;
                         object-fit: contain;
@@ -719,6 +720,17 @@ body{
     }
     .about-us{
         position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-right: auto;
+        margin-left: auto;
+        @include media-breakpoint-up(lg){
+            max-width: 960px
+        }
+        @include media-breakpoint-up(xl){
+            max-width: 1140px;
+        }
         &:before{
             content: "";
             display: block;
@@ -737,6 +749,7 @@ body{
                 left: 110px;
             }
         }
+        
         .about-us-content{
             font-size: 1.2rem;
             padding-bottom: 10rem;
