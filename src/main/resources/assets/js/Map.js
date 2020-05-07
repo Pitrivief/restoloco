@@ -59,15 +59,17 @@ export default class Map {
             var offset = this.tag.getContainer().offsetHeight / 4;
             pixelPosition.y += (offset + 15);
             var centerPosition = this.tag.containerPointToLatLng(pixelPosition)
-            this.tag.setView(centerPosition)
+            this.tag.setView(centerPosition);
+            this.selectedMarker.bringToFront();
         }
 
     }
 
     removeSelectedMarker() {
         if (this.selectedMarker != null) {
-            this.selectedMarker.setRadius(5)
-            this.selectedMarker = null
+            this.selectedMarker.setRadius(5);
+            this.selectedMarker = null;
+            
         }
     }
 
