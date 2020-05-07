@@ -417,6 +417,21 @@ body{
                 }
                 .pagination{
                     justify-content: center;
+                    
+                    .page-item{
+                        &.active{
+                            .page-link{
+                                color: white;
+                            }
+
+                        }
+                        .page-link{
+                                color: #2e62b0
+                            }
+                        &.disabled{
+                            display:none;
+                        }
+                    }
                 }
             }
         }
