@@ -46,7 +46,7 @@ public class RestoFrontController {
     private CookTypeRepository cookTypeRepository;
 
     @GetMapping("/")
-    public String home(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
+    public String home(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
 
         //Iterable<Resto> restos = restoRepository.findAll();
         Iterable<CookType> cookTypes = cookTypeRepository.findAll();
@@ -85,25 +85,14 @@ public class RestoFrontController {
     @GetMapping("/restaurant")
     public String getRestaurant(
             @RequestParam(name = "filter", defaultValue = "") String filter,
-            @RequestParam(name = "page", defaultValue = "0") int page,
-            @RequestParam(name = "limit", defaultValue = "10") int limit,
             @RequestParam(name = "localisation", required = false) String localisation,
             @RequestParam(name = "lat", required = false) Double lat,
             @RequestParam(name = "lng", required = false) Double lng,
-            @PageableDefault(page = 0, size = 5) Pageable pageable,
+            @PageableDefault(page = 0, size = 20) Pageable pageable,
             Model model
     ) {
 
-        // Node rootNode = new RSQLParser().parse(filter);
-        //System.out.print(rootNode.accept(new RSQLSQLSupport()));
-        // System.out.print(rootNode.getClass());
-        /*String  lat = "49.185830";
-                String  lng = "-0.375410";
-                Sort sort = Sort.by(Sort.Direction.ASC, "ACOS(COS(RADIANS("+lat+"))*COS(RADIANS(lat))*COS(RADIANS(lng)RADIANS("+lng+"))+SIN(RADIANS("+lat+"))*SIN(RADIANS(lat))");    
-                Sort sort2 = Sort.by(Sort.Direction.ASC, "id");  
-                
-		Iterable<Resto> restos = restoRepository.findAll(RSQLJPASupport.toSpecification(filter, true),
-				sort);*/
+       
         if (localisation == null) {
             GeocodingAddress a = getDefaultLocalisation();
             localisation = a.getLabel();
