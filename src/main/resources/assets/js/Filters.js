@@ -87,11 +87,10 @@ export default class Filters {
                 document.querySelector("#autoComplete_list").appendChild(result);
             },
             onSelection: feedback => {
-                console.log(feedback);
                 const selection = feedback.selection.value;
                 document.querySelector("#autoComplete").value = feedback.selection.match;
                 document.querySelector('#autoComplete_wrapper .dropdown-content ').classList.add('dropdown-hide');
-                window.app.setLocalisation(selection);
+                _self.restaurantApp.setLocalisation(selection);
             }
         });
         

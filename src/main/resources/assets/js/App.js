@@ -148,7 +148,7 @@ export default class App {
     setLocalisation(localisation) {
         this.localisation = localisation;
         this.saveLocalisation(localisation);
-        this.applyFilters(this.filters.generateRSQL());
+        this.applyFilters();
     }
 
     //Geocoding  address localisation => autocomplete input
