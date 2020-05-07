@@ -71,6 +71,14 @@ Encore
             options.sourceComments = 'normal';
             options.outputStyle = 'nested';
         })
+        .configureTerserPlugin((options) => {
+            options.cache = true;
+            options.terserOptions = {
+                output: {
+                    comments: !Encore.isProduction()
+                }
+            }
+        })
         .copyFiles([{
                 from: './src/main/resources/assets/images',
 
@@ -109,14 +117,5 @@ Encore
         //.enableReactPreset()
         //.addEntry('admin', './assets/js/admin.js')
         ;
-if (Encore.isProduction()) {
-    Encore.configureTerserPlugin((options) => {
-        options.cache = true;
-        options.terserOptions = {
-            output: {
-                comments: false
-            }
-        }
-    });
-}
+
 module.exports = Encore.getWebpackConfig();
