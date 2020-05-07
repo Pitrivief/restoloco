@@ -5,7 +5,7 @@ import Filters from "./Filters.js"
 export default class App {
     restaurants = [];
     filters = new Filters(this);
-    limit = 10;
+    limit = 20;
     page = 0;
     localisation = null;
     selectedRestaurant = null;
@@ -169,7 +169,7 @@ export default class App {
         const queryData = {
 
             "page": this.page,
-            "limit": this.limit
+            "size": this.limit
         }
         if (Object.keys(this.filters.generateRSQL()).length > 0) {
             queryData.filter = this.filters.generateRSQL();
