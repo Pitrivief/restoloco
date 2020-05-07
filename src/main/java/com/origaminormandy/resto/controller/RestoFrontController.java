@@ -34,7 +34,7 @@ public class RestoFrontController {
         GeocodingAddress a = new GeocodingAddress();
 
         //49.1811824,-0.3727734
-        a.setPoint(new GeocodingPointSimpleImpl(-0.372773, 49.1811824));
+        a.setPoint(new GeocodingPointSimpleImpl(-0.37543, 49.185836));
         a.setLabel("Hotel de ville, 14000 Caen");
         a.setStreetAndNumber("Hotel de ville");
         a.setCity("Caen");
