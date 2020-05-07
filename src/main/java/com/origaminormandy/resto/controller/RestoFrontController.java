@@ -46,7 +46,7 @@ public class RestoFrontController {
     private CookTypeRepository cookTypeRepository;
 
     @GetMapping("/")
-    public String home(Model model, @PageableDefault(page = 0, size = 20) Pageable pageable) {
+    public String home(Model model, @PageableDefault(page = 0, size = 5) Pageable pageable) {
 
         //Iterable<Resto> restos = restoRepository.findAll();
         Iterable<CookType> cookTypes = cookTypeRepository.findAll();
@@ -90,7 +90,7 @@ public class RestoFrontController {
             @RequestParam(name = "localisation", required = false) String localisation,
             @RequestParam(name = "lat", required = false) Double lat,
             @RequestParam(name = "lng", required = false) Double lng,
-            @PageableDefault(page = 0, size = 20) Pageable pageable,
+            @PageableDefault(page = 0, size = 5) Pageable pageable,
             Model model
     ) {
 

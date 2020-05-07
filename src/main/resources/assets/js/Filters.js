@@ -5,8 +5,10 @@ export default class Filters {
     selectBox;
     filters = {
         "cookTypes.name": [],
+        
     }
     restaurantApp;
+    
 
     constructor(restaurantApp) {
 
@@ -41,8 +43,11 @@ export default class Filters {
                     document
                             .querySelector("#autoComplete")
                             .setAttribute("placeholder", "Saisissez une adresse");
+                    
                     // Returns Fetched data
                     return data;
+                    
+                    
                 },
                 key: ["label"],
                 cache: false
@@ -89,7 +94,7 @@ export default class Filters {
                 window.app.setLocalisation(selection);
             }
         });
-
+        
         [].slice.call(document.querySelectorAll("input[data-filter-boolean]")).forEach(function (input) {
 
             input.addEventListener("change", function () {
@@ -174,7 +179,7 @@ export default class Filters {
          */
         document.addEventListener("click", closeAllSelect);
     }
-
+    
     generateRSQL() {
 
     	const preparedfilters = [];
@@ -201,13 +206,11 @@ export default class Filters {
             }
 
         }
-        console.log(preparedfilters)
-        console.log(orfilters)
         return (preparedfilters.length>0)?((orfilters.length>0)?and(...preparedfilters, or(...orfilters)):and(...preparedfilters)):or(...orfilters);
     }
 
     triggerFilterChanged() {
-        this.restaurantApp.applyFilters(this.generateRSQL())
+        this.restaurantApp.applyFilters()
     }
 
     createSelectItem(text, value) {

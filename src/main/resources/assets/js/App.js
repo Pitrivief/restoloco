@@ -32,7 +32,17 @@ export default class App {
         [].slice.call(document.querySelectorAll('.restaurant-item')).forEach(function (restaurantItem) {
 
             _self.restaurants.push(_self.buildRestaurant(restaurantItem));
-        })
+        });
+        
+        [].slice.call(document.querySelectorAll(".pagination .page-link")).forEach(function (page) {
+                page.addEventListener("click",function(e){
+                    e.preventDefault();
+                    _self.page = page.getAttribute('data-page');
+                    _self.applyFilters();
+                })
+                
+        });
+    
     }
 
     buildRestaurant(restaurantItem) {
@@ -161,8 +171,8 @@ export default class App {
             "page": this.page,
             "limit": this.limit
         }
-        if (Object.keys(filters).length > 0) {
-            queryData.filter = filters;
+        if (Object.keys(this.filters.generateRSQL()).length > 0) {
+            queryData.filter = this.filters.generateRSQL();
         }
         const filterQueryString = Object.keys(queryData).map(key => key + '=' + queryData[key]).join('&');
         var queryString;

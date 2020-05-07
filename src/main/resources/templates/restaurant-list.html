@@ -82,6 +82,7 @@
     <ul th:if="${#lists.size(pageNumbers) > 1}" class="pagination justify-content-center">
         <li class="page-item" th:classappend="${currentPage == 0} ? disabled">
             <a class="page-link"
+               th:attr="data-page=${currentPage - 1}"
                th:href="@{/(size=${pageSize}, page=${currentPage - 1})}"
                aria-label="Précédent"> <span aria-hidden="true">&laquo;</span> <span
                     class="sr-only">Précedent</span>
@@ -91,10 +92,12 @@
             th:classappend="${pageNumber==currentPage + 1} ? active"
             th:each="pageNumber : ${pageNumbers}"><a class="page-link"
                                                  th:text=${pageNumber}
+                                                 th:attr="data-page=${pageNumber -1}"
                                                  th:href="@{/(size=${pageSize}, page=${pageNumber -1})}">1</a></li>
         <li class="page-item"
             th:classappend="${currentPage + 1 == #lists.size(pageNumbers)} ? disabled">
             <a class="page-link"
+               th:attr="data-page=${currentPage + 1}"
                th:href="@{/(size=${pageSize}, page=${currentPage + 1})}"
                aria-label="Suivant"> <span aria-hidden="true">&raquo;</span> <span
                     class="sr-only">Suivant</span>
