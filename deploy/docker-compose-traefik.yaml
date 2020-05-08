@@ -10,6 +10,12 @@ services:
       - traefik.http.services.resto.loadbalancer.server.port=8090
       - traefik.http.routers.resto.entrypoints=web, websecure
       - traefik.http.routers.resto.tls=true
+      - traefik.http.routers.restowww.rule=Host(`www.restoloco.fr`)
+      - traefik.http.routers.restowww.entrypoints=web, websecure
+      - traefik.http.routers.restowww.tls=true
+      - traefik.http.routers.restowww.middlewares=test-redirectregex
+      - traefik.http.middlewares.test-redirectregex.redirectregex.regex=^https://www.restoloco.fr/(.*)
+      - traefik.http.middlewares.test-redirectregex.redirectregex.replacement=https://restoloco.fr/$${1}
     environment:    
       SERVER_PORT: 8090
       SPRING_JPA_HIBERNATE_DDL-AUTO: update
