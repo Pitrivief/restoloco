@@ -5,17 +5,19 @@ import Filters from "./Filters.js"
 export default class App {
     restaurants = [];
     filters = new Filters(this);
-    limit = 20;
+    size = 20;
     page = 0;
     localisation = null;
     selectedRestaurant = null;
     map;
-    restaurantTemplate;
-    restaurantPanel
+    restaurantPanel;
+    tag;
+    
 
     constructor() {
 
         this.map = new Map();
+        this.tag = document.querySelector('.restaurant-list');
         this.map.onClick(this, 'mapClick')
         this.restaurantPanel = document.querySelector('.map-restaurant-detail');
         this.reload();
@@ -42,7 +44,7 @@ export default class App {
                 })
                 
         });
-    
+        
     }
 
     buildRestaurant(restaurantItem) {
@@ -140,8 +142,9 @@ export default class App {
     buildGrid(restaurants) {
         const restaurantWrapper = document.createElement('div');
         restaurantWrapper.innerHTML = restaurants;
-        document.querySelector('.restaurant-list').innerHTML = restaurantWrapper.querySelector('.restaurant-list').innerHTML;
+        this.tag.innerHTML = restaurantWrapper.querySelector('.restaurant-list').innerHTML;
         this.reload();
+        document.body.scrollIntoView({behavior: "smooth", block: 'start'});
     }
 
     //Geocoding  address localisation => autocomplete input
