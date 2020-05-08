@@ -394,6 +394,12 @@ body{
                                 justify-content: space-between;
                                 padding: 5px;
                                 font-size: 0.8rem;
+                                flex-wrap: wrap;
+                                .restaurant-command-type{
+                                    
+                                    white-space: nowrap;
+  
+                                }
                                 .cross:before{
                                     content: "\e905";
                                     font-family: 'icomoon' !important;
