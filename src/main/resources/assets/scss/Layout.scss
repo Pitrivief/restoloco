@@ -146,6 +146,7 @@ body{
                     text-align: center;
                     font-weight: bold;
                     position:relative;
+                    margin-bottom:0px;
                     &:after{
                         position: absolute;
                         content: "";
@@ -164,6 +165,7 @@ body{
 
                 #filter-switch{
                     display:none;
+                    
                     &:checked {
                         & ~ .filters-box{
                             display:block;
@@ -180,13 +182,18 @@ body{
                 .filters-box{
                     padding-bottom: 10px;
                     display:none;
-                    padding: 1rem;
+                    padding: 0.2rem 1rem;
                     background-color: #E9ECEF;
                     @include media-breakpoint-up(md){
-
+                        padding: 1rem;    
                         display:block;
                     }
-
+                    h2{
+                        display: none;
+                        @include media-breakpoint-up(md){   
+                            display:block;
+                        }
+                    }
                     .filters-content{
                         display:flex;
                         flex-wrap: wrap;
@@ -196,9 +203,7 @@ body{
                             margin:5px;
                         }
                     }
-                    .location{
-
-                    }
+                    
                     .cooktypes{
                         .cook-result{
                             display:flex;
