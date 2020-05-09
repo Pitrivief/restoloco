@@ -209,7 +209,8 @@ export default class Filters {
     }
 
     triggerFilterChanged() {
-        this.restaurantApp.applyFilters()
+    	const resetPagination = true;
+        this.restaurantApp.applyFilters(resetPagination)
     }
 
     createSelectItem(text, value) {

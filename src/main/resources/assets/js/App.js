@@ -151,7 +151,8 @@ export default class App {
     setLocalisation(localisation) {
         this.localisation = localisation;
         this.saveLocalisation(localisation);
-        this.applyFilters();
+        const resetPagination = true;
+        this.applyFilters(resetPagination);
     }
 
     //Geocoding  address localisation => autocomplete input
@@ -162,18 +163,25 @@ export default class App {
     restoreLocalisationFromStorage() {
         console.log("restoreLocalisationFromStorage");
         const storeLocalisation = localStorage.getItem('localisation');
-        if (storeLocalisation !== null)
+        if (storeLocalisation !== null){
             this.localisation = JSON.parse(storeLocalisation);
-        //document.querySelector("#autoComplete").value = this.localisation.label;
+        	document.querySelector("#autoComplete").value = this.localisation.label;
+        	this.applyFilters();
+        	
+        }
     }
 
-    applyFilters(filters) {
+    
+    
+    applyFilters(resetPaganisation=false) {
 
         const queryData = {
 
-            "page": this.page,
-            "size": this.limit
+            "page": resetPaganisation?0:this.page,
+            "size": this.limit?this.limit:20
         }
+        
+        
         if (Object.keys(this.filters.generateRSQL()).length > 0) {
             queryData.filter = this.filters.generateRSQL();
         }
@@ -211,6 +219,8 @@ export default class App {
 
 
     }
+    
+ 
 }
 
 
