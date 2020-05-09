@@ -83,8 +83,9 @@
             <a class="page-link"
                th:attr="data-page=${currentPage - 1}"
                th:href="@{/(size=${pageSize}, page=${currentPage - 1})}"
-               aria-label="Précédent"> <span aria-hidden="true">&laquo;</span> <span
-                    class="sr-only">Précedent</span>
+               aria-label="Précédent"> 
+                <span aria-hidden="true">&laquo;</span> 
+                <span class="sr-only">Précedent</span>
             </a>
         </li>
         <li class="page-item"
@@ -98,8 +99,9 @@
             <a class="page-link"
                th:attr="data-page=${currentPage + 1}"
                th:href="@{/(size=${pageSize}, page=${currentPage + 1})}"
-               aria-label="Suivant"> <span aria-hidden="true">&raquo;</span> <span
-                    class="sr-only">Suivant</span>
+               aria-label="Suivant">  
+                <span class="sr-only">Suivant</span>
+                <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
     </ul>
