@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.origaminormandy.resto.thymeleaf;
+package com.origaminormandy.resto.service;
 
 import com.origaminormandy.resto.domain.Schedule;
-import java.text.SimpleDateFormat;
 import java.time.OffsetTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -20,12 +19,12 @@ import org.springframework.stereotype.Service;
 
 
 @Service
-public class RestoHoursFormater {
+public class HoursFormater {
     
     Map<String, String> translateFr;
       
 
-    public RestoHoursFormater() {
+    public HoursFormater() {
         this.translateFr = new HashMap();
         this.translateFr.put("MONDAY", "Lundi");
         this.translateFr.put("TUESDAY", "Mardi");
@@ -82,10 +81,10 @@ public class RestoHoursFormater {
         
         String closingTime = null;
         String returnMessage = "";
-        if(schedule.getLunchStart()!= null && schedule.getLunchEnd() != null && now.compareTo(schedule.getLunchStart()) >= 0 &&  now.compareTo(schedule.getLunchEnd()) <= 0){
+        if( this.timeIsTimeBetween(now, schedule.getLunchStart(), schedule.getLunchEnd()) ){
             closingTime = schedule.getLunchEnd().format(DateTimeFormatter.ofPattern("HH:mm"));
         }
-        else if(schedule.getDinnerStart() != null && schedule.getDinnerEnd() != null && now.compareTo(schedule.getDinnerStart()) >= 0 &&  (now.compareTo(schedule.getDinnerEnd()) <= 0 || schedule.getDinnerEnd().compareTo(OffsetTime.of(0, 0, 0, 0, ZoneOffset.UTC)) >= 0 )){
+        else if(  this.timeIsTimeBetween(now, schedule.getDinnerStart(), schedule.getDinnerEnd()) ){
             closingTime = schedule.getDinnerEnd().format(DateTimeFormatter.ofPattern("HH:mm"));
         }
         
@@ -111,5 +110,12 @@ public class RestoHoursFormater {
         
         return returnMessage;
                 
+    }
+    
+    public boolean timeIsTimeBetween(OffsetTime time, OffsetTime start, OffsetTime end){
+        
+        return (start != null && end != null && 
+               ( time.compareTo(start) >= 0  || ( time.compareTo(end) <= 0 && end.compareTo(start) < 0) ) &&  
+               ( time.compareTo(end) <= 0 || end.compareTo(start) < 0 ));
     }
 }

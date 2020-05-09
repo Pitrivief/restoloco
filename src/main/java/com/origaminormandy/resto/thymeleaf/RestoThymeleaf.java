@@ -5,6 +5,7 @@
  */
 package com.origaminormandy.resto.thymeleaf;
 
+import com.origaminormandy.resto.service.HoursFormater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,10 +17,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RestoThymeleaf {
     
-    @Autowired RestoHoursFormater restoHoursFormateur; 
+    @Autowired HoursFormater restoHoursFormateur; 
  
     @Bean(name = "formatOpenningHours")
-    public RestoHoursFormater formatOpenningHours() {
+    public HoursFormater formatOpenningHours() {
         return restoHoursFormateur;
     }
 }
