@@ -25,250 +25,240 @@ import com.origaminormandy.resto.domain.AddressType;
 
 @Entity
 @SqlResultSetMapping(
-    name="RestoWithDistanceFromUser",
-    entities= @EntityResult(entityClass=Resto.class),
-    columns=@ColumnResult(name="distance", type=Long.class)	
+        name = "RestoWithDistanceFromUser",
+        entities = @EntityResult(entityClass = Resto.class),
+        columns = @ColumnResult(name = "distance", type = Long.class)
 )
 
-
 public class Resto {
- 
-	
-            @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private long id;
-	     
-	    @NotBlank(message = "Name is mandatory")
-	    private String name;
-	    
-	    private String photo;
-	    
-	    private String bio;
-	     
-	    private String email;
-	    
-	    @NotBlank(message = "tel is mandatory")
-	    private String phone;
-	    
-	    private String website;
-            
-       
-	    private boolean delivery = true;
-	    private boolean takeAway = true;
-	    private boolean preOrder = true;
-	    private boolean eatOnSite = false;
-	    
-	    @Min(-180)
-	    @Max(180)
-	    @Column(precision=11, scale=8)
-	    private Double lng;
-	    
-	    @Min(-90)
-	    @Max(90)
-	    @Column(precision=10, scale=8)
-	    private Double lat;
-	    
-	    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
-	    @JoinColumn(name="resto_id")
-	    private List<Schedule> openings = new ArrayList<>();
-	    @Column(nullable=false, columnDefinition = "boolean default true")
-	    private boolean showOpenings = true;
-	    private String openingsWarning;
-	    
-	    @ManyToMany(cascade={CascadeType.ALL})
-	    private List<CookType> cookTypes = new ArrayList<>();
-	    
-	    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
-	    @JoinColumn(name="resto_id")
-	    private List<Link> externalLinks = new ArrayList<>();
-	    
-	    
-	    @OneToMany(cascade={CascadeType.ALL}, orphanRemoval=true)
-	    @JoinColumn(name="resto_id")
-	    private List<Address> addresses = new ArrayList<>();
-	    
-	    
 
-		public long getId() {
-			return id;
-		}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-		public void setId(long id) {
-			this.id = id;
-		}
+    @NotBlank(message = "Name is mandatory")
+    private String name;
 
-		public String getName() {
-			return name;
-		}
+    private String photo;
 
-		public void setName(String name) {
-			this.name = name;
-		}
+    private String bio;
 
-		public String getEmail() {
-			return email;
-		}
+    private String email;
 
-		public void setEmail(String email) {
-			this.email = email;
-		}
+    @NotBlank(message = "tel is mandatory")
+    private String phone;
 
-		public String getPhone() {
-			return phone;
-		}
+    private String website;
 
-		public void setPhone(String phone) {
-			this.phone = phone;
-		}
+    private boolean delivery = true;
+    private boolean takeAway = true;
+    private boolean preOrder = true;
+    private boolean eatOnSite = false;
 
-		public String getWebsite() {
-			return website;
-		}
+    @Min(-180)
+    @Max(180)
+    @Column(precision = 11, scale = 8)
+    private Double lng;
 
-		public void setWebsite(String website) {
-			this.website = website;
-		}
+    @Min(-90)
+    @Max(90)
+    @Column(precision = 10, scale = 8)
+    private Double lat;
 
-		public List<Schedule> getOpenings() {
-			return openings;
-		}
-                
-                public Schedule getTodaysOpening(){
-                            
-                    return this.getOpenings()
-                                    .stream()
-                                    .filter(opening -> opening.isToday())
-                                    .findFirst()
-                                    .orElse(null);
-                    
-                }
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "resto_id")
+    private List<Schedule> openings = new ArrayList<>();
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean showOpenings = true;
+    private String openingsWarning;
 
-		public void setOpenings(List<Schedule> openings) {
-			this.openings = openings;
-		}
+    @ManyToMany(cascade = {CascadeType.ALL})
+    private List<CookType> cookTypes = new ArrayList<>();
 
-		public List<Link> getExternalLinks() {
-			return externalLinks;
-		}
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "resto_id")
+    private List<Link> externalLinks = new ArrayList<>();
 
-		public void setExternalLinks(List<Link> externalLinks) {
-			this.externalLinks = externalLinks;
-		}
+    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true)
+    @JoinColumn(name = "resto_id")
+    private List<Address> addresses = new ArrayList<>();
 
-		public Double getLng() {
-			return lng;
-		}
+    public long getId() {
+        return id;
+    }
 
-		public void setLng(Double lng) {
-			this.lng = lng;
-		}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-		public Double getLat() {
-			return lat;
-		}
+    public String getName() {
+        return name;
+    }
 
-		public void setLat(Double lat) {
-			this.lat = lat;
-		}
+    public void setName(String name) {
+        this.name = name;
+    }
 
+    public String getEmail() {
+        return email;
+    }
 
-		public List<CookType> getCookTypes() {
-			return cookTypes;
-		}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-		public void setCookTypes(List<CookType> cookTypes) {
-			this.cookTypes = cookTypes;
-		}
-		
-		public String getBio() {
-			return bio;
-		}
+    public String getPhone() {
+        return phone;
+    }
 
-		public void setBio(String bio) {
-			this.bio = bio;
-		}
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-		public String getPhoto() {
-			return photo;
-		}
+    public String getWebsite() {
+        return website;
+    }
 
-		public void setPhoto(String photo) {
-			this.photo = photo;
-		}
+    public void setWebsite(String website) {
+        this.website = website;
+    }
 
-		public boolean isDelivery() {
-			return delivery;
-		}
+    public List<Schedule> getOpenings() {
+        return openings;
+    }
 
-		public void setDelivery(boolean delivery) {
-			this.delivery = delivery;
-		}
+    public Schedule getTodaysOpening() {
 
-		public boolean isTakeAway() {
-			return takeAway;
-		}
+        return this.getOpenings()
+                .stream()
+                .filter(opening -> opening.isToday())
+                .findFirst()
+                .orElse(null);
 
-		public void setTakeAway(boolean takeAway) {
-			this.takeAway = takeAway;
-		}
+    }
 
-		public boolean isEatOnSite() {
-			return eatOnSite;
-		}
+    public void setOpenings(List<Schedule> openings) {
+        this.openings = openings;
+    }
 
-		public void setEatOnSite(boolean eatOnSite) {
-			this.eatOnSite = eatOnSite;
-		}
+    public List<Link> getExternalLinks() {
+        return externalLinks;
+    }
 
-		public List<Address> getAddresses() {
-			return addresses;
-		}
+    public void setExternalLinks(List<Link> externalLinks) {
+        this.externalLinks = externalLinks;
+    }
 
-		public void setAddresses(List<Address> addresses) {
-			this.addresses = addresses;
-		}
-		
-		public Optional<Address> getBillingAddress() {
-			if(this.addresses == null)return Optional.empty();
-			
-			return this.addresses.stream().filter(a -> a.getType() == AddressType.BILLING).findFirst();
-		}
-		
-		public Optional<Address> getDeliveryAddress() {
-			if(this.addresses == null)return Optional.empty();
-			
-			return this.addresses.stream().filter(a -> a.getType() == AddressType.DELIVERY).findFirst();
-		}
-                
-                public List<Link> getOrderLinks(){
-                    
-                    return this.getExternalLinks().stream().filter(link-> Link.LinkType.ORDER.equals(link.getType())).collect(Collectors.toList());
-                }
+    public Double getLng() {
+        return lng;
+    }
 
-				public boolean isPreOrder() {
-					return preOrder;
-				}
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
 
-				public void setPreOrder(boolean preOrder) {
-					this.preOrder = preOrder;
-				}
+    public Double getLat() {
+        return lat;
+    }
 
-				public boolean isShowOpenings() {
-					return showOpenings;
-				}
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
 
-				public void setShowOpenings(boolean showOpenings) {
-					this.showOpenings = showOpenings;
-				}
+    public List<CookType> getCookTypes() {
+        return cookTypes;
+    }
 
-				public String getOpeningsWarning() {
-					return openingsWarning;
-				}
+    public void setCookTypes(List<CookType> cookTypes) {
+        this.cookTypes = cookTypes;
+    }
 
-				public void setOpeningsWarning(String openingsWarning) {
-					this.openingsWarning = openingsWarning;
-				}
-	    
-                
-                
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public boolean isDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(boolean delivery) {
+        this.delivery = delivery;
+    }
+
+    public boolean isTakeAway() {
+        return takeAway;
+    }
+
+    public void setTakeAway(boolean takeAway) {
+        this.takeAway = takeAway;
+    }
+
+    public boolean isEatOnSite() {
+        return eatOnSite;
+    }
+
+    public void setEatOnSite(boolean eatOnSite) {
+        this.eatOnSite = eatOnSite;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+
+    public Optional<Address> getBillingAddress() {
+        
+        return this.addresses.stream().filter(a -> a.getType() == AddressType.BILLING).findFirst();
+    }
+
+    public Optional<Address> getDeliveryAddress() {
+        
+        
+        return this.addresses.stream().filter(a -> a.getType() == AddressType.DELIVERY).findFirst();
+    }
+
+    public List<Link> getOrderLinks() {
+
+        return this.getExternalLinks().stream().filter(link -> Link.LinkType.ORDER.equals(link.getType())).collect(Collectors.toList());
+    }
+
+    public boolean isPreOrder() {
+        return preOrder;
+    }
+
+    public void setPreOrder(boolean preOrder) {
+        this.preOrder = preOrder;
+    }
+
+    public boolean isShowOpenings() {
+        return showOpenings;
+    }
+
+    public void setShowOpenings(boolean showOpenings) {
+        this.showOpenings = showOpenings;
+    }
+
+    public String getOpeningsWarning() {
+        return openingsWarning;
+    }
+
+    public void setOpeningsWarning(String openingsWarning) {
+        this.openingsWarning = openingsWarning;
+    }
+
 }

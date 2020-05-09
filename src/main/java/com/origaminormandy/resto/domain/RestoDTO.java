@@ -6,7 +6,6 @@
  */
 package com.origaminormandy.resto.domain;
 
-import com.origaminormandy.resto.domain.Resto;
 import org.springframework.lang.Nullable;
 
 /**
@@ -68,7 +67,7 @@ public class RestoDTO {
     public void setResto(Resto resto) {
         this.resto = resto;
     }
-
+    
     
 
 }

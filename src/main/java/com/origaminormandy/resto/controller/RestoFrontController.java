@@ -76,7 +76,7 @@ public class RestoFrontController {
             model.addAttribute("pageNumbers", new ArrayList<Integer>());
         }
 
-        model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));
+        model.addAttribute("restos", restos);
         model.addAttribute("cookTypes", cookTypes);
         model.addAttribute("contact", new Contact());
         return "home";
@@ -118,7 +118,7 @@ public class RestoFrontController {
             model.addAttribute("pageNumbers", new ArrayList<Integer>());
         }
 
-        model.addAttribute("restos", restos.stream().map(r -> r.getResto()).collect(Collectors.toList()));
+        model.addAttribute("restos", restos);
 
         return "restaurant-list";
 

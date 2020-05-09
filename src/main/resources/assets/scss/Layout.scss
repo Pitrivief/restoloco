@@ -17,7 +17,7 @@ $restaurantBorderRadius : 5px;
     }
     .dayName{
         font-weight:bold;
-
+        width:80px;
         display: inline-block;
 
         @include media-breakpoint-up(md) {
@@ -45,6 +45,9 @@ $restaurantBorderRadius : 5px;
     @include media-breakpoint-up(md) {
         display: none;
     }
+}
+.restaurant-address{
+    font-size: 0.8rem
 }
 
 .today-closed{
@@ -285,7 +288,7 @@ body{
                             }
                         }
                         .restaurant-box{
-                            
+
                             .restaurant-picture {
 
                                 float:left;
@@ -294,7 +297,10 @@ body{
                                 height: 100px;
                                 overflow: hidden;
                                 background-image: url(/images/fallback.jpg);
-                                
+                                background-repeat: no-repeat;
+                                background-size: contain;
+                                background-position: center;
+
                                 img{
                                     width: 100%;
                                     height: 100%;
@@ -318,7 +324,22 @@ body{
                                     max-width: 100%;
                                     overflow: hidden;
                                     text-overflow: ellipsis;
-                                    
+                                    position:relative;
+                                    &:hover{
+                                        overflow: visible;
+                                        &:before{
+                                            content:"&nspb;";
+                                        }
+                                        span{
+                                            display:block;
+                                            position:absolute;
+                                            top:0;
+                                            left:0;
+                                            height:100%;
+                                            background-color: white;
+                                            z-index: 2;
+                                        }
+                                    }    
                                 }
                                 .restaurant-tags {
                                     color:gray;
@@ -562,6 +583,13 @@ body{
 
                         flex: 0 0 100px;
                         height:100px;
+                        border-top-left-radius: $restaurantBorderRadius;
+                        overflow: hidden;
+                        background-image: url(/images/fallback.jpg);
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                        background-position: center;
+
                         @include media-breakpoint-up(md) {
                             flex: 0 0 50px;
                             height:50px;
@@ -579,8 +607,7 @@ body{
                             flex: 0 0 100px;
                             height:100px;
                         }
-                        border-top-left-radius: $restaurantBorderRadius;
-                        overflow: hidden;
+
                         img{
                             width: 100%;
                             object-fit: cover;
@@ -637,6 +664,22 @@ body{
                             max-width: 100%;
                             text-overflow: ellipsis;
                             overflow: hidden;
+                            position: relative;
+                            &:hover{
+                                overflow: visible;
+                                &:before{
+                                    content:"&nspb;";
+                                }
+                                span{
+                                    display:block;
+                                    position:absolute;
+                                    top:0;
+                                    left:0;
+                                    height:100%;
+                                    background-color: #F8F8F8;
+                                    z-index: 2;
+                                }
+                            }    
                         }
                         .todays-opening{
                             white-space: nowrap;
@@ -863,7 +906,7 @@ body{
             margin-left: auto;
             justify-content: space-between;
             flex-wrap: wrap;
-            
+
             @include media-breakpoint-up(lg){
                 max-width: 960px
             }
@@ -873,7 +916,7 @@ body{
             img{
                 height:50px;
                 width:260px;
-                @include media-breakpoint-up(md){
+                @include media-breakpoint-up(sm){
                     margin-top: -2rem;
                 }
             }
