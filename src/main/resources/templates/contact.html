@@ -21,28 +21,12 @@ and open the template in the editor.
 
 
                     <form action="" th:action="@{/contact-ajax}" th:object="${contact}" method="POST" id="form-contact" >
-                        <span id ="form-contact-name" class="input input--juro">
-                            <input type="text" class="input__field input__field--juro" placeholder=" " required id="name"
-                                   th:field="*{name}" pattern=".*\S.*" />
-                            <label class="input__label input__label--juro" for="input-1">
-                                <span class="input__label-content input__label-content--juro">Nom</span>
-                            </label>
-                        </span>
-                        <span  id="form-contact-email" class="input input--juro">
-                            <input type="email" pattern=".+@.+\..+" placeholder=" " class="input__field input__field--juro" required id="email"
-                                   th:field="*{email}"  />
-                            <label class="input__label input__label--juro" for="input-2">
-                                <span class="input__label-content input__label-content--juro">Email</span>
-                            </label>
-                        </span>
-                        <span id="form-contact-text" class="input textarea input--juro">
-                            <textarea class="input__field input__field--juro" pattern=".*\S.*" placeholder=" " required name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
-                            <label class="input__label input__label--juro" for="input-3">
-                                <span class="input__label-content input__label-content--juro">Message</span>
-                            </label>
-                        </span>
+                        <input type="text" placeholder="Nom" required id="name"
+                               th:field="*{name}" pattern=".*\S.*" />
+                        <input type="email" pattern=".+@.+\..+" placeholder="Email" required id="email"
+                               th:field="*{email}"  />
+                        <textarea  pattern=".*\S.*" placeholder="Message" required name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
                         <span id="form-contact-success" class="alert alert-success">Message envoyé.<br>Nous reviendrons rapidement vers vous</span>
-
                         <button type="submit" class="btn" >Envoyer</button>
                     </form>
                 </div>
