@@ -5,10 +5,11 @@
                  th:id="'resto'+${restoStat.index}">
             <div class="restaurant-box">
                 <div class="restaurant-picture">
-                    <img th:if="${resto.photo}!=null" th:attr="loading='lazy'" th:src="'/uploaded/'+${resto.photo}" />
+                    
+                    <img th:if=" ${ resto.photo } != null  and ${#strings.trim(resto.photo) != ''}" th:attr="loading='lazy'" th:src="'/uploaded/'+${resto.photo}" />
                 </div>
                 <div class="restaurant-description">
-                    <h3 class="restaurant-name" th:text="${resto.name}"></h3>
+                    <h3 class="restaurant-name" th:text="${resto.name}"></h3> 
                     <div class="restaurant-tags">
                         <span th:each="cooktype : ${resto.cookTypes}"
                               th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
