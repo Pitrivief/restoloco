@@ -123,5 +123,11 @@ public class RestoFrontController {
         return "restaurant-list";
 
     }
+    @GetMapping("/mentions-legales")
+    public String mentionlegales(Model model) {
+        model.addAttribute("contact", new Contact());
+        return "mentions-legales";
+    }
+    
 
 }

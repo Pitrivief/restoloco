@@ -8,6 +8,19 @@ $restaurantBorderRadius : 5px;
 /********************************/
 // Common restaurant style
 /********************************/
+.container{
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    @include media-breakpoint-up(lg){
+        max-width: 960px
+    }
+    @include media-breakpoint-up(xl){
+        max-width: 1140px;
+    }
+}
 .restaurant-openings{
     margin-top:1rem;
     h4{
@@ -1269,4 +1282,9 @@ body{
             }
         }
     }
+}
+
+.mentions-legales{
+    @extend .container;
+    margin: 10rem auto;
 }
