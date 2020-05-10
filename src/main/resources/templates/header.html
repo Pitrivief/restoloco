@@ -1,11 +1,12 @@
 <header th:fragment="header" >
     <div class="menu-bar">
         <div class="menu-bar-inner">
-            <div class="logo">
-                <img th:attr="src=@{/images/logosmall.svg}" alt="Restoloco logo small" class="logosmall" >
-                <img th:attr="src=@{/images/logo.svg}" alt="Restoloco logo" class="logonormal">
-            </div>
-
+            <a href="/">
+                <div class="logo">
+                    <img th:attr="src=@{/images/logosmall.svg}" alt="Restoloco logo small" class="logosmall" >
+                    <img th:attr="src=@{/images/logo.svg}" alt="Restoloco logo" class="logonormal">
+                </div>
+            </a>    
             <div class="contact-text">Vous êtes professionnel de la restauration à Caen et vous souhaitez de la visibilité gratuite? <a href="#" class="contact-link">Contactez nous.</a></div>
         </div>	
     </div>

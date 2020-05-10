@@ -1286,5 +1286,8 @@ body{
 
 .mentions-legales{
     @extend .container;
-    margin: 10rem auto;
+    margin: 6rem auto;
+    @include media-breakpoint-up(sm){
+        margin: 10rem auto;
+    }
 }
