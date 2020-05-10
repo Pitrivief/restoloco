@@ -1,7 +1,9 @@
 <footer th:fragment="footer">
     <div class="footer-inner">
-        <img src="/images/logowhite.svg" alt="restoloco logo white">
-        <a class="footer-link">Conditions générale d'utilisation</a>
+        <div class="footer-logo">
+            <img src="/images/logowhite.svg" alt="restoloco logo white">
+            <a class="footer-link">Conditions générale d'utilisation</a>
+        </div>
         <a href="https://facebook.com/restoloco14/" target="_blank" rel="nofollow" class='icon-facebook'></a>
     </div>
     <div th:insert="~{contact :: contactForm}" class="contact-wrapper">

@@ -177,8 +177,9 @@ body{
                         position: absolute;
                         content: "";
                         top: 50%;
-                        right: 10px;
-                        transform: translateY(-50%)
+                        right: 1.5rem;
+                        transform: translateY(-50%);
+                        font-size:1.2rem;
                     }
                 }
 
@@ -879,13 +880,7 @@ body{
                 color:white;
                 text-decoration: underline;
             }
-            &.icon-facebook{
-                &:hover{
-                    color:white;
-                    text-decoration: none;
-                    transform: scale(1.1);
-                } 
-            }
+            
         }
         .footer-inner{
             display: flex;
@@ -897,8 +892,6 @@ body{
             padding-left: 15px;
             margin-right: auto;
             margin-left: auto;
-            justify-content: space-between;
-            flex-wrap: wrap;
 
             @include media-breakpoint-up(lg){
                 max-width: 960px
@@ -906,21 +899,32 @@ body{
             @include media-breakpoint-up(xl){
                 max-width: 1140px;
             }
-            img{
-                height:50px;
-                width:260px;
-                @include media-breakpoint-up(sm){
-                    margin-top: -2rem;
+            
+            .footer-logo{
+                
+                
+                img{
+                    display:block;
+                    height:50px;
+                    width:260px;
+                    max-width: 100%;
+                    
+                }
+                .footer-link{
+                    display:block;
+                    font-size:0.8rem;
                 }
             }
-            .footer-link{
-                font-size:0.8rem;
-            }
+            
             .icon-facebook{
-                align-self: end;
-                margin-bottom: 20px;
-                margin-top:auto;
-                font-size: 3rem;
+                
+                font-size: 2rem;
+                margin-left: 1rem;
+                &:hover{
+                    color:white;
+                    text-decoration: none;
+                    transform: scale(1.1);
+                } 
             }
         }
     }
