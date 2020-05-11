@@ -3,7 +3,7 @@
 @import "./icon.css";
 
 $restaurantBorderRadius : 5px;
-
+$mainColor : #333;
 
 /********************************/
 // Common restaurant style
@@ -71,7 +71,7 @@ $restaurantBorderRadius : 5px;
     color: olivedrab
 }
 body{
-    color: #333;
+    color: $mainColor;
     font-family: 'robotoregular', sans-serif;
     a {
         color: #0C8D93;
@@ -206,7 +206,7 @@ body{
                         & ~ .filters-switch-label{
                             &:after{
                                 content: "\2715";
-                                
+
                             }
                         }
                     }
@@ -364,34 +364,6 @@ body{
                                     }
 
                                 }
-
-
-                                .todays-opening{
-                                    white-space: nowrap;
-                                    font-size:0.8rem;
-
-                                    display: inline-block;
-
-
-                                    .todays-opening-detail{
-                                        display:inline-block;
-                                        position: relative;
-                                        &:hover{
-                                            text-decoration: underline;
-                                        }
-                                        &:after {
-                                            position: absolute;
-                                            content: "";
-                                            top: 7px;
-                                            right: -18px;
-                                            width: 0; 
-                                            height: 0;
-                                            border: 6px solid transparent;
-                                            border-color: gray transparent transparent transparent;
-                                        }    
-                                    }        
-                                }
-
 
                             }
                         }
@@ -894,7 +866,7 @@ body{
                 color:white;
                 text-decoration: underline;
             }
-            
+
         }
         .footer-inner{
             display: flex;
@@ -913,25 +885,25 @@ body{
             @include media-breakpoint-up(xl){
                 max-width: 1140px;
             }
-            
+
             .footer-logo{
-                
-                
+
+
                 img{
                     display:block;
                     height:50px;
                     width:260px;
                     max-width: 100%;
-                    
+
                 }
                 .footer-link{
                     display:block;
                     font-size:0.8rem;
                 }
             }
-            
+
             .icon-facebook{
-                
+
                 font-size: 2rem;
                 margin-left: 1rem;
                 &:hover{
@@ -949,6 +921,7 @@ body{
 
 
     .contact {
+        color: $mainColor;
         position: fixed;
         top: 0;
         top: 80px;
@@ -979,7 +952,7 @@ body{
         }
         .contact-inner {
 
-            padding: 50px;
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
             background-color: white;
@@ -988,19 +961,33 @@ body{
             width: 100%;
             z-index: 1;
             position: relative;
+            @include media-breakpoint-up(md){
+                padding: 3rem;
+            }
             .close{
                 position: absolute;
                 top:-1px;
                 right:10px;
                 cursor:pointer;
                 font-size:2rem;
+                &:after{
+                    content: "\2715";
+                }
 
             }
             h2 {
                 text-align: left;
                 color: #333;
-                font-size: 1.4em;
-                margin-bottom: 1em;
+                font-size: 1em;
+                margin-bottom: 0.8rem;
+                @include media-breakpoint-up(md){
+                    font-size: 1.4em;
+                    margin-bottom: 1em;
+                    span{
+                        display: block;
+                    }
+                }
+
             }
             form{
                 &.success{
@@ -1038,9 +1025,15 @@ body{
                     width: 100%;
                     background-color: #f8f8f8;
                     margin-bottom: 0.5rem;
-                    padding: 1rem;
+                    padding: 0.5rem;
+                    @include media-breakpoint-up(md){
+                        padding: 1rem;
+                    }
                 }
 
+                textarea{
+                    height:8rem;
+                }
 
                 button {
                     background-color: #0C8D93;
@@ -1097,10 +1090,10 @@ body{
                 right: 10px;
                 color:gray;
                 transform: translateY(-50%)
-                //width: 0;
-                //height: 0;
-                //border: 6px solid transparent;
-                //border-color: gray transparent transparent transparent;
+                    //width: 0;
+                    //height: 0;
+                    //border: 6px solid transparent;
+                    //border-color: gray transparent transparent transparent;
             }
 
             &.select-arrow-active:after {

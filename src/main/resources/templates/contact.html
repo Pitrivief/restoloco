@@ -15,8 +15,8 @@ and open the template in the editor.
             <div class="veil"></div>
             <div class="contact-box">
                 <div class="contact-inner">
-                    <div class="close">&#10005;</div>
-                    <h2>Une question?<br>Contactez nous...</h2>
+                    <div class="close"></div>
+                    <h2><span>Une question? </span><span>Contactez nous...</span></h2>
 
 
 
@@ -25,7 +25,7 @@ and open the template in the editor.
                                th:field="*{name}" pattern=".*\S.*" />
                         <input type="email" pattern=".+@.+\..+" placeholder="Email" required id="email"
                                th:field="*{email}"  />
-                        <textarea  pattern=".*\S.*" placeholder="Message" required name="text" th:field="*{text}"  id="message" cols="30" rows="10"></textarea>
+                        <textarea  pattern=".*\S.*" placeholder="Message" required name="text" th:field="*{text}"  id="message" ></textarea>
                         <span id="form-contact-success" class="alert alert-success">Message envoyé.<br>Nous reviendrons rapidement vers vous</span>
                         <button type="submit" class="btn" >Envoyer</button>
                     </form>
