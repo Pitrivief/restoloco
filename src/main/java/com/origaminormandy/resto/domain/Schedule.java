@@ -27,7 +27,6 @@ public class Schedule {
 	@Enumerated(EnumType.STRING)
 	private DayOfWeek day;
         
-        static DayOfWeek todayDayOfWeek;
         
 	private OffsetTime lunchStart;
 	private OffsetTime lunchEnd;
@@ -44,12 +43,6 @@ public class Schedule {
 	public void setDay(DayOfWeek day) {
 		this.day = day;
 	}
-
-	
-
-	
-
-
 
 	public long getId() {
 		return id;
@@ -101,16 +94,8 @@ public class Schedule {
 		this.closed = closed;
 	}
         
-        public DayOfWeek getTodayWeekNumber(){
-            if(Schedule.todayDayOfWeek == null){
-                
-                Schedule.todayDayOfWeek = LocalDateTime.now().getDayOfWeek();
-            }
-            return Schedule.todayDayOfWeek;
-        }
-        
         public boolean isToday(){
-            return this.getDay().equals(this.getTodayWeekNumber());
+            return this.getDay().equals(LocalDateTime.now().getDayOfWeek());
         }
 
 }
