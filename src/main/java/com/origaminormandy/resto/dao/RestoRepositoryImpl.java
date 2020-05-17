@@ -1,7 +1,5 @@
 package com.origaminormandy.resto.dao;
 
-import com.origaminormandy.resto.domain.RestoDTO;
-import com.origaminormandy.resto.domain.Resto;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +19,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.repository.support.PageableExecutionUtils;
+
+import com.origaminormandy.resto.domain.Resto;
+import com.origaminormandy.resto.domain.RestoDTO;
 
 public class RestoRepositoryImpl implements RestoRepositoryCustom {
 
@@ -88,7 +89,7 @@ public class RestoRepositoryImpl implements RestoRepositoryCustom {
 		});
 		
 		if(ids.size() == 0) {
-			return PageableExecutionUtils.getPage(restos, p, () -> executeCountQuery(lng, lat));
+			return PageableExecutionUtils.getPage(restos, p, () -> executeCountQuery(lng, lat, spec));
 		}
 		
 		cq = cb.createQuery();
@@ -131,14 +132,32 @@ public class RestoRepositoryImpl implements RestoRepositoryCustom {
 		 */
 	
 
-		return PageableExecutionUtils.getPage(restos, p, () -> executeCountQuery(lng, lat));
+		return PageableExecutionUtils.getPage(restos, p, () -> executeCountQuery(lng, lat, spec));
 
 	}
 
-	public long executeCountQuery(double lng, double lat) {
+	public long executeCountQuery(double lng, double lat, Specification spec) {
 
 		Query q = em.createNativeQuery("select count(*) from resto r");
-		return ((BigInteger) q.getSingleResult()).longValue();
+		
+		
+
+		CriteriaBuilder qb = em.getCriteriaBuilder();
+		CriteriaQuery<Long> cq = qb.createQuery(Long.class);
+		
+		Root<Resto> resto = cq.from(Resto.class);
+		
+		cq.select(qb.count(resto));
+		
+		Predicate filtersPredicate = spec.toPredicate(resto, cq, qb);
+		if(filtersPredicate != null) {
+			System.out.println("apply spec " + spec);
+			cq.where(filtersPredicate);
+		}
+		
+		return em.createQuery(cq).getSingleResult();
+		
+		
 	}
 
 	
