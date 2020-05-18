@@ -1313,5 +1313,8 @@ body{
     }
     p{
         text-align: justify;
+        strong{
+            font-weight: normal;
+        }
     }
 }
