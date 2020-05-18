@@ -1,14 +1,15 @@
-import { and, or, comparison, eq, inList, } from "rsql-builder";
+import { and, or, comparison, eq, inList, like } from "rsql-builder";
 import autoComplete from '@tarekraafat/autocomplete.js/dist/js/autoComplete.min.js'
 export default class Filters {
 
     selectBox;
     filters = {
-        "cookTypes.name": [],
-        
+        "cookTypes.name": [],   
     }
+    
     restaurantApp;
     
+
 
     constructor(restaurantApp) {
 
@@ -177,7 +178,32 @@ export default class Filters {
          * select boxes:
          */
         document.addEventListener("click", closeAllSelect);
-    }
+        
+        function debounce(callback, delay){
+            var timer;
+            return function(){
+                var args = arguments;
+                var context = this;
+                clearTimeout(timer);
+                timer = setTimeout(function(){
+                    callback.apply(context, args);
+                }, delay)
+            }
+        }
+        
+        var searchBoxInput = document.getElementById("searchRestoInput");
+        var setSearchRestoFilterValue = function(){
+        	var value = searchBoxInput.value;
+        	if (value && value.trim().length) {  
+        		_self.filters["name"] = "*" + value.trim() + "*"; 
+        	}else{
+        		delete(_self.filters["name"]); 
+        	}
+        	_self.triggerFilterChanged()
+        }
+        searchBoxInput.addEventListener("input", debounce(setSearchRestoFilterValue, 200));
+        
+    }//end constructor
     
     generateRSQL() {
 
@@ -194,15 +220,20 @@ export default class Filters {
                 filt = comparison(key, inList(...value))
                 
             } else {
-               filt = comparison(key, eq(value))
+            	
+            	filt = comparison(key, eq(value))
+            
+               
             }
             
             
-            if(key === "cookTypes.name"){
+            if(key === "cookTypes.name" || key === "name"){
             	preparedfilters.push(filt);
             }else{
             	orfilters.push(filt);
             }
+            
+           
 
         }
         return (preparedfilters.length>0)?((orfilters.length>0)?and(...preparedfilters, or(...orfilters)):and(...preparedfilters)):or(...orfilters);
