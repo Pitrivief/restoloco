@@ -1297,10 +1297,13 @@ body{
     }
 }
 
-.mentions-legales{
+.mentions-legales, .about-us{
     @extend .container;
     margin: 6rem auto;
     @include media-breakpoint-up(sm){
         margin: 10rem auto;
+    }
+    p{
+        text-align: justify;
     }
 }

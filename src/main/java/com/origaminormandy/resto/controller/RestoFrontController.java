@@ -129,5 +129,11 @@ public class RestoFrontController {
         return "mentions-legales";
     }
     
+    @GetMapping("/a-propos")
+    public String aboutUs(Model model) {
+        model.addAttribute("contact", new Contact());
+        return "about-us";
+    }
+    
 
 }
