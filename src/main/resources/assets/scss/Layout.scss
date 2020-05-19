@@ -1305,7 +1305,7 @@ body{
     }
 }
 
-.mentions-legales, .about-us{
+.mentions-legales, .about-us-page{
     @extend .container;
     margin: 6rem auto;
     @include media-breakpoint-up(sm){
