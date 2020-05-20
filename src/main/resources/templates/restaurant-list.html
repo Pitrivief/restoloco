@@ -31,7 +31,7 @@
             </div>   
             <div class="restaurant-extra-infos">
                 <div>
-                    <div class="restaurant-bio" th:if="${ resto.bio != null }" th:text="${resto.bio}"></div>
+                    <div class="restaurant-bio" itemprop="description" th:if="${ resto.bio != null }" th:text="${resto.bio}"></div>
                     <div class="restaurant-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" th:with="deliveryAddress=${resto.getDeliveryAddress().get()}" th:if="${resto.getDeliveryAddress().isPresent()}">
                         <span itemprop="streetAddress" th:text="${deliveryAddress.numberAndStreet}"></span>
                         <span itemprop="postalCode" th:text="${deliveryAddress.postalCode}" ></span>
@@ -77,8 +77,8 @@
                 <div class="restaurant-order-links">
 
                     <div class="external-links" th:if="${ #lists.size(resto.getOrderLinks()) > 0 }">
-                        <a th:each="externallink : ${resto.getOrderLinks()}" th:attr="${(externallink.subtype == 'WEBSITE')?itemprop=\"url\""  th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
-                            <meta 
+                        <a th:each="externallink : ${resto.getOrderLinks()}" th:attrappend="itemprop=${(externallink.subtype == 'WEBSITE')? 'url' : null}"  th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
+                            
                             <i th:class="'icon-'+  ${ #strings.replace(#strings.toLowerCase(externallink.subtype), ' ', '')}"></i>
                             <span th:text="${(externallink.subtype == 'WEBSITE')? 'Site web' :#strings.toLowerCase(externallink.subtype)}"></span>
                         </a>

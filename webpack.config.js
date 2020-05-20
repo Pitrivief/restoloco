@@ -101,7 +101,20 @@ Encore
 
                 // only copy files matching this pattern
                 pattern: /\.(svg|ttf|woff|woff2)$/
-            }])
+            },
+            {
+                from: './src/main/resources/assets/',
+
+                // optional target path, relative to the output dir
+                to: 'sitemap.xml',
+
+                // if versioning is enabled, add the file hash too
+                //to: 'images/[path][name].[hash:8].[ext]',
+
+                // only copy files matching this pattern
+                pattern: /sitemap\.xml$/
+            }
+        ])
 
         // uncomment if you use TypeScript
         //.enableTypeScriptLoader()
