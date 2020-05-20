@@ -34,9 +34,9 @@
                     <div class="restaurant-bio" th:if="${ resto.bio != null }" th:text="${resto.bio}"></div>
                     <div class="restaurant-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" th:with="deliveryAddress=${resto.getDeliveryAddress().get()}" th:if="${resto.getDeliveryAddress().isPresent()}">
                         <span itemprop="streetAddress" th:text="${deliveryAddress.numberAndStreet}"></span>
-                        <span itemprop="addressLocality" th:text="${deliveryAddress.city}">Seattle</span>,
-                        <span itemprop="addressRegion" th:text="${deliveryAddress.postalCode}">WA</span>
-                        <span itemprop="postalCode">98052</span>
+                        <span itemprop="postalCode" th:text="${deliveryAddress.postalCode}" ></span>
+                        <span itemprop="addressLocality" th:text="${deliveryAddress.city}"></span>
+                        
                     </div>
                     <div class="right-infos">
                         <div class="restaurant-infos">
