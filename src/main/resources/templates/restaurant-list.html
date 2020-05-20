@@ -8,7 +8,7 @@
             <meta itemprop="longitude" th:attr="content=${resto.lng}" />
             <div class="restaurant-box">
                 <div class="restaurant-picture">
-                    <img th:if=" ${ resto.photo } != null  and ${#strings.trim(resto.photo) != ''}" itemprop="logo" th:attr="loading='lazy'" th:alt="'Resto\'loco - restaurant '+${resto.name} " th:src="'/uploaded/'+${resto.photo}" />
+                    <img th:if=" ${ resto.photo } != null  and ${#strings.trim(resto.photo) != ''}" itemprop="image" th:attr="loading='lazy'" th:alt="'Resto\'loco - restaurant '+${resto.name} " th:src="'/uploaded/'+${resto.photo}" />
                 </div>
                 <div class="restaurant-description">
                     <h3 itemprop="name" class="restaurant-name" >
@@ -42,7 +42,7 @@
                         <div class="restaurant-infos">
                             <div class="restaurant-telephone">
                                 <span class="font-weight-bold"><i class='icon-phone'></i>
-                                </span><a itemprop="telephone" th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
+                                </span><a itemprop="telephone" th:attr="content=${resto.phone}" th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
                             </div>
                         </div>
                         <div class="restaurant-social">
@@ -77,7 +77,8 @@
                 <div class="restaurant-order-links">
 
                     <div class="external-links" th:if="${ #lists.size(resto.getOrderLinks()) > 0 }">
-                        <a th:each="externallink : ${resto.getOrderLinks()}"   th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
+                        <a th:each="externallink : ${resto.getOrderLinks()}" th:attr="${(externallink.subtype == 'WEBSITE')?itemprop=\"url\""  th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
+                            <meta 
                             <i th:class="'icon-'+  ${ #strings.replace(#strings.toLowerCase(externallink.subtype), ' ', '')}"></i>
                             <span th:text="${(externallink.subtype == 'WEBSITE')? 'Site web' :#strings.toLowerCase(externallink.subtype)}"></span>
                         </a>
@@ -109,7 +110,7 @@
                                                  th:attr="data-page=${pageNumber -1}"
                                                  th:href="@{/(size=${pageSize}, page=${pageNumber -1})}">1</a></li>
         <li class="page-item"
-            th:classappend="${currentPage + 1 == #lists.size(pageNumbers)} ? disabled">
+            th:if="${currentPage + 1 < #lists.size(pageNumbers)}" th:classappend="${currentPage + 1 == #lists.size(pageNumbers)} ? disabled">
             <a class="page-link"
                th:attr="data-page=${currentPage + 1}"
                th:href="@{/(size=${pageSize}, page=${currentPage + 1})}"
