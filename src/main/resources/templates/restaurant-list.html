@@ -1,37 +1,48 @@
 <div th:fragment="restaurantlist" class="restaurant-list ">
     <div class="restaurant-grid ">
-        <article class="restaurant-item" th:each="restoDTO : ${restos}"
+        <article itemscope itemtype="http://schema.org/Restaurant" class="restaurant-item" th:each="restoDTO : ${restos}"
                  th:with="resto=${restoDTO.getResto()}"
                  th:attr="data-lat=${resto.lat},data-lng=${resto.lng}"
                  th:id="'resto'+${restoDTOStat.index}">
+            <meta itemprop="latitude" th:attr="content=${resto.lat}" />
+            <meta itemprop="longitude" th:attr="content=${resto.lng}" />
             <div class="restaurant-box">
                 <div class="restaurant-picture">
-                    <img th:if=" ${ resto.photo } != null  and ${#strings.trim(resto.photo) != ''}" th:attr="loading='lazy'" th:alt="'Resto\'loco - restaurant '+${resto.name} " th:src="'/uploaded/'+${resto.photo}" />
+                    <img th:if=" ${ resto.photo } != null  and ${#strings.trim(resto.photo) != ''}" itemprop="logo" th:attr="loading='lazy'" th:alt="'Resto\'loco - restaurant '+${resto.name} " th:src="'/uploaded/'+${resto.photo}" />
                 </div>
                 <div class="restaurant-description">
-                    <h3 class="restaurant-name" >
+                    <h3 itemprop="name" class="restaurant-name" >
                         <span th:text="${resto.name}" ></span>
                     </h3> 
                     <div class="restaurant-tags">
-                        <span th:each="cooktype : ${resto.cookTypes}"
-                              th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
+                        <div th:each="cooktype : ${resto.cookTypes}" th:remove="tag" >
+                            <span th:text="${ #strings.toLowerCase(cooktype.description) }"></span>
+                            <meta itemprop="servesCuisine" th:attr="content=${ #strings.toLowerCase(cooktype.description) }" />
+                        </div>
+                        
+                        
                     </div>
                     <div class="todays-opening" th:utext="${@formatOpenningHours.actualState(resto.getTodaysOpening())}"></div>
                     <div class="see-more">
                         En savoir plus
                     </div>
-                    
+
                 </div>
             </div>   
             <div class="restaurant-extra-infos">
                 <div>
                     <div class="restaurant-bio" th:if="${ resto.bio != null }" th:text="${resto.bio}"></div>
-                    <div class="restaurant-address" th:with="deliveryAddress=${resto.getDeliveryAddress().get()}" th:if="${resto.getDeliveryAddress().isPresent()}" th:text="${deliveryAddress.numberAndStreet}+' '+${deliveryAddress.postalCode}+' '+${deliveryAddress.city}"></div>
+                    <div class="restaurant-address" itemprop="address" itemscope itemtype="http://schema.org/PostalAddress" th:with="deliveryAddress=${resto.getDeliveryAddress().get()}" th:if="${resto.getDeliveryAddress().isPresent()}">
+                        <span itemprop="streetAddress" th:text="${deliveryAddress.numberAndStreet}"></span>
+                        <span itemprop="addressLocality" th:text="${deliveryAddress.city}">Seattle</span>,
+                        <span itemprop="addressRegion" th:text="${deliveryAddress.postalCode}">WA</span>
+                        <span itemprop="postalCode">98052</span>
+                    </div>
                     <div class="right-infos">
                         <div class="restaurant-infos">
                             <div class="restaurant-telephone">
                                 <span class="font-weight-bold"><i class='icon-phone'></i>
-                                </span><a th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
+                                </span><a itemprop="telephone" th:href="'tel:'+${resto.phone}" th:text="${resto.phone}"></a>
                             </div>
                         </div>
                         <div class="restaurant-social">

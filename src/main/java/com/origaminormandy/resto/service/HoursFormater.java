@@ -48,12 +48,17 @@ public class HoursFormater {
             String tDay = this.translateDay(day);
             DateTimeFormatter formater = DateTimeFormatter.ofPattern("HH:mm");
             List<String> dayContent = new ArrayList<>();
-            
+            String meta = "";
+            String DayTwoLetters = day.substring(0,1)+day.substring(1,2).toLowerCase();
             if(e.getLunchStart() != null && e.getLunchEnd() != null){
-                dayContent.add(e.getLunchStart().format(formater)+"-"+e.getLunchEnd().format(formater));
+                String HourString = e.getLunchStart().format(formater)+"-"+e.getLunchEnd().format(formater);
+                dayContent.add(HourString);
+                meta += "<meta itemprop=\"openingHours\" content=\""+DayTwoLetters+" "+HourString+"\"/>";
             }
             if(e.getDinnerStart()!= null && e.getDinnerEnd()!= null){
-                dayContent.add(e.getDinnerStart().format(formater)+"-"+e.getDinnerEnd().format(formater));
+                String HourString = e.getDinnerStart().format(formater)+"-"+e.getDinnerEnd().format(formater);
+                dayContent.add(HourString);
+                meta += "<meta itemprop=\"openingHours\" content=\""+DayTwoLetters+" "+HourString+"\"/>";
             }
             if(dayContent.isEmpty()){
                 dayContent.add("fermé");
@@ -61,6 +66,7 @@ public class HoursFormater {
             
             
            return    "<div>"
+                        + meta
                         + "<span>"
                             + "<span class='dayName'>"
                                 + tDay.substring(0,1)

@@ -100,7 +100,7 @@ Encore
                 //to: 'images/[path][name].[hash:8].[ext]',
 
                 // only copy files matching this pattern
-                pattern: /\.(svg|ttf|woff)$/
+                pattern: /\.(svg|ttf|woff|woff2)$/
             }])
 
         // uncomment if you use TypeScript
