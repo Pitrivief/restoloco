@@ -8,7 +8,7 @@
             <meta itemprop="longitude" th:attr="content=${resto.lng}" />
             <div class="restaurant-box">
                 <div class="restaurant-picture">
-                    <img th:if=" ${ resto.photo } != null  and ${#strings.trim(resto.photo) != ''}" itemprop="image" th:attr="loading='lazy'" th:alt="'Resto\'loco - restaurant '+${resto.name} " th:src="'/uploaded/'+${resto.photo}" />
+                    <img th:if=" ${ resto.photo } != null  and ${#strings.trim(resto.photo) != ''}" itemprop="image" th:attr="loading='lazy'" th:alt="'Resto\'loco - restaurant '+${resto.name} " th:src="'/uploaded/thumb_'+${resto.photo}" />
                 </div>
                 <div class="restaurant-description">
                     <h3 itemprop="name" class="restaurant-name" >
@@ -78,7 +78,6 @@
 
                     <div class="external-links" th:if="${ #lists.size(resto.getOrderLinks()) > 0 }">
                         <a th:each="externallink : ${resto.getOrderLinks()}" th:attrappend="itemprop=${(externallink.subtype == 'WEBSITE')? 'url' : null}"  th:href="${externallink.url}" class="restaurant-external-link" target="_blank" rel="nofollow"> 
-                            
                             <i th:class="'icon-'+  ${ #strings.replace(#strings.toLowerCase(externallink.subtype), ' ', '')}"></i>
                             <span th:text="${(externallink.subtype == 'WEBSITE')? 'Site web' :#strings.toLowerCase(externallink.subtype)}"></span>
                         </a>
